@@ -314,6 +314,18 @@ h3 {
     }
 }
 
+/* Fireworks Canvas */
+#hero-fireworks {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: auto;
+    z-index: 0;
+    opacity: 0.8;
+}
+
 /* Quiz Section */
 .quiz-section {
     background-color: var(--darker);
@@ -331,7 +343,7 @@ h3 {
     font-size: 1.25rem;
     font-weight: 600;
     margin-bottom: 2rem;
-    color: var(--secondary);
+    color: white;
 }
 
 .quiz-options {
@@ -465,14 +477,35 @@ h3 {
     background: var(--glass);
     border: 1px solid var(--glass-border);
     padding: 3rem 2rem;
-    border-radius: 24px;
-    text-align: center;
-    transition: transform 0.3s, border-color 0.3s;
+    border-radius: 20px;
+    text-align: left;
+    transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+    position: relative;
+    overflow: hidden;
+}
+
+.feature-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 4px;
+    height: 100%;
+    background: var(--gradient);
+    opacity: 0.7;
+    transition: opacity 0.4s ease, width 0.4s ease;
 }
 
 .feature-card:hover {
     transform: translateY(-10px);
-    border-color: var(--primary);
+    background: rgba(255, 255, 255, 0.08);
+    border-color: rgba(255, 255, 255, 0.2);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+}
+
+.feature-card:hover::before {
+    width: 6px;
+    opacity: 1;
 }
 
 .feature-icon {
@@ -483,10 +516,14 @@ h3 {
 .feature-card h3 {
     font-size: 1.5rem;
     margin-bottom: 1rem;
+    color: white;
+    font-weight: 700;
 }
 
 .feature-card p {
     color: var(--text-muted);
+    font-size: 1rem;
+    line-height: 1.7;
 }
 
 /* Split Content */
@@ -758,6 +795,166 @@ h3 {
         top: 50%;
         left: -15%;
     }
+}
+
+/* Trust Section */
+.trust-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 2.5rem;
+    margin-top: 3rem;
+}
+
+.trust-card {
+    position: relative;
+    text-decoration: none;
+    color: var(--light);
+    padding: 2.5rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 1.5rem;
+    transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.trust-card:hover {
+    transform: translateY(-15px) scale(1.02);
+}
+
+.topgg-card:hover {
+    border-color: #f1c40f;
+    box-shadow: 0 20px 40px rgba(241, 196, 15, 0.15);
+}
+
+.discovery-card:hover {
+    border-color: #5865F2;
+    box-shadow: 0 20px 40px rgba(88, 101, 242, 0.15);
+}
+
+.trust-badge-container img {
+    max-width: 200px;
+    filter: drop-shadow(0 5px 15px rgba(0, 0, 0, 0.3));
+}
+
+.trust-icon-wrapper {
+    font-size: 3.5rem;
+    background: var(--glass);
+    width: 100px;
+    height: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    border: 1px solid var(--glass-border);
+    margin-bottom: 0.5rem;
+}
+
+.trust-info h3 {
+    font-size: 1.5rem;
+    margin-bottom: 0.8rem;
+    background: var(--gradient);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.topgg-card .trust-info h3 {
+    background: var(--gradient-gold);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.trust-info p {
+    color: var(--text-muted);
+    line-height: 1.6;
+    font-size: 1rem;
+}
+
+.trust-external-link {
+    margin-top: auto;
+    font-weight: 600;
+    color: var(--primary);
+    opacity: 0.7;
+    transition: opacity 0.3s;
+}
+
+.trust-card:hover .trust-external-link {
+    opacity: 1;
+}
+
+/* News Section */
+.news-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    margin-top: 2rem;
+}
+
+.news-card {
+    background: var(--glass);
+    border: 1px solid var(--glass-border);
+    border-radius: 20px;
+    overflow: hidden;
+    position: relative;
+    transition: transform 0.3s, border-color 0.3s, box-shadow 0.3s;
+}
+
+.news-card:hover {
+    transform: translateY(-10px);
+    border-color: var(--primary);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+}
+
+.news-badge {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    background: var(--primary);
+    color: white;
+    padding: 0.3rem 0.8rem;
+    border-radius: 50px;
+    font-size: 0.75rem;
+    font-weight: 700;
+}
+
+.news-content {
+    padding: 1.5rem;
+}
+
+.news-source {
+    font-size: 0.8rem;
+    color: var(--primary);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 0.5rem;
+    display: block;
+}
+
+.news-card h3 {
+    font-size: 1.25rem;
+    margin-bottom: 1rem;
+    line-height: 1.4;
+}
+
+.news-card p {
+    color: var(--text-muted);
+    font-size: 0.95rem;
+    margin-bottom: 1.5rem;
+}
+
+.news-link {
+    color: var(--light);
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 0.9rem;
+    transition: color 0.3s;
+}
+
+.news-link:hover {
+    color: var(--primary);
 }
 
 @media (max-width: 600px) {

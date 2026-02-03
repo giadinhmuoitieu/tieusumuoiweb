@@ -4,10 +4,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Uyên Sự Muội</title>
+    <title>Uyên Sư Muội</title>
 
     <meta name="description"
-        content="Uyên Sự Muội là bot Discord đa năng với các trò chơi hấp dẫn như Xì Dách, Ma Sói và hệ thống mạng xã hội độc đáo.">
+        content="Uyên Sư Muội là bot Discord đa năng với các trò chơi hấp dẫn như Xì Dách, Ma Sói và hệ thống mạng xã hội độc đáo.">
+    <link rel="icon" type="image/png" href="icon/uyenho.png">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
@@ -20,13 +21,15 @@
     <nav class="navbar">
         <div class="container">
             <a href="#" class="logo">
-                <span class="logo-icon"><img src="icon/uyemuoi.png" width="60px" height="38px" alt="uyensumuoi"></span>
-                <span class="logo-text">Uyên Sự Muội</span>
+                <span class="logo-icon"><img src="icon/uyenho.png" width="49px" height="38px" alt="uyensumuoi"></span>
+                <span class="logo-text">Uyên Sư Muội</span>
             </a>
             <ul class="nav-links">
                 <li><a href="#features">Tính năng</a></li>
                 <li><a href="#games">Trò chơi</a></li>
                 <li><a href="#social">Xã hội</a></li>
+                <li><a href="#news">Tin tức</a></li>
+                <li><a href="#trust">Độ tin cậy</a></li>
                 <li><a href="https://discord.com/oauth2/authorize?client_id=1439814299907391498&scope=bot%20applications.commands&permissions=8"
                         class="btn-primary invite-btn">Thêm Bot</a></li>
             </ul>
@@ -48,30 +51,7 @@
             <div class="hero-visual fade-in delay-3">
                 <div class="visual-container">
                     <div class="glow-orb"></div>
-                    <div class="glass-module card-xidach">
-                        <div class="module-icon">🃏</div>
-                        <div class="module-text">Xì Dách</div>
-                    </div>
-                    <div class="glass-module card-masoi">
-                        <div class="module-icon">🐺</div>
-                        <div class="module-text">Ma Sói</div>
-                    </div>
-                    <div class="glass-module card-confession">
-                        <div class="module-icon">💌</div>
-                        <div class="module-text">Confession</div>
-                    </div>
-                    <div class="glass-module card-quiz">
-                        <div class="module-icon">🧠</div>
-                        <div class="module-text">Đố vui</div>
-                    </div>
-                    <div class="glass-module relationship">
-                        <div class="module-icon">💕</div>
-                        <div class="module-text">Kết giao</div>
-                    </div>
-                    <div class="glass-module card-rank">
-                        <div class="module-icon">🏆</div>
-                        <div class="module-text">Xếp hạng</div>
-                    </div>
+                    <canvas id="hero-fireworks"></canvas>
                 </div>
             </div>
         </div>
@@ -82,17 +62,14 @@
             <h2 class="section-title">Tại Sao Chọn Uyên Sự Muội?</h2>
             <div class="features-grid">
                 <div class="feature-card animate-on-scroll">
-                    <div class="feature-icon">🎮</div>
                     <h3>Giải Trí Đa Dạng</h3>
                     <p>Hệ thống trò chơi phong phú từ bài bạc giải trí đến đấu trí căng thẳng.</p>
                 </div>
                 <div class="feature-card animate-on-scroll">
-                    <div class="feature-icon">🏹</div>
                     <h3>Gắn Kết Thành Viên</h3>
                     <p>Tính năng Affinity và Confession giúp mọi người xích lại gần nhau hơn.</p>
                 </div>
                 <div class="feature-card animate-on-scroll">
-                    <div class="feature-icon">✨</div>
                     <h3>Giao Diện Đẹp</h3>
                     <p>Embed Discord được thiết kế tỉ mỉ và cực kỳ mượt mà.</p>
                 </div>
@@ -104,7 +81,7 @@
         <div class="container">
             <div class="split-content">
                 <div class="text-content animate-on-scroll">
-                    <h2 class="section-title">🃏 Xì Dách Đỉnh Cao</h2>
+                    <h2 class="section-title">Xì Dách Đỉnh Cao</h2>
                     <p>Thử vận may với bàn chơi Xì Dách chuyên nghiệp. Tính toán điểm số, bọt bài thông minh và giành
                         lấy Linh Thạch từ nhà cái.</p>
                     <ul class="check-list">
@@ -115,11 +92,11 @@
                 </div>
                 <div class="visual-content animate-on-scroll">
                     <div class="game-mockup">
-                        <div class="mockup-header">🃏 Game Xì Dách</div>
+                        <div class="mockup-header">Xì Dách</div>
                         <div class="mockup-body">
-                            <div class="player">Nhà Cái: **22 [Quắc]**</div>
-                            <div class="player">Bạn: **16 [ĐỦ ĐIỂM]**</div>
-                            <div class="player">Khứa nào đó: **21 [XÌ DÁCH]**</div>
+                            <div class="player">Nhà Cái: 12 bọt con tây [Quắc]</div>
+                            <div class="player">Bạn: 16 dằn dơ [ĐỦ ĐIỂM]</div>
+                            <div class="player">Khứa nào đó: 2 con xì [XÌ BÀN]</div>
 
                         </div>
                     </div>
@@ -131,19 +108,8 @@
     <section id="quiz" class="section quiz-section">
         <div class="container">
             <div class="split-content">
-                <div class="visual-content animate-on-scroll">
-                    <div class="quiz-card">
-                        <div class="quiz-question">Câu hỏi: Xã nào đông dân nhất?</div>
-                        <div class="quiz-options">
-                            <button class="quiz-opt">Xã hội</button>
-                            <button class="quiz-opt">Xã đàn</button>
-                            <button class="quiz-opt">Xã tắc</button>
-                            <button class="quiz-opt">Xã giao</button>
-                        </div>
-                    </div>
-                </div>
                 <div class="text-content animate-on-scroll">
-                    <h2 class="section-title">🧠 Đố Vui Trí Tuệ</h2>
+                    <h2 class="section-title">Đố Vui Trí Tuệ</h2>
                     <p>Thử thách kiến thức với hàng ngàn câu hỏi thú vị. Mỗi câu trả lời đúng mang lại cho bạn sự ngưỡng
                         mộ và điểm số tích lũy.</p>
                     <ul class="check-list">
@@ -152,38 +118,49 @@
                         <li>Giới hạn 15 lượt mỗi ngày để đảm bảo công bằng</li>
                     </ul>
                 </div>
+                <div class="visual-content animate-on-scroll">
+                    <div class="quiz-card">
+                        <div class="quiz-question">Câu hỏi: Cái gì là của bạn nhưng toàn người khác dùng?</div>
+                        <div class="quiz-options">
+                            <button class="quiz-opt">Nhà của bạn</button>
+                            <button class="quiz-opt">Xe của bạn</button>
+                            <button class="quiz-opt">Điện thoại của bạn</button>
+                            <button class="quiz-opt">Tên của bạn</button>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
 
     <section id="leaderboard" class="section leaderboard-bg">
         <div class="container">
-            <h2 class="section-title">🏆 Vinh Quang Tối Thượng</h2>
+            <h2 class="section-title">Vinh Quang Tối Thượng</h2>
             <p class="section-desc">Cạnh tranh với những người chơi khác và ghi tên mình lên bảng vàng.</p>
             <div class="leaderboard-tabs">
                 <div class="tab active">💎 Linh Thạch</div>
-                <div class="tab">🧠 Đố vui</div>
+                <div class="tab">Đố vui</div>
             </div>
             <div class="leaderboard-container animate-on-scroll">
                 <div class="leaderboard-row top-1">
                     <span class="rank">🥇</span>
-                    <span class="user">@HuyHoang</span>
-                    <span class="points">1,250,000 💎</span>
+                    <span class="user">Tôn Ngộ Ha</span>
+                    <span class="points">50.000 💎</span>
                 </div>
                 <div class="leaderboard-row top-2">
                     <span class="rank">🥈</span>
-                    <span class="user">@NgocAnh</span>
-                    <span class="points">980,000 💎</span>
+                    <span class="user">Bốp Bốp</span>
+                    <span class="points">40.000 💎</span>
                 </div>
                 <div class="leaderboard-row top-3">
                     <span class="rank">🥉</span>
-                    <span class="user">@TuanTu</span>
-                    <span class="points">850,000 💎</span>
+                    <span class="user">Khá Bảnh</span>
+                    <span class="points">30.000 💎</span>
                 </div>
                 <div class="leaderboard-row">
                     <span class="rank">#4</span>
-                    <span class="user">@MinhKhoa</span>
-                    <span class="points">720,000 💎</span>
+                    <span class="user">Đường Tank</span>
+                    <span class="points">20.000 💎</span>
                 </div>
             </div>
         </div>
@@ -193,15 +170,19 @@
         <div class="container">
             <div class="split-content reverse">
                 <div class="text-content animate-on-scroll">
-                    <h2 class="section-title">💖 Kết Nối Cảm Xúc</h2>
-                    <p>Không chỉ là game, Uyên Sự Muội còn là nơi để bạn bày tỏ tình cảm và xây dựng những mối quan hệ
+                    <h2 class="section-title">Kết Nối Cảm Xúc</h2>
+                    <p>Không chỉ là mini-game, Uyên Sự Muội còn là nơi để bạn bày tỏ tình cảm và xây dựng những mối quan
+                        hệ
                         bền vững.</p>
                     <div class="feature-rows">
                         <div class="row">
-                            <strong>💌 Confession:</strong> Gửi gắm những lời tâm sự ẩn danh đến người thương.
+                            <strong>💌 Confession:</strong> Gửi gắm những lời tâm sự trong lòng.
                         </div>
                         <div class="row">
-                            <strong>🤝 Affinity:</strong> Theo dõi mức độ thân thiết và thăng cấp tình bạn.
+                            <strong>🤝 Kết giao:</strong> Theo dõi mức độ thân thiết và thăng cấp tình bạn.
+                        </div>
+                        <div class="row">
+                            <strong>🎁 Tặng quà:</strong> Tặng quà cho bạn bè và nhận quà từ người khác.
                         </div>
                     </div>
                 </div>
@@ -212,6 +193,71 @@
                         <div class="circle-item item-3">💌</div>
                     </div>
                 </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="news" class="section news-section">
+        <div class="container">
+            <h2 class="section-title">Tin Tức Hằng Ngày</h2>
+            <p class="section-desc">Cập nhật những thông tin mới nhất được bot tổng hợp thông minh.</p>
+            <div class="news-grid">
+                <div class="news-card animate-on-scroll">
+                    <div class="news-badge">Nóng</div>
+                    <div class="news-content">
+                        <span class="news-source">Công nghệ</span>
+                        <h3>Bùng nổ trí tuệ nhân tạo trong năm 2026</h3>
+                        <p>Các giải pháp AI đang thay đổi cách chúng ta vận hành server Discord...</p>
+                        <a href="#" class="news-link">Đọc tiếp →</a>
+                    </div>
+                </div>
+                <div class="news-card animate-on-scroll">
+                    <div class="news-content">
+                        <span class="news-source">Giải trí</span>
+                        <h3>Uyên Sự Muội đạt mốc 10,000 người dùng</h3>
+                        <p>Sự kiện kỷ niệm sắp được diễn ra với nhiều phần quà hấp dẫn...</p>
+                        <a href="#" class="news-link">Đọc tiếp →</a>
+                    </div>
+                </div>
+                <div class="news-card animate-on-scroll">
+                    <div class="news-content">
+                        <span class="news-source">Thế giới</span>
+                        <h3>Xu hướng mạng xã hội thế hệ mới</h3>
+                        <p>Gắn kết cộng đồng thông qua các hoạt động tương tác ảo...</p>
+                        <a href="#" class="news-link">Đọc tiếp →</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="trust" class="section trust-section light-bg">
+        <div class="container">
+            <h2 class="section-title">Độ Tin Cậy</h2>
+            <p class="section-desc">Uyên Sư Muội tự hào được cộng đồng công nhận và tin dùng trên các nền tảng lớn.</p>
+            <div class="trust-container">
+                <a href="https://top.gg/bot/1439814299907391498"
+                    class="glass-module trust-card discovery-card animate-on-scroll">
+                    <div class="trust-badge-container">
+                        <img src="icon/top-gg.png" alt="Top.gg Badge">
+                    </div>
+                    <div class="trust-info">
+                        <h3>Top.gg</h3>
+                        <p>Bình chọn và đánh giá chất lượng bot tại cộng đồng Bot lớn nhất.</p>
+                    </div>
+                    <div class="trust-external-link">Vào xem →</div>
+                </a>
+                <a href="https://discord.com/discovery/applications/1439814299907391498"
+                    class="glass-module trust-card discovery-card animate-on-scroll">
+                    <div class="trust-badge-container">
+                        <img src="icon/discord-logo.png" alt="Discord Discovery Badge">
+                    </div>
+                    <div class="trust-info">
+                        <h3>Discord Discovery</h3>
+                        <p>Đã có mặt trên hệ thống khám phá ứng dụng chính thức của Discord.</p>
+                    </div>
+                    <div class="trust-external-link">Vào xem →</div>
+                </a>
             </div>
         </div>
     </section>
