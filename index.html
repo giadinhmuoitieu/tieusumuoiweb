@@ -4,100 +4,145 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Uyên Sư Muội</title>
+    <title>Uyên Sư Muội - Tiểu Muội Trợ Thần Discord</title>
 
     <meta name="description"
-        content="Uyên Sư Muội là bot Discord đa năng với các trò chơi hấp dẫn như Xì Dách, Ma Sói và hệ thống mạng xã hội độc đáo.">
-    <link rel="icon" type="image/png" href="icon/uyenho.png">
+        content="Uyên Sư Muội là bot Discord giải trí đa năng đậm chất Tu Tiên. Kết nối đạo hữu qua Ma Sói, Đố Vui, Nói Hay Làm và Confession!">
+    <link rel="icon" type="image/png" href="icon/uyenmuoiavatar.png">
+
+    <!-- Google Fonts: Philosopher (Cổ phong), Outfit & Inter (Hiện đại) -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
-        href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&family=Inter:wght@300;400;500&display=swap"
+        href="https://fonts.googleapis.com/css2?family=Philosopher:ital,wght@0,400;0,700;1,400;1,700&family=Outfit:wght@300;400;600;700&family=Inter:wght@300;400;500;600&display=swap"
         rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
+    <!-- Lôi Kiếp Sấm Sét Overlay -->
+    <div id="lightning-overlay" class="lightning-flash"></div>
+    <div id="sparks-container"></div>
+
+    <!-- Hạt Linh Khí Nền -->
+    <div id="ambient-particles"></div>
+
+    <!-- Thanh Điều Hướng (Navbar) -->
     <nav class="navbar">
-        <div class="container">
+        <div class="container navbar-container">
             <a href="#" class="logo">
-                <span class="logo-icon"><img src="icon/uyenho.png" width="49px" height="38px" alt="uyensumuoi"></span>
-                <span class="logo-text">Uyên Sư Muội</span>
+                <img src="icon/uyenmuoiavatar.png" class="logo-img" alt="uyensumuoi">
             </a>
-            <ul class="nav-links">
-                <li><a href="#features">Tính năng</a></li>
-                <li><a href="#games">Trò chơi</a></li>
-                <li><a href="#social">Xã hội</a></li>
-                <li><a href="#news">Tin tức</a></li>
-                <li><a href="#trust">Độ tin cậy</a></li>
-                <li><a href="https://discord.com/oauth2/authorize?client_id=1439814299907391498&scope=bot%20applications.commands&permissions=8"
-                        class="btn-primary invite-btn">Thêm Bot</a></li>
-            </ul>
+
+            <div class="nav-left">
+                <a href="#tutien" class="nav-item">Linh Giới Tu Tiên</a>
+                <a href="#masoi" class="nav-item">Ma Sói Quyển</a>
+                <a href="#dovui" class="nav-item">Đố Vui Linh Đài</a>
+                <a href="#noihaylam" class="nav-item">Vòng Quay Số Phận</a>
+                <a href="#confession" class="nav-item">Hạc Giấy Nguyện Ước</a>
+            </div>
+
+            <div class="nav-right">
+                <a href="https://discord.com/oauth2/authorize?client_id=1439814299907391498&scope=bot%20applications.commands&permissions=8"
+                    class="btn-primary invite-nav-btn">Mời Thần Trợ</a>
+            </div>
+
+            <!-- Mobile Menu Toggle -->
+            <button class="mobile-toggle" aria-label="Toggle Menu">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </button>
         </div>
     </nav>
 
-    <header class="hero">
-        <div class="container">
+    <!-- Phân khu 1: Tiên Sơn Đỉnh Phong (Hero Parallax Section) -->
+    <header class="hero" style="background-image: url('icon/jinrutianyuanshan.png');">
+        <div class="hero-overlay"></div>
+        <div class="container hero-container-content">
             <div class="hero-content">
-                <h1 class="fade-in">Nâng Tầm Trải Nghiệm <br><span class="gradient-text">Discord Của Bạn</span></h1>
-                <p class="fade-in delay-1">Uyên Sự Muội mang đến thế giới giải trí đỉnh cao với Ma Sói, Xì Dách và những
-                    tính năng gắn kết cộng đồng độc đáo.</p>
-                <div class="hero-btns fade-in delay-2">
+                <span class="hero-subtitle fade-in">TIỂU MUỘI TRỢ THẦN DISCORD</span>
+                <h1 class="fade-in delay-1"><span class="glow-gold">UYÊN SƯ MUỘI</span></h1>
+                <p class="fade-in delay-2">Khai mở linh giới giải trí đỉnh phong cho đạo tràng Discord của bạn. Trải
+                    nghiệm hành trình Tu Tiên huyền bí, đấu trí Ma Sói, vấn đáp Linh Đài, xoay chuyển Vòng Quay Số Phận
+                    và gửi gắm tâm tình qua Thiên Hạc Confession.</p>
+                <div class="hero-btns fade-in delay-3">
                     <a href="https://discord.com/oauth2/authorize?client_id=1439814299907391498&scope=bot%20applications.commands&permissions=8"
-                        class="btn-primary btn-large">Mời Bot Tham Gia</a>
-                    <a href="#features" class="btn-secondary btn-large">Khám phá ngay</a>
+                        class="btn-primary btn-large btn-glow">Mời Đạo Hữu Vào Đạo Tràng</a>
+                    <a href="#tutien" class="btn-secondary btn-large">Khai Mở Tu Luyện</a>
                 </div>
             </div>
-            <div class="hero-visual fade-in delay-3">
-                <div class="visual-container">
-                    <div class="glow-orb"></div>
-                    <canvas id="hero-fireworks"></canvas>
-                </div>
-            </div>
+        </div>
+        <!-- Mây trôi tâm linh -->
+        <div class="clouds-layer cloud-1"></div>
+        <div class="clouds-layer cloud-2"></div>
+        <!-- Kiếm linh bay lơ lửng -->
+        <div class="floating-swords-container">
+            <div class="flying-sword sword-1">🗡️</div>
+            <div class="flying-sword sword-2">🗡️</div>
         </div>
     </header>
 
-    <section id="features" class="features section">
+    <!-- Phân khu 2: Linh Giới Tu Tiên (Cultivation Simulator) -->
+    <section id="tutien" class="section section-tutien">
         <div class="container">
-            <h2 class="section-title">Tại Sao Chọn Uyên Sự Muội?</h2>
-            <div class="features-grid">
-                <div class="feature-card animate-on-scroll">
-                    <h3>Giải Trí Đa Dạng</h3>
-                    <p>Hệ thống trò chơi phong phú từ bài bạc giải trí đến đấu trí căng thẳng.</p>
-                </div>
-                <div class="feature-card animate-on-scroll">
-                    <h3>Gắn Kết Thành Viên</h3>
-                    <p>Tính năng Affinity và Confession giúp mọi người xích lại gần nhau hơn.</p>
-                </div>
-                <div class="feature-card animate-on-scroll">
-                    <h3>Giao Diện Đẹp</h3>
-                    <p>Embed Discord được thiết kế tỉ mỉ và cực kỳ mượt mà.</p>
-                </div>
+            <div class="section-header animate-on-scroll">
+                <span class="badge">Độc Quyền /tutien</span>
+                <h2 class="section-title">Linh Giới Tu Tiên</h2>
+                <p class="section-subtitle">Đột phá phàm thai, tẩy tủy hoán cốt, hấp thụ linh khí để chứng đạo thành
+                    tiên.</p>
             </div>
-        </div>
-    </section>
 
-    <section id="games" class="games section light-bg">
-        <div class="container">
-            <div class="split-content">
-                <div class="text-content animate-on-scroll">
-                    <h2 class="section-title">Xì Dách Đỉnh Cao</h2>
-                    <p>Thử vận may với bàn chơi Xì Dách chuyên nghiệp. Tính toán điểm số, bọt bài thông minh và giành
-                        lấy Linh Thạch từ nhà cái.</p>
-                    <ul class="check-list">
-                        <li>Luật chơi thuần việt</li>
-                        <li>Hiển thị bài trực quan, đẹp mắt</li>
-                        <li>Hệ thống tiền tệ Linh Thạch ổn định</li>
-                    </ul>
+            <div class="tutien-grid">
+                <!-- Thẻ Đạo Hữu Profile -->
+                <div class="tutien-card profile-card animate-on-scroll">
+                    <div class="card-inner-glow"></div>
+                    <div class="profile-header">
+                        <div class="avatar-container">
+                            <img src="icon/uyenmuoiavatar.png" alt="Avatar Đạo Hữu" class="profile-avatar">
+                            <span class="active-dot"></span>
+                        </div>
+                        <div class="profile-meta">
+                            <h3 id="char-name">Đạo Hữu Vô Danh</h3>
+                            <span class="realm-badge" id="char-realm">Phàm Nhân</span>
+                        </div>
+                    </div>
+
+                    <div class="profile-stats">
+                        <div class="stat-row">
+                            <span class="stat-label">✨ Tu vi</span>
+                            <span class="stat-value" id="char-qi-text">0 / 100</span>
+                        </div>
+                        <div class="progress-bar-container">
+                            <div class="progress-bar-fill" id="char-qi-fill"></div>
+                        </div>
+
+                        <div class="stat-grid">
+                            <div class="stat-box">
+                                <span class="box-label">💎 Linh Thạch</span>
+                                <span class="box-value text-gold" id="char-stones">0</span>
+                            </div>
+                            <div class="stat-box">
+                                <span class="box-label">⚡ Lôi Kiếp Đã Vượt</span>
+                                <span class="box-value text-cyan" id="char-tribulations">0</span>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <div class="visual-content animate-on-scroll">
-                    <div class="game-mockup">
-                        <div class="mockup-header">Xì Dách</div>
-                        <div class="mockup-body">
-                            <div class="player">Nhà Cái: 12 bọt con tây [Quắc]</div>
-                            <div class="player">Bạn: 16 dằn dơ [ĐỦ ĐIỂM]</div>
-                            <div class="player">Khứa nào đó: 2 con xì [XÌ BÀN]</div>
 
+                <!-- Bàn Tu Luyện Console -->
+                <div class="tutien-card console-card animate-on-scroll">
+                    <div class="console-header">
+                        <h4>ĐÀO TRÀNG TU LUYỆN DƯỚI THẾ</h4>
+                    </div>
+                    <div class="console-body">
+                        <p class="console-log" id="console-log-text">Linh khí đất trời xung quanh đang tĩnh lặng. Đạo
+                            hữu hãy lập tức tĩnh tọa hấp thụ linh khí để ngưng tụ tu vi...</p>
+
+                        <div class="console-actions">
+                            <button class="btn-primary btn-large btn-glow" id="btn-gather">🌀 Tụ Linh Khí</button>
+                            <button class="btn-secondary btn-large disabled" id="btn-breakthrough" disabled>⚡ Đột Phá
+                                Cảnh Giới</button>
                         </div>
                     </div>
                 </div>
@@ -105,27 +150,85 @@
         </div>
     </section>
 
-    <section id="quiz" class="section quiz-section">
+    <!-- Phân khu 3: Ma Sói Thần Bí (Werewolf Cards) -->
+    <section id="masoi" class="section section-masoi">
         <div class="container">
-            <div class="split-content">
-                <div class="text-content animate-on-scroll">
-                    <h2 class="section-title">Đố Vui Trí Tuệ</h2>
-                    <p>Thử thách kiến thức với hàng ngàn câu hỏi thú vị. Mỗi câu trả lời đúng mang lại cho bạn sự ngưỡng
-                        mộ và điểm số tích lũy.</p>
-                    <ul class="check-list">
-                        <li>Hàng ngàn câu hỏi, chủ đề đa dạng</li>
-                        <li>Nhận ngay 100 Linh Thạch mỗi câu đúng</li>
-                        <li>Giới hạn 15 lượt mỗi ngày để đảm bảo công bằng</li>
-                    </ul>
+            <div class="section-header animate-on-scroll">
+                <span class="badge">Đấu Trí Trầm Luân /masoi</span>
+                <h2 class="section-title">Ma Sói Quyển</h2>
+                <p class="section-subtitle">Chinh phục đêm tối thần bí của Ma Sói, vận dụng mưu lược tu tiên để sinh tồn
+                    và chiến thắng.</p>
+            </div>
+
+            <div class="cards-grid">
+                <!-- Thẻ 1: Tiên Tri -->
+                <div class="tilt-card-wrapper animate-on-scroll">
+                    <div class="role-card">
+                        <div class="card-face card-front">
+                            <div class="card-glow"></div>
+                            <div class="role-icon">🔮</div>
+                            <h3>Linh Nhãn Sư</h3>
+                            <span class="role-title-sub">Tiên Tri (Seer)</span>
+                        </div>
+                        <div class="card-face card-back">
+                            <h4>Linh Nhãn Vô Song</h4>
+                            <p>Vào mỗi đêm, thần thức truyền ra ngoài, thấu thị linh hồn của một đạo hữu khác để nhìn
+                                thấu nhân thân tà hay chánh.</p>
+                            <div class="role-stat">Linh Lực: 🌟🌟🌟🌟🌟</div>
+                        </div>
+                    </div>
                 </div>
-                <div class="visual-content animate-on-scroll">
-                    <div class="quiz-card">
-                        <div class="quiz-question">Câu hỏi: Cái gì là của bạn nhưng toàn người khác dùng?</div>
-                        <div class="quiz-options">
-                            <button class="quiz-opt">Nhà của bạn</button>
-                            <button class="quiz-opt">Xe của bạn</button>
-                            <button class="quiz-opt">Điện thoại của bạn</button>
-                            <button class="quiz-opt">Tên của bạn</button>
+
+                <!-- Thẻ 2: Bảo Vệ -->
+                <div class="tilt-card-wrapper animate-on-scroll">
+                    <div class="role-card">
+                        <div class="card-face card-front">
+                            <div class="card-glow"></div>
+                            <div class="role-icon">🛡️</div>
+                            <h3>Kim Giáp Vệ</h3>
+                            <span class="role-title-sub">Bảo Vệ (Guardian)</span>
+                        </div>
+                        <div class="card-face card-back">
+                            <h4>Kim Cang Hộ Thể</h4>
+                            <p>Mỗi đêm dựng lên một tòa Bát Quái trận pháp hộ vệ, giúp che chở một vị đạo hữu khỏi nanh
+                                vuốt tàn bạo của U Minh Ma Lang.</p>
+                            <div class="role-stat">Phòng Thủ: 🌟🌟🌟🌟🌟</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Thẻ 3: Ma Sói -->
+                <div class="tilt-card-wrapper animate-on-scroll">
+                    <div class="role-card">
+                        <div class="card-face card-front">
+                            <div class="card-glow"></div>
+                            <div class="role-icon">🐺</div>
+                            <h3>U Minh Ma Lang</h3>
+                            <span class="role-title-sub">Ma Sói (Werewolf)</span>
+                        </div>
+                        <div class="card-face card-back">
+                            <h4>Huyết Nguyệt Phệ Hồn</h4>
+                            <p>Khi màn đêm buông xuống, cùng bầy đàn thức tỉnh linh khí tà ác, săn lùng và cắn nuốt
+                                nguyên thần của các đạo hữu khác.</p>
+                            <div class="role-stat">Sức Mạnh: 🌟🌟🌟🌟🌟</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Thẻ 4: Dân Làng -->
+                <div class="tilt-card-wrapper animate-on-scroll">
+                    <div class="role-card">
+                        <div class="card-face card-front">
+                            <div class="card-glow"></div>
+                            <div class="role-icon">🧑‍🌾</div>
+                            <h3>Linh Thôn Nhân</h3>
+                            <span class="role-title-sub">Dân Làng (Villager)</span>
+                        </div>
+                        <div class="card-face card-back">
+                            <h4>Tu Cương Ngộ Đạo</h4>
+                            <p>Đạo hữu phàm tục ẩn mình nơi linh thôn. Dùng tuệ nhãn ban ngày để luận tội, kết bè tìm
+                                kiếm tà ma ẩn dật cứu rỗi chúng sinh.</p>
+                            <div class="role-stat">Nhân Khí: 🌟🌟🌟🌟🌟</div>
                         </div>
                     </div>
                 </div>
@@ -133,145 +236,173 @@
         </div>
     </section>
 
-    <section id="leaderboard" class="section leaderboard-bg">
+    <!-- Phân khu 4: Linh Đài Đố Vui (Trivia Scrolls) -->
+    <section id="dovui" class="section section-dovui">
         <div class="container">
-            <h2 class="section-title">Vinh Quang Tối Thượng</h2>
-            <p class="section-desc">Cạnh tranh với những người chơi khác và ghi tên mình lên bảng vàng.</p>
-            <div class="leaderboard-tabs">
-                <div class="tab active">💎 Linh Thạch</div>
-                <div class="tab">Đố vui</div>
+            <div class="section-header animate-on-scroll">
+                <span class="badge">Vấn Đáp Trí Tuệ /dovui</span>
+                <h2 class="section-title">Đố Vui Linh Đài</h2>
+                <p class="section-subtitle">Vấn đáp linh đài để tích lũy ngộ tính và kiếm Linh Thạch rủng rỉnh mỗi ngày.
+                </p>
             </div>
-            <div class="leaderboard-container animate-on-scroll">
-                <div class="leaderboard-row top-1">
-                    <span class="rank">🥇</span>
-                    <span class="user">Tôn Ngộ Ha</span>
-                    <span class="points">50.000 💎</span>
+
+            <div class="quiz-scroll-container animate-on-scroll">
+                <div class="scroll-border top"></div>
+                <div class="quiz-scroll-content">
+                    <div class="quiz-header">
+                        <span id="quiz-progress">CÂU HỎI 1 / 5</span>
+                        <div class="quiz-timer-bar">
+                            <div class="quiz-timer-fill" id="timer-fill"></div>
+                        </div>
+                    </div>
+
+                    <div class="quiz-question" id="quiz-question-text">Đang triệu hồi câu đố cổ xưa từ linh cảnh...
+                    </div>
+
+                    <div class="quiz-options-grid" id="quiz-options-container">
+                        <!-- Tự động kết xuất qua JS -->
+                    </div>
+
+                    <div class="quiz-feedback" id="quiz-feedback-text"></div>
                 </div>
-                <div class="leaderboard-row top-2">
-                    <span class="rank">🥈</span>
-                    <span class="user">Bốp Bốp</span>
-                    <span class="points">40.000 💎</span>
-                </div>
-                <div class="leaderboard-row top-3">
-                    <span class="rank">🥉</span>
-                    <span class="user">Khá Bảnh</span>
-                    <span class="points">30.000 💎</span>
-                </div>
-                <div class="leaderboard-row">
-                    <span class="rank">#4</span>
-                    <span class="user">Đường Tank</span>
-                    <span class="points">20.000 💎</span>
-                </div>
+                <div class="scroll-border bottom"></div>
             </div>
         </div>
     </section>
 
-    <section id="social" class="social section">
+    <!-- Phân khu 5: Chân Ngôn Hoặc Thử Thách (Wheel of Destiny - Nói Hay Làm) -->
+    <section id="noihaylam" class="section section-noihaylam">
         <div class="container">
-            <div class="split-content reverse">
-                <div class="text-content animate-on-scroll">
-                    <h2 class="section-title">Kết Nối Cảm Xúc</h2>
-                    <p>Không chỉ là mini-game, Uyên Sự Muội còn là nơi để bạn bày tỏ tình cảm và xây dựng những mối quan
-                        hệ
-                        bền vững.</p>
-                    <div class="feature-rows">
-                        <div class="row">
-                            <strong>💌 Confession:</strong> Gửi gắm những lời tâm sự trong lòng.
-                        </div>
-                        <div class="row">
-                            <strong>🤝 Kết giao:</strong> Theo dõi mức độ thân thiết và thăng cấp tình bạn.
-                        </div>
-                        <div class="row">
-                            <strong>🎁 Tặng quà:</strong> Tặng quà cho bạn bè và nhận quà từ người khác.
-                        </div>
-                    </div>
-                </div>
-                <div class="visual-content animate-on-scroll">
-                    <div class="social-circle">
-                        <div class="circle-item item-1">💗</div>
-                        <div class="circle-item item-2">👤</div>
-                        <div class="circle-item item-3">💌</div>
-                    </div>
-                </div>
+            <div class="section-header animate-on-scroll">
+                <span class="badge">Thiên Cơ Vận Mệnh /noihaylam</span>
+                <h2 class="section-title">Vòng Quay Số Phận</h2>
+                <p class="section-subtitle">Xoay chuyển luân hồi thiên cơ, đón nhận chân ngôn thức tỉnh hoặc thử thách
+                    rèn luyện nhân tâm.</p>
             </div>
-        </div>
-    </section>
 
-    <section id="news" class="section news-section">
-        <div class="container">
-            <h2 class="section-title">Tin Tức Hằng Ngày</h2>
-            <p class="section-desc">Cập nhật những thông tin mới nhất được bot tổng hợp thông minh.</p>
-            <div class="news-grid">
-                <div class="news-card animate-on-scroll">
-                    <div class="news-badge">Nóng</div>
-                    <div class="news-content">
-                        <span class="news-source">Công nghệ</span>
-                        <h3>Bùng nổ trí tuệ nhân tạo trong năm 2026</h3>
-                        <p>Các giải pháp AI đang thay đổi cách chúng ta vận hành server Discord...</p>
-                        <a href="#" class="news-link">Đọc tiếp →</a>
-                    </div>
+            <div class="wheel-flex animate-on-scroll">
+                <!-- Canvas Vòng Quay -->
+                <div class="wheel-wrapper">
+                    <div class="wheel-arrow">🔺</div>
+                    <canvas id="destiny-wheel" width="450" height="450"></canvas>
+                    <button class="wheel-center-btn" id="btn-spin">QUAY</button>
                 </div>
-                <div class="news-card animate-on-scroll">
-                    <div class="news-content">
-                        <span class="news-source">Giải trí</span>
-                        <h3>Uyên Sự Muội đạt mốc 10,000 người dùng</h3>
-                        <p>Sự kiện kỷ niệm sắp được diễn ra với nhiều phần quà hấp dẫn...</p>
-                        <a href="#" class="news-link">Đọc tiếp →</a>
+
+                <!-- Kết Quả Hiển Thị -->
+                <div class="wheel-result-card">
+                    <div class="result-header">
+                        <h4>MỆNH LỆNH THIÊN KHẢI</h4>
                     </div>
-                </div>
-                <div class="news-card animate-on-scroll">
-                    <div class="news-content">
-                        <span class="news-source">Thế giới</span>
-                        <h3>Xu hướng mạng xã hội thế hệ mới</h3>
-                        <p>Gắn kết cộng đồng thông qua các hoạt động tương tác ảo...</p>
-                        <a href="#" class="news-link">Đọc tiếp →</a>
+                    <div class="result-body">
+                        <h3 id="result-title" class="text-gold">Sẵn sàng quay số phận</h3>
+                        <p id="result-desc">Đạo hữu hãy bấm nút "QUAY" ở trung tâm vòng quay để đối mặt với Chân Ngôn
+                            (Nói) hoặc Thử Thách (Làm) từ Thiên Cơ Các.</p>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <section id="trust" class="section trust-section light-bg">
+    <!-- Phân khu 6: Thiên Hạc Nguyện Ước (Confession Wishes) -->
+    <section id="confession" class="section section-confession">
         <div class="container">
-            <h2 class="section-title">Độ Tin Cậy</h2>
-            <p class="section-desc">Uyên Sư Muội tự hào được cộng đồng công nhận và tin dùng trên các nền tảng lớn.</p>
-            <div class="trust-container">
-                <a href="https://top.gg/bot/1439814299907391498"
-                    class="glass-module trust-card discovery-card animate-on-scroll">
-                    <div class="trust-badge-container">
-                        <img src="icon/top-gg.png" alt="Top.gg Badge">
+            <div class="section-header animate-on-scroll">
+                <span class="badge">Ký Thác Tâm Tình /confession</span>
+                <h2 class="section-title">Hạc Giấy Nguyện Ước</h2>
+                <p class="section-subtitle">Gửi gắm nỗi lòng thầm kín vào cánh Hạc Giấy Linh Hồn bay vút lên bầu trời
+                    sao.</p>
+            </div>
+
+            <div class="confession-layout">
+                <!-- Form gửi Confession -->
+                <div class="confession-card form-card animate-on-scroll">
+                    <div class="card-inner-glow"></div>
+                    <h4>VIẾT LINH CHÚ TÂM SỰ</h4>
+                    <form id="confession-form">
+                        <div class="form-group">
+                            <label for="confession-input">Nội dung thầm kín của đạo hữu...</label>
+                            <textarea id="confession-input" maxlength="200"
+                                placeholder="Viết tâm sự hoặc lời nhắn gửi ẩn danh gửi đến đạo hữu khác trong đàng..."
+                                required></textarea>
+                            <span class="char-counter" id="char-count">0 / 200</span>
+                        </div>
+                        <button type="submit" class="btn-primary btn-large btn-glow w-100" id="btn-send-crane">🪶 Thả
+                            Cánh Hạc Giấy</button>
+                    </form>
+                </div>
+
+                <!-- Bảng hiển thị Confession trôi nổi -->
+                <div class="confession-board animate-on-scroll">
+                    <div class="board-header">
+                        <h4>LINH TỰ KHÔNG TRUNG</h4>
                     </div>
-                    <div class="trust-info">
-                        <h3>Top.gg</h3>
-                        <p>Bình chọn và đánh giá chất lượng bot tại cộng đồng Bot lớn nhất.</p>
+                    <div class="cranes-container" id="cranes-board">
+                        <div class="crane-tag">
+                            <span class="crane-icon">🕊️</span>
+                            <p>"Muốn tu thành Tiên nhưng tâm lại cứ vướng bận bóng hình Sư Tỷ ở Đan Dược Điện..."</p>
+                        </div>
+                        <div class="crane-tag">
+                            <span class="crane-icon">🕊️</span>
+                            <p>"Ai đó cứu ta với! Ta quay trúng Thử Thách tỏ tình với sư phụ rồi!"</p>
+                        </div>
+                        <div class="crane-tag">
+                            <span class="crane-icon">🕊️</span>
+                            <p>"Linh Thạch ngày đêm cày cuốc đố vui cuối cùng cũng đủ mua linh dược tẩy tủy..."</p>
+                        </div>
                     </div>
-                    <div class="trust-external-link">Vào xem →</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Phân khu 7: Danh Vọng Linh Cảnh (Minimal Trust Section) -->
+    <section id="trust" class="section section-trust">
+        <div class="container">
+            <div class="section-header animate-on-scroll">
+                <span class="badge">Độ Tin Cậy Đạo Tràng</span>
+                <h2 class="section-title">Danh Vọng Linh Cảnh</h2>
+            </div>
+
+            <div class="trust-flex-cards">
+                <a href="https://top.gg/bot/1439814299907391498" target="_blank"
+                    class="trust-badge-mini topgg animate-on-scroll">
+                    <div class="trust-logo-wrapper">
+                        <img src="icon/top-gg.png" alt="Top.gg">
+                    </div>
+                    <div class="trust-meta">
+                        <h4>Hạng Linh Cảnh Top.gg</h4>
+                        <p>Được vinh danh và bình chọn bởi hàng vạn đạo hữu bốn phương.</p>
+                    </div>
+                    <span class="arrow-go">🡵</span>
                 </a>
-                <a href="https://discord.com/discovery/applications/1439814299907391498"
-                    class="glass-module trust-card discovery-card animate-on-scroll">
-                    <div class="trust-badge-container">
-                        <img src="icon/discord-logo.png" alt="Discord Discovery Badge">
+
+                <a href="https://discord.com/discovery/applications/1439814299907391498" target="_blank"
+                    class="trust-badge-mini discovery animate-on-scroll">
+                    <div class="trust-logo-wrapper">
+                        <img src="icon/discord-logo.png" alt="Discord Discovery">
                     </div>
-                    <div class="trust-info">
-                        <h3>Discord Discovery</h3>
-                        <p>Đã có mặt trên hệ thống khám phá ứng dụng chính thức của Discord.</p>
+                    <div class="trust-meta">
+                        <h4>Môn Phái Tiên Phong Discord</h4>
+                        <p>Chính thức đăng tải trên cổng Khám Phá Ứng Dụng Discord.</p>
                     </div>
-                    <div class="trust-external-link">Vào xem →</div>
+                    <span class="arrow-go">🡵</span>
                 </a>
             </div>
         </div>
     </section>
 
+    <!-- Chân trang (Footer) -->
     <footer class="footer">
-        <div class="container">
-            <div class="footer-content">
-                <p>&copy; 2026 Phát triển bởi ❤️ Huy isekai</p>
-                <div class="footer-links">
-                    <a href="https://github.com/giadinhmuoitieu/discordbot/blob/main/README.md">Điều khoản</a>
-                    <a href="https://github.com/giadinhmuoitieu/discordbot/blob/main/PrivacyPolicy.md">Quyền riêng
-                        tư</a>
-                    <a href="https://discord.gg/XTPAAnubwZ">Server hỗ trợ</a>
-                </div>
+        <div class="container footer-container">
+            <div class="footer-left">
+                <p>&copy; 2026 Uyên Sư Muội. Rèn giũa bởi ❤️ <span class="text-gold">Huy isekai</span></p>
+            </div>
+            <div class="footer-links">
+                <a href="https://github.com/giadinhmuoitieu/discordbot/blob/main/README.md" target="_blank">Điều
+                    khoản</a>
+                <a href="https://github.com/giadinhmuoitieu/discordbot/blob/main/PrivacyPolicy.md" target="_blank">Quyền
+                    riêng tư</a>
+                <a href="https://discord.gg/XTPAAnubwZ" target="_blank" class="text-cyan">Hỗ Trợ Đạo Tràng</a>
             </div>
         </div>
     </footer>
