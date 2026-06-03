@@ -214,15 +214,15 @@ const CultivationSystem = {
 
     realms: [
         "Phàm Nhân",
-        "Luyện Khí Kỳ",
-        "Trúc Cơ Kỳ",
-        "Kim Đan Kỳ",
-        "Nguyên Anh Kỳ",
-        "Hóa Thần Kỳ",
-        "Luyện Hư Kỳ",
-        "Hợp Thể Kỳ",
-        "Đại Thừa Kỳ",
-        "Độ Kiếp Thành Tiên"
+        "Luyện Khí",
+        "Trúc Cơ",
+        "Kim Đan",
+        "Nguyên Anh",
+        "Hóa Thần",
+        "Luyện Hư",
+        "Hợp Thể",
+        "Đại Thừa",
+        "Độ Kiếp"
     ],
 
     init() {
@@ -287,13 +287,13 @@ const CultivationSystem = {
         this.qiExp = Math.min(100, this.qiExp + 10);
         
         // Spawn hiệu ứng text bay lên
-        this.spawnFloatingStonesText("+10 Linh Khí ✨", e.target);
+        this.spawnFloatingStonesText("+10 tu vi ✨", e.target);
 
         const logs = [
-            "Đạo hữu xếp bằng tĩnh tọa, dẫn dắt 10 Linh Khí trời đất nhập đan điền.",
-            "Linh khí bừng bừng xung quanh ngưng tụ, đạo hữu cảm thấy tu vi gia tăng.",
-            "Chu thiên vận chuyển linh lực cực nhanh, kinh mạch giãn nở ngậm khí.",
-            "Phát giác linh tuyền gần đó, đạo hữu lập tức luyện hóa nhận 10 Linh Khí."
+            "Đạo hữu tĩnh tâm tu luyện, tu vi tăng thêm 10 điểm.",
+            "Linh khí hội tụ quanh người. Thanh tu vi tăng thêm một đoạn.",
+            "Một lượt tu luyện hoàn tất. Khi đủ 100 tu vi có thể thử đột phá.",
+            "Tu vi tăng thêm 10 điểm. Tiếp tục tích lũy để mở cảnh giới mới."
         ];
         const randomLog = logs[Math.floor(Math.random() * logs.length)];
         this.consoleLog.innerText = randomLog;
@@ -328,7 +328,7 @@ const CultivationSystem = {
         this.btnBreakthrough.setAttribute('disabled', 'true');
         this.btnBreakthrough.classList.add('disabled');
         
-        this.consoleLog.innerText = "⚡ THIÊN KIẾP GIÁNG LÂM! Đang triệu hồi Lôi Kiếp Thử Thách nguyên thần...";
+        this.consoleLog.innerText = "⚡ Đang thử đột phá cảnh giới. Hệ thống sẽ kiểm tra kết quả trong giây lát...";
         this.consoleLog.className = "console-log failure"; // Đổi màu tà mị chờ lôi kiếp
 
         // 2. Kích hoạt hiệu ứng sấm sét nhấp nháy màn hình và âm thanh dữ dội
@@ -343,7 +343,7 @@ const CultivationSystem = {
         // 3. Chờ 2 giây thiên kiếp giội xuống rồi tính kết quả
         setTimeout(() => {
             const chance = Math.random();
-            const successRate = 0.75; // 75% cơ hội thành công cải mệnh
+            const successRate = 0.75; // 75% cơ hội thành công
 
             if (chance <= successRate) {
                 // ĐỘT PHÁ THÀNH CÔNG!
@@ -351,12 +351,12 @@ const CultivationSystem = {
                 this.realmIndex = Math.min(this.realms.length - 1, this.realmIndex + 1);
                 this.tribulations += 1;
                 
-                // Tặng thưởng Linh Thạch dựa trên cảnh giới vừa thăng cấp
+                // Tặng thưởng Linh Thạch dựa trên cảnh giới vừa đạt
                 const reward = this.realmIndex * 150;
                 this.spiritStones += reward;
                 this.qiExp = 0;
 
-                this.consoleLog.innerText = `🎉 ĐỘT PHÁ THÀNH CÔNG! Đạo hữu thuận lợi vượt qua chín tầng sấm sét, tẩy tủy hoán cốt thăng tiến lên cảnh giới [ ${this.realms[this.realmIndex]} ]! Nhận thưởng thêm ${reward} Linh Thạch.`;
+                this.consoleLog.innerText = `🎉 ĐỘT PHÁ THÀNH CÔNG! Đạo hữu đạt cảnh giới [ ${this.realms[this.realmIndex]} ] và nhận thêm ${reward} Linh Thạch.`;
                 this.consoleLog.className = "console-log success";
 
                 // Trigger pháo hoa/hạt phát sáng màu vàng kim tại profile avatar
@@ -368,10 +368,10 @@ const CultivationSystem = {
             } else {
                 // ĐỘT PHÁ THẤT BẠI!
                 AudioSynth.playFailureRise();
-                // Bị tụt cấp tu vi linh khí còn 50%
+                // Nếu thất bại, giữ lại 50% tu vi
                 this.qiExp = 50;
 
-                this.consoleLog.innerText = "❌ ĐỘT PHÁ THẤT BẠI! Thiên lôi hung bạo oanh tạc kinh mạch làm tổn hại đạo căn. Đạo tâm chấn động, linh khí bị tiêu hao hết 50%. Hãy kiên nhẫn tích lũy tu luyện lại!";
+                this.consoleLog.innerText = "❌ ĐỘT PHÁ CHƯA THÀNH CÔNG. Đạo hữu vẫn giữ lại 50 tu vi, hãy tiếp tục tu luyện rồi thử lại.";
                 this.consoleLog.className = "console-log failure";
             }
 
@@ -472,32 +472,32 @@ const QuizSystem = {
     
     questions: [
         {
-            q: "Cảnh giới tu luyện nào xếp ngay sau Luyện Khí Kỳ của tu sĩ?",
-            opts: ["A. Kim Đan Kỳ", "B. Nguyên Anh Kỳ", "C. Trúc Cơ Kỳ", "D. Hóa Thần Kỳ"],
-            correct: 2, // C
+            q: "Tính năng /tutien trên Uyên Sư Muội dùng để làm gì?",
+            opts: ["A. Tạo phòng voice", "B. Tích tu vi và đột phá", "C. Đổi tên server", "D. Xóa tin nhắn"],
+            correct: 1, // B
             expReward: 100
         },
         {
-            q: "Mỗi câu trả lời đúng của lệnh /dovui trong server Discord sẽ được tặng bao nhiêu Linh Thạch?",
+            q: "Mỗi câu trả lời đúng trong /dovui sẽ nhận được phần thưởng gì?",
             opts: ["A. 50 Linh Thạch", "B. 100 Linh Thạch", "C. 200 Linh Thạch", "D. 300 Linh Thạch"],
             correct: 1, // B
             expReward: 100
         },
         {
-            q: "Nhân vật nào có quyền năng che chở một đạo hữu khỏi móng vuốt Ma Sói vào mỗi đêm?",
-            opts: ["A. Linh Nhãn Sư (Tiên Tri)", "B. Kim Giáp Vệ (Bảo Vệ)", "C. U Minh Ma Lang", "D. Linh Thôn Nhân"],
+            q: "Trong Ma Sói, vai nào có thể bảo vệ một người vào ban đêm?",
+            opts: ["A. Tiên Tri", "B. Bảo Vệ", "C. Ma Sói", "D. Dân Làng"],
             correct: 1, // B
             expReward: 100
         },
         {
-            q: "Vật phẩm đan dược nào sau đây dùng để đạo hữu đột phá tụ anh ngưng thần?",
-            opts: ["A. Tẩy Tủy Đan", "B. Nguyên Anh Đan", "C. Phá Chướng Đan", "D. Bích Ngọc Cao"],
-            correct: 1, // B
+            q: "Nói Hay Làm phù hợp nhất với hoạt động nào trong server?",
+            opts: ["A. Chơi chung trong chat hoặc voice", "B. Quản lý quyền admin", "C. Backup dữ liệu", "D. Tạo emoji"],
+            correct: 0, // A
             expReward: 100
         },
         {
-            q: "Tính năng Hạc Giấy Confession trên website dùng để ký thác điều gì?",
-            opts: ["A. Tặng Linh Thạch cho đệ tử", "B. Thả tâm sự ẩn danh trôi nổi", "C. Triệu hồi thiên kiếp oanh tạc", "D. Đi săn Werewolf ban đêm"],
+            q: "Tính năng Confession dùng để làm gì?",
+            opts: ["A. Tặng Linh Thạch cho người khác", "B. Gửi lời nhắn ẩn danh", "C. Bắt đầu ván Ma Sói", "D. Quay Nói Hay Làm"],
             correct: 1, // B
             expReward: 100
         }
@@ -563,7 +563,7 @@ const QuizSystem = {
             // Đúng!
             AudioSynth.playChime();
             if (btnElement) btnElement.classList.add('correct');
-            this.feedback.innerText = "🎉 Cực Kỳ Chính Xác! Đạo tâm của đạo hữu gia tăng sâu sắc.";
+            this.feedback.innerText = "🎉 Chính xác! Bạn nhận thêm Linh Thạch.";
             this.feedback.classList.add('correct-txt');
 
             // Thưởng linh thạch tích lũy vào hệ thống tu tiên chính!
@@ -578,8 +578,8 @@ const QuizSystem = {
             options[qData.correct].classList.add('correct');
             
             this.feedback.innerText = selectedIdx === -1 
-                ? "⌛ Hết thời gian suy ngẫm! Cơ duyên đã trôi qua..." 
-                : "❌ Sai lầm rồi! Đạo tâm chấn động nhẹ, hãy cố gắng tu dưỡng thêm.";
+                ? "⌛ Hết thời gian trả lời. Chuyển sang câu tiếp theo nhé." 
+                : "❌ Chưa đúng rồi. Đáp án đúng đã được đánh dấu.";
             this.feedback.classList.add('wrong-txt');
         }
 
@@ -608,43 +608,43 @@ const WheelSystem = {
 
     // Cấu hình các sector
     sectors: [
-        { label: "Chân Ngôn", color: "#8b5cf6", type: "truth" }, // Violet
-        { label: "Thử Thách", color: "#ec4899", type: "dare" },  // Pink
-        { label: "Ngộ Đạo", color: "#ffd700", type: "luck" },    // Gold
-        { label: "Phản Phệ", color: "#ef4444", type: "fail" },   // Red
-        { label: "Vận May", color: "#00ffd2", type: "gems" },    // Cyan
-        { label: "Thiên Cơ", color: "#3b82f6", type: "secret" }  // Blue
+        { label: "Nói thật", color: "#7c6fd8", type: "truth" },
+        { label: "Làm thử", color: "#c86b93", type: "dare" },
+        { label: "Bonus", color: "#e2b75a", type: "luck" },
+        { label: "Trừ thưởng", color: "#cf5f5f", type: "fail" },
+        { label: "May mắn", color: "#34d6bd", type: "gems" },
+        { label: "Bí mật", color: "#5b8ed7", type: "secret" }
     ],
 
     // Mẫu sự kiện của Nói Hay Làm tu tiên
     prompts: {
         truth: [
-            "Kể tên một vị sư huynh/sư tỷ trong tông môn (server) mà ngươi cảm thấy đáng tin cậy nhất và lý do.",
-            "Ngươi từng dùng Linh Thạch hối lộ chưởng môn (admin) để tránh phạt bao giờ chưa?",
-            "Nếu có thể kết giao đạo lữ với một người trong server, ngươi sẽ lựa chọn vị đạo hữu nào?",
-            "Sự thật xấu hổ nhất trong đạo nghiệp tu tiên từ trước tới nay của ngươi là gì?"
+            "Kể tên một người trong server mà bạn thấy đáng tin cậy nhất và lý do.",
+            "Bạn từng lỡ nói hoặc gửi nhầm thứ gì trong server chưa?",
+            "Nếu được chọn một người để lập team chơi game cùng, bạn sẽ chọn ai?",
+            "Một chuyện xấu hổ nhưng vui mà bạn từng gặp trong Discord là gì?"
         ],
         dare: [
-            "Hãy lập tức đổi danh xưng biệt danh Discord thành 'Phế Vật Đạo Nhân' trong 24 giờ tới!",
-            "Tuyên bố công khai trước đạo tràng (kênh chat chính): 'Ta nguyện làm nô tỳ gánh nước quét rác cho tông môn!'",
-            "Mượn sư tỷ/sư huynh trong server 1000 Linh Thạch và hứa kiếp sau sẽ hoàn trả rực rỡ.",
-            "Hãy hát một khúc Tiên ca (voice chat) hoặc gửi một bức linh họa (meme) hài hước nhất vào đạo tràng."
+            "Đổi nickname Discord thành một biệt danh vui trong 24 giờ.",
+            "Gửi một câu chào thật tự tin vào kênh chat chính.",
+            "Tag một người bạn trong server và gửi cho họ một lời khen thật lòng.",
+            "Hát một đoạn ngắn trong voice hoặc gửi một meme bạn thấy hài nhất."
         ],
         luck: [
-            "Chúc mừng đạo hữu! Đột nhiên ngộ đạo, tâm đắc thiên thư. Khí thế bừng bừng thăng hoa đan điền nhận ngay +300 Linh Thạch tích lũy!",
-            "Gặp được cơ duyên thiên định tại Đan Dược Điện, nhặt được Đan Dược thượng phẩm trị giá +300 Linh Thạch!"
+            "Chúc mừng! Bạn nhận ngay +300 Linh Thạch.",
+            "May mắn ghé thăm. Tài khoản nhận thêm +300 Linh Thạch."
         ],
         fail: [
-            "Bất hạnh gặp phải ma đầu tà đạo tập kích. Kinh mạch bị ma khí làm phản phệ nhẹ, khấu trừ -150 Linh Thạch tu luyện!",
-            "Luyện đan thất bại làm nổ lò đan, tổn thất thuốc quý tương đương -150 Linh Thạch pháp thuật."
+            "Không may rồi, bạn bị trừ -150 Linh Thạch.",
+            "Vòng quay hơi khó tính hôm nay. Mất -150 Linh Thạch."
         ],
         gems: [
-            "Cơ duyên tìm thấy một chiếc Túi Trữ Vật cổ xưa bị bỏ hoang, mở ra nhặt được di tích thượng cổ trị giá +200 Linh Thạch!",
-            "Đóng góp pháp lực bảo vệ hộ tông trận thành công, môn phái ban thưởng nóng +200 Linh Thạch!"
+            "Bạn nhận thêm +200 Linh Thạch vì quay trúng ô may mắn.",
+            "Một phần thưởng nhỏ được cộng vào tài khoản: +200 Linh Thạch."
         ],
         secret: [
-            "Thiên cơ bất khả lộ! Luân hồi mệnh bàn xoay chuyển yên bình, không tổn hại cũng không gia tăng công đức.",
-            "Nhìn trộm được mật thư của trưởng lão nhưng không dám hé răng. Đạo tâm giữ vững sự im lặng kỳ diệu."
+            "Ô bí mật không cộng cũng không trừ. Bạn thoát một lượt an toàn.",
+            "Không có gì xảy ra, nhưng ít nhất bạn không mất Linh Thạch."
         ]
     },
 
@@ -720,8 +720,8 @@ const WheelSystem = {
         this.spinTime = 0;
         this.spinTimeTotal = Math.random() * 3000 + 4000; // Quay từ 4-7 giây
 
-        this.resultTitle.innerText = "🔮 Đang đoạt thiên cơ...";
-        this.resultDesc.innerText = "Mệnh bàn xoay chuyển luân hồi liên tục. Vận mệnh của đạo hữu sắp sửa hé lộ...";
+        this.resultTitle.innerText = "🔮 Đang quay...";
+        this.resultDesc.innerText = "Vòng quay đang chọn kết quả. Chờ một chút nhé.";
 
         this.rotateWheel();
     },
@@ -774,7 +774,7 @@ const WheelSystem = {
         const list = this.prompts[sec.type];
         const rPrompt = list[Math.floor(Math.random() * list.length)];
 
-        this.resultTitle.innerText = `✨ KẾT QUẢ: ${sec.label}`;
+        this.resultTitle.innerText = `✨ Kết quả: ${sec.label}`;
         this.resultDesc.innerText = rPrompt;
 
         // Tự động cộng/trừ linh thạch nếu quay vào ô Ngộ Đạo, Phản Phệ, Vận May
