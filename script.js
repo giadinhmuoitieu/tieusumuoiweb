@@ -937,12 +937,86 @@ function initNavbarLogic() {
 }
 
 // --------------------------------------------------------------------------
+// 10. Khởi Tạo Nền Động Spine 2D (PC & Mobile)
+// --------------------------------------------------------------------------
+let spinePlayerBg = null;
+let currentSpineMode = null;
+
+function initSpineBackground() {
+    const container = document.getElementById('spine-hero-bg');
+    if (!container) return;
+
+    const mode = window.innerWidth < 768 ? 'mb' : 'pc';
+    if (currentSpineMode === mode) return;
+
+    currentSpineMode = mode;
+
+    if (spinePlayerBg) {
+        try {
+            spinePlayerBg.dispose();
+        } catch (e) {
+            console.error("Lỗi khi giải phóng Spine player cũ:", e);
+        }
+        container.innerHTML = '';
+    }
+
+    const skelPath = `spine_assets/spine/${mode}/dengluye.skel`;
+    const atlasPath = `spine_assets/spine/${mode}/dengluye.atlas`;
+
+    // Thiết lập kích thước và vùng hiển thị (viewport) giống trang game gốc
+    const width = mode === 'pc' ? 1800 : 1242;
+    const height = mode === 'pc' ? 750 : 2668;
+    const padTop = mode === 'pc' ? "-15%" : "-10vw";
+
+    try {
+        spinePlayerBg = new spine.SpinePlayer(container, {
+            skelUrl: skelPath,
+            atlasUrl: atlasPath,
+            animation: "stand",
+            premultipliedAlpha: true,
+            showControls: false,
+            alpha: true,
+            backgroundColor: "#00000000",
+            width: "100%",
+            height: "100%",
+            viewport: {
+                x: -width / 2,
+                y: -height / 2,
+                width: width,
+                height: height,
+                padLeft: "0%",
+                padRight: "0%",
+                padTop: padTop,
+                padBottom: "0%"
+            },
+            success: function(p) {
+                console.log(`Spine Background (${mode}) loaded successfully.`);
+            },
+            error: function(p, err) {
+                console.error("Lỗi tải nền động Spine:", err);
+            }
+        });
+    } catch (err) {
+        console.error("Lỗi khởi tạo Spine player cho nền:", err);
+    }
+}
+
+// --------------------------------------------------------------------------
 // Khởi Chạy Toàn Diện Hệ Thống (DOMContentLoaded)
 // --------------------------------------------------------------------------
 document.addEventListener('DOMContentLoaded', () => {
     initScrollObserver();
     initNavbarLogic();
     initAmbientParticles();
+    initSpineBackground();
+    
+    // Lắng nghe thay đổi kích thước màn hình để chuyển đổi PC/Mobile
+    window.addEventListener('resize', () => {
+        const newMode = window.innerWidth < 768 ? 'mb' : 'pc';
+        if (newMode !== currentSpineMode) {
+            initSpineBackground();
+        }
+    });
     
     // Tự động bắt đầu âm thanh khi người dùng tương tác lần đầu
     document.body.addEventListener('click', () => {

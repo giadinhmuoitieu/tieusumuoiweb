@@ -1,0 +1,568 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Huyền Cảnh Spine 2D - Ta Làm Tông Sư Trong Tiên Môn</title>
+    
+    <!-- Google Fonts for premium Tu Tien / Xianxia aesthetics -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Philosopher:ital,wght@0,400;0,700;1,400;1,700&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Spine Player CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/@esotericsoftware/spine-player@4.2/dist/spine-player.css">
+    
+    <style>
+        :root {
+            --primary: #d4af37; /* Vàng kim cổ phong */
+            --primary-glow: rgba(212, 175, 55, 0.4);
+            --bg-dark: #0b0f19;
+            --card-bg: rgba(15, 23, 42, 0.6);
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --cyan-glow: #06b6d4;
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Outfit', sans-serif;
+            background-color: var(--bg-dark);
+            color: var(--text-main);
+            height: 100vh;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* Fullscreen Spine Player Container */
+        #spine-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+        }
+
+        .spine-player {
+            width: 100% !important;
+            height: 100% !important;
+            background: transparent !important;
+            border: none !important;
+        }
+
+        .spine-player-canvas {
+            width: 100% !important;
+            height: 100% !important;
+        }
+
+        /* Glassmorphic UI Overlay */
+        .ui-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 10;
+            pointer-events: none; /* Let clicks pass through to background unless on UI panels */
+            display: grid;
+            grid-template-columns: 350px 1fr;
+            padding: 24px;
+            gap: 24px;
+        }
+
+        .panel {
+            pointer-events: auto; /* Re-enable clicks on panel */
+            background: var(--card-bg);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 16px;
+            padding: 28px;
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+            max-height: calc(100vh - 48px);
+            overflow-y: auto;
+        }
+
+        .panel-header {
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            padding-bottom: 16px;
+        }
+
+        .panel-title {
+            font-family: 'Philosopher', sans-serif;
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--primary);
+            text-shadow: 0 0 12px var(--primary-glow);
+            margin-bottom: 6px;
+        }
+
+        .panel-subtitle {
+            font-size: 13px;
+            color: var(--text-muted);
+            letter-spacing: 0.5px;
+        }
+
+        .section-title {
+            font-size: 14px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--primary);
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        /* Control elements */
+        .control-group {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        label {
+            font-size: 12px;
+            color: var(--text-muted);
+            font-weight: 500;
+        }
+
+        /* Premium Buttons */
+        .btn-toggle-group {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            background: rgba(0, 0, 0, 0.2);
+            padding: 4px;
+            border-radius: 8px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .btn-toggle {
+            background: transparent;
+            border: none;
+            color: var(--text-muted);
+            padding: 10px;
+            font-size: 13px;
+            font-weight: 600;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .btn-toggle.active {
+            background: var(--primary);
+            color: #1e1b18;
+            box-shadow: 0 0 10px var(--primary-glow);
+        }
+
+        /* Select custom styling */
+        select {
+            background: rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            color: var(--text-main);
+            padding: 12px;
+            font-size: 14px;
+            cursor: pointer;
+            width: 100%;
+            outline: none;
+            transition: var(--transition);
+        }
+
+        select:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 8px var(--primary-glow);
+        }
+
+        /* Slider custom styling */
+        .slider-container {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        input[type="range"] {
+            flex: 1;
+            accent-color: var(--primary);
+            cursor: pointer;
+        }
+
+        .slider-value {
+            font-size: 14px;
+            font-family: monospace;
+            width: 36px;
+            text-align: right;
+        }
+
+        .btn-action {
+            background: rgba(212, 175, 55, 0.1);
+            color: var(--primary);
+            border: 1px solid var(--primary);
+            border-radius: 8px;
+            padding: 12px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .btn-action:hover {
+            background: var(--primary);
+            color: #1e1b18;
+            box-shadow: 0 0 15px var(--primary-glow);
+        }
+
+        /* Status Badge */
+        .status-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 12px;
+            padding: 6px 12px;
+            background: rgba(16, 185, 129, 0.1);
+            color: #10b981;
+            border: 1px solid rgba(16, 185, 129, 0.2);
+            border-radius: 30px;
+            width: fit-content;
+        }
+
+        .status-badge.loading {
+            background: rgba(245, 158, 11, 0.1);
+            color: #f59e0b;
+            border: 1px solid rgba(245, 158, 11, 0.2);
+        }
+
+        .status-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: currentColor;
+            box-shadow: 0 0 8px currentColor;
+        }
+
+        /* Info Card */
+        .info-card {
+            background: rgba(6, 182, 212, 0.05);
+            border: 1px solid rgba(6, 182, 212, 0.15);
+            border-radius: 12px;
+            padding: 16px;
+            font-size: 12px;
+            line-height: 1.6;
+            color: var(--text-muted);
+        }
+
+        .info-card strong {
+            color: var(--text-main);
+        }
+
+        .info-card code {
+            background: rgba(0, 0, 0, 0.3);
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-family: monospace;
+            color: var(--primary);
+        }
+
+        /* Right column for instructions if hidden */
+        .right-area {
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            align-items: flex-end;
+            pointer-events: none;
+        }
+
+        .hint-badge {
+            pointer-events: auto;
+            background: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            padding: 8px 16px;
+            border-radius: 30px;
+            font-size: 12px;
+            color: var(--text-muted);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Scrollbar styles */
+        .panel::-webkit-scrollbar {
+            width: 6px;
+        }
+        .panel::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        .panel::-webkit-scrollbar-thumb {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 3px;
+        }
+        .panel::-webkit-scrollbar-thumb:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        /* Animations */
+        @keyframes pulse {
+            0%, 100% { opacity: 0.6; }
+            50% { opacity: 1; }
+        }
+
+        .pulsing {
+            animation: pulse 2s infinite ease-in-out;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Spine Player Container -->
+    <div id="spine-container"></div>
+
+    <!-- UI Controls Overlay -->
+    <div class="ui-overlay">
+        
+        <!-- Left Panel Controls -->
+        <div class="panel">
+            <div class="panel-header">
+                <h1 class="panel-title">Kính Chi Linh Cảnh</h1>
+                <div class="panel-subtitle">Trình xem Spine 2D nền động game</div>
+            </div>
+
+            <!-- Trạng thái -->
+            <div class="control-group">
+                <div class="status-badge loading" id="status-badge">
+                    <span class="status-dot pulsing"></span>
+                    <span id="status-text">Đang khởi tạo...</span>
+                </div>
+            </div>
+
+            <!-- Chọn phiên bản -->
+            <div class="control-group">
+                <span class="section-title">🔮 Phiên Bản Nền</span>
+                <div class="btn-toggle-group">
+                    <button class="btn-toggle active" id="btn-pc" onclick="switchMode('pc')">Bản PC (Mặc định)</button>
+                    <button class="btn-toggle" id="btn-mb" onclick="switchMode('mb')">Bản Mobile</button>
+                </div>
+            </div>
+
+            <!-- Danh sách Hoạt ảnh -->
+            <div class="control-group">
+                <span class="section-title">🎭 Hoạt Ảnh (Animation)</span>
+                <select id="select-animation" onchange="changeAnimation()" disabled>
+                    <option value="">-- Đang nạp --</option>
+                </select>
+            </div>
+
+            <!-- Tốc độ -->
+            <div class="control-group">
+                <span class="section-title">⚡ Tốc độ (Speed)</span>
+                <div class="slider-container">
+                    <input type="range" id="slider-speed" min="0.1" max="2" step="0.1" value="1" oninput="changeSpeed(this.value)">
+                    <span class="slider-value" id="speed-val">1.0x</span>
+                </div>
+            </div>
+
+            <!-- Các nút thao tác nhanh -->
+            <div class="control-group">
+                <span class="section-title">🛠️ Thao tác</span>
+                <button class="btn-action" id="btn-play-pause" onclick="togglePlay()">
+                    <span>⏸️ Tạm Dừng</span>
+                </button>
+                <button class="btn-action" onclick="resetView()" style="background: transparent; border-color: rgba(255,255,255,0.1); color: var(--text-main)">
+                    <span>🔄 Đặt lại Camera</span>
+                </button>
+            </div>
+
+            <!-- Hướng dẫn CORS -->
+            <div class="info-card">
+                <strong>💡 Lưu ý về CORS trình duyệt:</strong><br>
+                Do cơ chế bảo mật CORS, trình duyệt không thể tải trực tiếp file Spine tĩnh từ ổ đĩa (giao thức <code>file://</code>).<br><br>
+                Hãy chạy một local server để xem:<br>
+                1. Mở WSL/Terminal tại đây.<br>
+                2. Chạy lệnh: <code>python3 -m http.server 8000</code><br>
+                3. Truy cập: <code>http://localhost:8000/index_spine_demo.html</code>
+            </div>
+        </div>
+
+        <!-- Right Hint Badge -->
+        <div class="right-area">
+            <div class="hint-badge">
+                🖱️ Nhấp và kéo chuột để di chuyển • Cuộn chuột để phóng to/thu nhỏ
+            </div>
+        </div>
+    </div>
+
+    <!-- Spine Player JS Dependency -->
+    <script src="https://unpkg.com/@esotericsoftware/spine-player@4.2/dist/iife/spine-player.js"></script>
+    
+    <script>
+        let player = null;
+        let currentMode = 'pc';
+        let isPlaying = true;
+
+        const statusBadge = document.getElementById('status-badge');
+        const statusText = document.getElementById('status-text');
+        const selectAnimation = document.getElementById('select-animation');
+        const btnPlayPause = document.getElementById('btn-play-pause');
+
+        // Hàm nạp Spine Player
+        function loadSpine(mode) {
+            // Huỷ player cũ nếu có
+            if (player) {
+                try {
+                    player.dispose();
+                } catch(e) {
+                    console.error("Lỗi khi huỷ player cũ:", e);
+                }
+                document.getElementById('spine-container').innerHTML = '';
+            }
+
+            // Cập nhật giao diện trạng thái
+            statusBadge.className = 'status-badge loading';
+            statusText.innerText = 'Đang tải tài nguyên...';
+            selectAnimation.disabled = true;
+            selectAnimation.innerHTML = '<option value="">-- Đang nạp --</option>';
+
+            const container = document.getElementById('spine-container');
+            const div = document.createElement('div');
+            div.id = 'player-instance';
+            container.appendChild(div);
+
+            const skelPath = `spine_assets/spine/${mode}/dengluye.skel`;
+            const atlasPath = `spine_assets/spine/${mode}/dengluye.atlas`;
+
+            try {
+                player = new spine.SpinePlayer("player-instance", {
+                    skelUrl: skelPath,
+                    atlasUrl: atlasPath,
+                    animation: "stand",
+                    premultipliedAlpha: true,
+                    showControls: false, // Sử dụng bộ điều khiển cao cấp của riêng ta
+                    alpha: true,
+                    backgroundColor: "#00000000",
+                    success: function(p) {
+                        player = p;
+                        isPlaying = true;
+                        btnPlayPause.innerHTML = '<span>⏸️ Tạm Dừng</span>';
+                        
+                        // Cập nhật trạng thái tải thành công
+                        statusBadge.className = 'status-badge';
+                        statusText.innerText = 'Kết nối thành công!';
+
+                        // Đọc danh sách hoạt ảnh
+                        const anims = (p.skeleton && p.skeleton.data && p.skeleton.data.animations) || 
+                                      (p.skeletonData && p.skeletonData.animations) || [];
+                        
+                        selectAnimation.innerHTML = '';
+                        anims.forEach(anim => {
+                            const opt = document.createElement('option');
+                            opt.value = anim.name;
+                            opt.innerText = anim.name;
+                            if (anim.name === 'stand') opt.selected = true;
+                            selectAnimation.appendChild(opt);
+                        });
+                        
+                        selectAnimation.disabled = false;
+                        logAnimations(anims);
+                    },
+                    error: function(p, err) {
+                        console.error(err);
+                        statusBadge.className = 'status-badge loading';
+                        statusBadge.style.color = '#ef4444';
+                        statusBadge.style.backgroundColor = 'rgba(239, 68, 68, 0.1)';
+                        statusBadge.style.borderColor = 'rgba(239, 68, 68, 0.2)';
+                        statusText.innerText = 'Lỗi nạp file! Hãy chạy local server.';
+                    }
+                });
+            } catch (err) {
+                console.error("Lỗi khởi tạo player:", err);
+                statusText.innerText = 'Không thể khởi tạo Spine Player.';
+            }
+        }
+
+        // Đổi chế độ PC / Mobile
+        function switchMode(mode) {
+            if (currentMode === mode) return;
+            currentMode = mode;
+
+            document.getElementById('btn-pc').classList.toggle('active', mode === 'pc');
+            document.getElementById('btn-mb').classList.toggle('active', mode === 'mb');
+
+            loadSpine(mode);
+        }
+
+        // Thay đổi hoạt ảnh
+        function changeAnimation() {
+            if (!player) return;
+            const animName = selectAnimation.value;
+            if (animName) {
+                player.animationState.setAnimation(0, animName, true);
+            }
+        }
+
+        // Tạm dừng / Chạy tiếp
+        function togglePlay() {
+            if (!player) return;
+            if (isPlaying) {
+                player.animationState.timeScale = 0;
+                btnPlayPause.innerHTML = '<span>▶️ Tiếp Tục</span>';
+                isPlaying = false;
+            } else {
+                const currentSpeed = parseFloat(document.getElementById('slider-speed').value);
+                player.animationState.timeScale = currentSpeed;
+                btnPlayPause.innerHTML = '<span>⏸️ Tạm Dừng</span>';
+                isPlaying = true;
+            }
+        }
+
+        // Thay đổi tốc độ
+        function changeSpeed(val) {
+            document.getElementById('speed-val').innerText = `${parseFloat(val).toFixed(1)}x`;
+            if (!player) return;
+            if (isPlaying) {
+                player.animationState.timeScale = parseFloat(val);
+            }
+        }
+
+        // Đặt lại Camera
+        function resetView() {
+            if (!player) return;
+            // Web Player controls resetting camera can be done by accessing the underlying canvas/viewport.
+            // In Spine Player, we can trigger this by calling the internal rendering state or simple reload.
+            const speed = document.getElementById('slider-speed').value;
+            const anim = selectAnimation.value;
+            loadSpine(currentMode);
+            setTimeout(() => {
+                if (player) {
+                    if (anim) selectAnimation.value = anim;
+                    changeAnimation();
+                    changeSpeed(speed);
+                }
+            }, 500);
+        }
+
+        function logAnimations(anims) {
+            console.log("Danh sách animation khả dụng:", anims.map(a => a.name));
+        }
+
+        // Tự động khởi chạy lần đầu tiên
+        window.addEventListener('load', () => {
+            loadSpine('pc');
+        });
+    </script>
+</body>
+</html>
