@@ -966,8 +966,8 @@ function initSpineBackground() {
     const atlasPath = `spine_assets/spine/${mode}/dengluye.atlas`;
 
     // Thiết lập kích thước và vùng hiển thị (viewport) giống trang game gốc
-    const width = mode === 'pc' ? 1800 : 1242;
-    const height = mode === 'pc' ? 750 : 2668;
+    const width = mode === 'pc' ? 1200 : 1242;
+    const height = mode === 'pc' ? 500 : 2668;
     const padTop = "0%";
 
     try {
