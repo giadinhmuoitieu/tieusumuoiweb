@@ -194,12 +194,12 @@ function initAmbientParticles() {
 function createParticle(container) {
     const dot = document.createElement('div');
     dot.className = 'ambient-dot';
-    
+
     // Thuộc tính hạt ngẫu nhiên
     dot.style.left = `${Math.random() * 100}vw`;
     dot.style.animationDuration = `${8 + Math.random() * 10}s`;
     dot.style.animationDelay = `${Math.random() * -15}s`;
-    
+
     container.appendChild(dot);
 }
 
@@ -285,7 +285,7 @@ const CultivationSystem = {
 
         AudioSynth.playGather();
         this.qiExp = Math.min(100, this.qiExp + 10);
-        
+
         // Spawn hiệu ứng text bay lên
         this.spawnFloatingStonesText("+10 tu vi ✨", e.target);
 
@@ -327,7 +327,7 @@ const CultivationSystem = {
         // 1. Chuyển đổi trạng thái chờ thiên kiếp
         this.btnBreakthrough.setAttribute('disabled', 'true');
         this.btnBreakthrough.classList.add('disabled');
-        
+
         this.consoleLog.innerText = "⚡ Đang thử đột phá cảnh giới. Hệ thống sẽ kiểm tra kết quả trong giây lát...";
         this.consoleLog.className = "console-log failure"; // Đổi màu tà mị chờ lôi kiếp
 
@@ -350,7 +350,7 @@ const CultivationSystem = {
                 AudioSynth.playSuccessGong();
                 this.realmIndex = Math.min(this.realms.length - 1, this.realmIndex + 1);
                 this.tribulations += 1;
-                
+
                 // Tặng thưởng Linh Thạch dựa trên cảnh giới vừa đạt
                 const reward = this.realmIndex * 150;
                 this.spiritStones += reward;
@@ -418,7 +418,7 @@ const CultivationSystem = {
 function initWerewolfCards() {
     const wrappers = document.querySelectorAll('.tilt-card-wrapper');
     const isTouch = window.matchMedia("(pointer: coarse)").matches;
-    
+
     wrappers.forEach(wrap => {
         const card = wrap.querySelector('.role-card');
 
@@ -436,7 +436,7 @@ function initWerewolfCards() {
 
                 // Tính góc nghiêng (-15 đến 15 độ)
                 const rotateX = ((rect.height / 2) - y) / 10;
-                const rotateY = -( ((rect.width / 2) - x) / 8 );
+                const rotateY = -(((rect.width / 2) - x) / 8);
 
                 card.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(1.03)`;
             });
@@ -471,7 +471,7 @@ const QuizSystem = {
     currentIndex: 0,
     canAnswer: true,
     timerInterval: null,
-    
+
     questions: [
         {
             q: "Tính năng /tutien trên Uyên Sư Muội dùng để làm gì?",
@@ -575,12 +575,12 @@ const QuizSystem = {
             // Sai hoặc hết giờ!
             AudioSynth.playFailureRise();
             if (btnElement) btnElement.classList.add('wrong');
-            
+
             // Highlight đáp án đúng
             options[qData.correct].classList.add('correct');
-            
-            this.feedback.innerText = selectedIdx === -1 
-                ? "⌛ Hết thời gian trả lời. Chuyển sang câu tiếp theo nhé." 
+
+            this.feedback.innerText = selectedIdx === -1
+                ? "⌛ Hết thời gian trả lời. Chuyển sang câu tiếp theo nhé."
                 : "❌ Chưa đúng rồi. Đáp án đúng đã được đánh dấu.";
             this.feedback.classList.add('wrong-txt');
         }
@@ -694,7 +694,7 @@ const WheelSystem = {
             this.ctx.font = 'bold 1.1rem "Philosopher", sans-serif';
             this.ctx.translate(half, half);
             this.ctx.rotate(angle + arc / 2);
-            
+
             // Canh lề chữ ở trung tâm miếng bánh hướng ra viền ngoài
             this.ctx.textAlign = 'right';
             this.ctx.fillText(sec.label, half - 30, 8);
@@ -739,7 +739,7 @@ const WheelSystem = {
         const spinAngle = this.spinAngleStart - this.easeOut(this.spinTime, 0, this.spinAngleStart, this.spinTimeTotal);
         const lastAngle = this.startAngle;
         this.startAngle += (spinAngle * Math.PI / 180);
-        
+
         // Phát âm thanh tách-tách khi quay qua các sector
         const arc = Math.PI * 2 / this.sectors.length;
         const lastSectorIdx = Math.floor(((lastAngle) % (Math.PI * 2)) / arc);
@@ -772,7 +772,7 @@ const WheelSystem = {
 
     displayResult(sec) {
         AudioSynth.playSuccessGong();
-        
+
         const list = this.prompts[sec.type];
         const rPrompt = list[Math.floor(Math.random() * list.length)];
 
@@ -852,7 +852,7 @@ function initConfessionSystem() {
                 <p>"${text}"</p>
             `;
             board.insertBefore(tag, board.firstChild);
-            
+
             // Xóa hạc cũ nếu quá nhiều để tối ưu DOM
             if (board.children.length > 8) {
                 board.lastChild.remove();
@@ -992,10 +992,10 @@ function initSpineBackground() {
                 padTop: padTop,
                 padBottom: "0%"
             },
-            success: function(p) {
+            success: function (p) {
                 console.log(`Spine Background (${mode}) loaded successfully.`);
             },
-            error: function(p, err) {
+            error: function (p, err) {
                 console.error("Lỗi tải nền động Spine:", err);
             }
         });
@@ -1012,7 +1012,7 @@ document.addEventListener('DOMContentLoaded', () => {
     initNavbarLogic();
     initAmbientParticles();
     initSpineBackground();
-    
+
     // Lắng nghe thay đổi kích thước màn hình để chuyển đổi PC/Mobile
     window.addEventListener('resize', () => {
         const newMode = window.innerWidth < 768 ? 'mb' : 'pc';
@@ -1020,7 +1020,7 @@ document.addEventListener('DOMContentLoaded', () => {
             initSpineBackground();
         }
     });
-    
+
     // Tự động bắt đầu âm thanh khi người dùng tương tác lần đầu
     document.body.addEventListener('click', () => {
         AudioSynth.init();
