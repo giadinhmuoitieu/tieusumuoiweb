@@ -994,22 +994,6 @@ function initSpineBackground() {
             },
             success: function(p) {
                 console.log(`Spine Background (${mode}) loaded successfully.`);
-                try {
-                    const skeleton = p.skeleton;
-                    skeleton.slots.forEach(slot => {
-                        const name = slot.data.name.toLowerCase();
-                        // Chỉ ẩn slot hình nền lớn dly_34 để dùng hình nền HTML sắc nét hơn.
-                        // Giữ lại dly_35, dly_36, dly_37 để không mất hiệu ứng đảo bay, rồng lượn, và các hiệu ứng động khác.
-                        if (
-                            name.includes("dly_34") || 
-                            name.includes("bg_main")
-                        ) {
-                            slot.setAttachment(null);
-                        }
-                    });
-                } catch (e) {
-                    console.error("Lỗi ẩn nền Spine:", e);
-                }
             },
             error: function(p, err) {
                 console.error("Lỗi tải nền động Spine:", err);
