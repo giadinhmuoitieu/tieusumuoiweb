@@ -967,7 +967,7 @@ function initSpineBackground() {
 
     // Thiết lập kích thước và vùng hiển thị (viewport) giống trang game gốc
     const width = mode === 'pc' ? 1800 : 1242;
-    const height = mode === 'pc' ? 1000 : 2668;
+    const height = mode === 'pc' ? 750 : 2668;
     const padTop = "0%";
 
     try {
@@ -994,6 +994,10 @@ function initSpineBackground() {
             },
             success: function (p) {
                 console.log(`Spine Background (${mode}) loaded successfully.`);
+                const c = document.querySelector('#spine-hero-bg canvas');
+                if (c) {
+                    console.log("Canvas client size:", c.clientWidth, c.clientHeight, "buffer size:", c.width, c.height);
+                }
             },
             error: function (p, err) {
                 console.error("Lỗi tải nền động Spine:", err);
