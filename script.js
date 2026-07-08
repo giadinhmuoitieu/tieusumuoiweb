@@ -417,39 +417,41 @@ const CultivationSystem = {
 // --------------------------------------------------------------------------
 function initWerewolfCards() {
     const wrappers = document.querySelectorAll('.tilt-card-wrapper');
+    const isTouch = window.matchMedia("(pointer: coarse)").matches;
     
     wrappers.forEach(wrap => {
         const card = wrap.querySelector('.role-card');
 
-        // Hiệu ứng nghiêng 3D theo con trỏ chuột
-        wrap.addEventListener('mousemove', (e) => {
-            if (card.classList.contains('flipped')) {
-                // Đã lật thì nghiêng hướng ngược hoặc tắt
-                card.style.transform = `rotateY(180deg)`;
-                return;
-            }
+        if (!isTouch) {
+            // Hiệu ứng nghiêng 3D theo con trỏ chuột (chỉ chạy trên PC)
+            wrap.addEventListener('mousemove', (e) => {
+                if (card.classList.contains('flipped')) {
+                    card.style.transform = `rotateY(180deg)`;
+                    return;
+                }
 
-            const rect = wrap.getBoundingClientRect();
-            const x = e.clientX - rect.left;
-            const y = e.clientY - rect.top;
+                const rect = wrap.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
 
-            // Tính góc nghiêng (-15 đến 15 độ)
-            const rotateX = ((rect.height / 2) - y) / 10;
-            const rotateY = -( ((rect.width / 2) - x) / 8 );
+                // Tính góc nghiêng (-15 đến 15 độ)
+                const rotateX = ((rect.height / 2) - y) / 10;
+                const rotateY = -( ((rect.width / 2) - x) / 8 );
 
-            card.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(1.03)`;
-        });
+                card.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(1.03)`;
+            });
 
-        // Reset khi chuột rời khỏi thẻ
-        wrap.addEventListener('mouseleave', () => {
-            if (card.classList.contains('flipped')) {
-                card.style.transform = `rotateY(180deg)`;
-            } else {
-                card.style.transform = `rotateX(0deg) rotateY(0deg) scale(1)`;
-            }
-        });
+            // Reset khi chuột rời khỏi thẻ
+            wrap.addEventListener('mouseleave', () => {
+                if (card.classList.contains('flipped')) {
+                    card.style.transform = `rotateY(180deg)`;
+                } else {
+                    card.style.transform = `rotateX(0deg) rotateY(0deg) scale(1)`;
+                }
+            });
+        }
 
-        // Lật mặt bài khi click
+        // Lật mặt bài khi click (hỗ trợ cả PC & Mobile)
         wrap.addEventListener('click', () => {
             AudioSynth.playGather();
             card.classList.toggle('flipped');
@@ -608,12 +610,12 @@ const WheelSystem = {
 
     // Cấu hình các sector
     sectors: [
-        { label: "Nói thật", color: "#7c6fd8", type: "truth" },
-        { label: "Làm thử", color: "#c86b93", type: "dare" },
-        { label: "Bonus", color: "#e2b75a", type: "luck" },
-        { label: "Trừ thưởng", color: "#cf5f5f", type: "fail" },
-        { label: "May mắn", color: "#34d6bd", type: "gems" },
-        { label: "Bí mật", color: "#5b8ed7", type: "secret" }
+        { label: "Nói thật", color: "#8a3324", type: "truth" }, // Màu đỏ chu sa
+        { label: "Làm thử", color: "#126e54", type: "dare" },  // Màu ngọc bích
+        { label: "Bonus", color: "#b8860b", type: "luck" },   // Vàng kim cổ
+        { label: "Trừ thưởng", color: "#a62629", type: "fail" }, // Đỏ son phản phệ
+        { label: "May mắn", color: "#d97706", type: "gems" },  // Cam hổ phách
+        { label: "Bí mật", color: "#3a506b", type: "secret" } // Xanh chàm huyền bí
     ],
 
     // Mẫu sự kiện của Nói Hay Làm tu tiên
@@ -928,10 +930,10 @@ function initNavbarLogic() {
     window.addEventListener('scroll', () => {
         if (window.scrollY > 60) {
             navbar.style.padding = '0.5rem 0';
-            navbar.style.background = 'rgba(7, 5, 13, 0.95)';
+            navbar.style.background = 'rgba(250, 246, 235, 0.95)';
         } else {
             navbar.style.padding = '1rem 0';
-            navbar.style.background = 'rgba(14, 10, 27, 0.75)';
+            navbar.style.background = 'rgba(250, 246, 235, 0.82)';
         }
     });
 }
@@ -979,6 +981,7 @@ function initSpineBackground() {
             backgroundColor: "#00000000",
             width: "100%",
             height: "100%",
+            fit: "cover", // Tự động scale phủ kín khung hình không bị vạch đen
             viewport: {
                 x: -width / 2,
                 y: -height / 2,
