@@ -998,15 +998,11 @@ function initSpineBackground() {
                     const skeleton = p.skeleton;
                     skeleton.slots.forEach(slot => {
                         const name = slot.data.name.toLowerCase();
-                        // Ẩn các slot hình nền của Spine để không đè lên hình nền WebP sắc nét của HTML
+                        // Chỉ ẩn slot hình nền lớn dly_34 để dùng hình nền HTML sắc nét hơn.
+                        // Giữ lại dly_35, dly_36, dly_37 để không mất hiệu ứng đảo bay, rồng lượn, và các hiệu ứng động khác.
                         if (
                             name.includes("dly_34") || 
-                            name.includes("dly_37") || 
-                            name.includes("dly_35") || 
-                            name.includes("dly_36") || 
-                            name.includes("dly_33") || 
-                            name.includes("dly_30") ||
-                            name.includes("bg")
+                            name.includes("bg_main")
                         ) {
                             slot.setAttachment(null);
                         }
