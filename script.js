@@ -930,10 +930,10 @@ function initNavbarLogic() {
     window.addEventListener('scroll', () => {
         if (window.scrollY > 60) {
             navbar.style.padding = '0.5rem 0';
-            navbar.style.background = 'rgba(250, 246, 235, 0.95)';
+            navbar.style.background = 'rgba(238, 245, 246, 0.95)';
         } else {
             navbar.style.padding = '1rem 0';
-            navbar.style.background = 'rgba(250, 246, 235, 0.82)';
+            navbar.style.background = 'rgba(238, 245, 246, 0.82)';
         }
     });
 }
