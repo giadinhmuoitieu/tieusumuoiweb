@@ -968,7 +968,7 @@ function initSpineBackground() {
     // Thiết lập kích thước và vùng hiển thị (viewport) giống trang game gốc
     const width = mode === 'pc' ? 1800 : 1242;
     const height = mode === 'pc' ? 750 : 2668;
-    const padTop = mode === 'pc' ? "-15%" : "-10vw";
+    const padTop = "0%";
 
     try {
         spinePlayerBg = new spine.SpinePlayer(container, {
