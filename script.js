@@ -994,6 +994,26 @@ function initSpineBackground() {
             },
             success: function(p) {
                 console.log(`Spine Background (${mode}) loaded successfully.`);
+                try {
+                    const skeleton = p.skeleton;
+                    skeleton.slots.forEach(slot => {
+                        const name = slot.data.name.toLowerCase();
+                        // Ẩn các slot hình nền của Spine để không đè lên hình nền WebP sắc nét của HTML
+                        if (
+                            name.includes("dly_34") || 
+                            name.includes("dly_37") || 
+                            name.includes("dly_35") || 
+                            name.includes("dly_36") || 
+                            name.includes("dly_33") || 
+                            name.includes("dly_30") ||
+                            name.includes("bg")
+                        ) {
+                            slot.setAttachment(null);
+                        }
+                    });
+                } catch (e) {
+                    console.error("Lỗi ẩn nền Spine:", e);
+                }
             },
             error: function(p, err) {
                 console.error("Lỗi tải nền động Spine:", err);

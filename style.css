@@ -47,6 +47,10 @@ html {
 body {
     font-family: var(--font-content);
     background-color: var(--bg-darkest);
+    background-image: url('bg_pc.webp'); /* Ảnh nền phong cảnh PC chạy suốt trang */
+    background-repeat: no-repeat;
+    background-size: 100% auto;
+    background-position: center top;
     color: var(--text-light);
     line-height: 1.6;
     overflow-x: hidden;
@@ -379,10 +383,7 @@ h1, h2, h3, h4, h5, h6 {
 .hero {
     position: relative;
     min-height: 100vh;
-    background-image: url('bg_pc.webp'); /* Hình nền phong cảnh PC gốc */
-    background-size: cover;
-    background-position: center top;
-    background-repeat: no-repeat;
+    background: transparent; /* Hiển thị nền của body bên dưới */
     display: flex;
     align-items: center;
     padding: 8rem 0 5rem;
@@ -1771,16 +1772,17 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 @media (max-width: 768px) {
+    body {
+        background-image: url('bg_mb.webp') !important; /* Ảnh nền dọc Mobile chạy suốt trang */
+    }
+
     .hero {
         min-height: 100vh;
         display: flex;
         align-items: center;
         padding: 7.5rem 0 4.5rem;
         text-align: center;
-        background-image: url('bg_mb.webp') !important;
-        background-size: cover;
-        background-position: center top;
-        background-repeat: no-repeat;
+        background: transparent !important;
     }
 
     #spine-hero-bg {
