@@ -41,6 +41,7 @@
 
 html {
     overflow-x: hidden;
+    background-color: var(--bg-darkest);
 }
 
 /* Nền phong cảnh cố định - hiển thị xuyên suốt toàn trang */
@@ -58,7 +59,7 @@ html {
 
 body {
     font-family: var(--font-content);
-    background-color: var(--bg-darkest);
+    background-color: transparent;
     color: var(--text-light);
     line-height: 1.6;
     overflow-x: hidden;
