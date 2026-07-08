@@ -43,6 +43,19 @@ html {
     overflow-x: hidden;
 }
 
+/* Nền phong cảnh cố định - hiển thị xuyên suốt toàn trang */
+#page-bg-img {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center top;
+    z-index: -2;
+    pointer-events: none;
+}
+
 body {
     font-family: var(--font-content);
     background-color: var(--bg-darkest);
@@ -378,10 +391,7 @@ h1, h2, h3, h4, h5, h6 {
 .hero {
     position: relative;
     min-height: 100vh;
-    background-image: url('bg_pc.webp'); /* Hình nền phong cảnh PC gốc */
-    background-size: cover;
-    background-position: center top;
-    background-repeat: no-repeat;
+    background: transparent; /* Nền được hiển thị qua #page-bg-img */
     display: flex;
     align-items: center;
     padding: 8rem 0 5rem;
@@ -415,7 +425,11 @@ h1, h2, h3, h4, h5, h6 {
     left: 0;
     width: 100%;
     height: 100%;
-    background: linear-gradient(180deg, rgba(250, 246, 235, 0.2) 0%, rgba(250, 246, 235, 0.65) 72%, var(--bg-darkest) 100%);
+    /* Phủ nhẹ để chữ dễ đọc, không làm đục ảnh nền */
+    background: linear-gradient(135deg, 
+        rgba(238, 245, 246, 0.25) 0%, 
+        rgba(238, 245, 246, 0.08) 50%, 
+        transparent 100%);
     z-index: 1;
 }
 
@@ -471,14 +485,15 @@ h1, h2, h3, h4, h5, h6 {
     flex-wrap: wrap;
 }
 
-/* Mây Trôi Tâm Linh */
+/* Mây Trôi Tâm Linh - khớp với màu nền sương mù trắng tinh */
 .clouds-layer {
     position: absolute;
     bottom: -10px;
     left: 0;
     width: 200%;
-    height: 200px;
-    background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 320'%3%3Cpath fill='%23eef5f6' fill-opacity='0.9' d='M0,288L120,266.7C240,245,480,203,720,202.7C960,203,1200,245,1320,266.7L1440,288L1440,320L1320,320C1200,320,960,320,720,320C480,320,240,320,120,320L0,320Z'%3E%3C/path%3E%3C/svg%3E") repeat-x;
+    height: 220px;
+    background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 320'%3E%3Cpath fill='%23eef5f6' fill-opacity='1' d='M0,288L120,266.7C240,245,480,203,720,202.7C960,203,1200,245,1320,266.7L1440,288L1440,320L1320,320C1200,320,960,320,720,320C480,320,240,320,120,320L0,320Z'%3E%3C%2Fpath%3E%3C%2Fsvg%3E") repeat-x;
+    background-size: 100% 100%;
     z-index: 5;
     pointer-events: none;
 }
@@ -632,6 +647,17 @@ h1, h2, h3, h4, h5, h6 {
     z-index: 10;
 }
 
+/* Các section có nền nhẹ để tạo độ tương phản nhưng không che khuất hình nền */
+.section-tutien,
+.section-masoi,
+.section-dovui,
+.section-noihaylam,
+.section-confession,
+.section-trust {
+    background: rgba(238, 245, 246, 0.72); /* Sương lam nhẹ - vừa đủ tương phản, vừa đế nền nhìn qua */
+    backdrop-filter: blur(0px);
+}
+
 .section-header {
     text-align: center;
     max-width: 700px;
@@ -679,15 +705,15 @@ h1, h2, h3, h4, h5, h6 {
 
 /* Jade-morphism Card Base */
 .tutien-card {
-    background: rgba(255, 255, 255, 0.6);
-    border: 1px solid var(--glass-border);
+    background: rgba(255, 255, 255, 0.82);
+    border: 1px solid rgba(18, 110, 84, 0.12);
     border-radius: 14px;
     padding: 2rem;
-    box-shadow: var(--glass-shadow);
+    box-shadow: 0 4px 24px rgba(19, 56, 59, 0.07);
     position: relative;
     overflow: hidden;
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
     transition: border-color 0.4s ease, box-shadow 0.4s ease, transform 0.4s ease;
 }
 
@@ -709,7 +735,7 @@ h1, h2, h3, h4, h5, h6 {
 
 /* 5.1 Phân Khu Tu Tiên (Cultivation Simulator) */
 .section-tutien {
-    background: transparent; /* Hiển thị nền giấy cổ phong trọn vẹn */
+    /* Sử dụng nền sương lực chung từ selector ở trên */
 }
 
 .tutien-grid {
@@ -926,8 +952,9 @@ h1, h2, h3, h4, h5, h6 {
 /* ==========================================================================
    5.2 Phân Khu Ma Sói Thần Bí (Werewolf Sect)
    ========================================================================== */
+/* đã cấu hình chung cho tất cả sections */
 .section-masoi {
-    background: transparent;
+    /* Sử dụng nền sương chung */
 }
 
 .cards-grid {
@@ -1225,8 +1252,8 @@ h1, h2, h3, h4, h5, h6 {
 /* ==========================================================================
    5.4 Vòng Quay Số Phận (Truth or Dare Wheel)
    ========================================================================== */
+/* đã cấu hình chung */
 .section-noihaylam {
-    background: rgba(216, 229, 231, 0.35);
 }
 
 .wheel-flex {
@@ -1541,7 +1568,7 @@ h1, h2, h3, h4, h5, h6 {
    5.6 Độ Tin Cậy Vừa Phải (Minimal Trust Section)
    ========================================================================== */
 .section-trust {
-    background: rgba(216, 229, 231, 0.35);
+    /* Sử dụng nền sương chung */
     padding: 5rem 0 6rem;
     border-bottom: 1px solid rgba(18, 110, 84, 0.08);
 }
@@ -1648,12 +1675,14 @@ h1, h2, h3, h4, h5, h6 {
    6. Chân Trang (Footer)
    ========================================================================== */
 .footer {
-    background-color: var(--bg-darkest);
-    padding: 3rem 0;
-    font-size: 0.9rem;
-    color: var(--text-muted);
-    z-index: 10;
+    background: rgba(19, 56, 59, 0.88);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    padding: 3.5rem 0 2rem;
+    border-top: 1px solid rgba(18, 110, 84, 0.2);
+    color: rgba(238, 245, 246, 0.9);
     position: relative;
+    z-index: 20;
 }
 
 .footer-container {
@@ -1752,8 +1781,11 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 @media (max-width: 768px) {
-    body {
-        background-color: var(--bg-darkest);
+    /* Trên mobile: ẩn ảnh nền PC, dùng ảnh dọc qua CSS trên hero */
+    #page-bg-img {
+        object-fit: cover;
+        object-position: 40% top;
+        content: url('bg_mb.webp');
     }
 
     .hero {
@@ -1762,10 +1794,7 @@ h1, h2, h3, h4, h5, h6 {
         align-items: center;
         padding: 7.5rem 0 4.5rem;
         text-align: center;
-        background-image: url('bg_mb.webp') !important;
-        background-size: cover;
-        background-position: center top;
-        background-repeat: no-repeat;
+        background: transparent !important;
     }
 
     #spine-hero-bg {
