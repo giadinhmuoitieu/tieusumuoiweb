@@ -382,11 +382,11 @@ h1, h2, h3, h4, h5, h6 {
    ========================================================================== */
 .hero {
     position: relative;
-    min-height: 100vh;
+    min-height: 75vh; /* Giảm từ 100vh để thu hẹp khoảng trắng thừa sát nội dung */
     background: transparent; /* Hiển thị nền của body bên dưới */
     display: flex;
     align-items: center;
-    padding: 8rem 0 5rem;
+    padding: 8rem 0 3rem; /* Giảm padding bottom xuống 3rem */
     overflow: hidden;
     z-index: 2;
 }
@@ -417,13 +417,13 @@ h1, h2, h3, h4, h5, h6 {
     left: 0;
     width: 100%;
     height: 100%;
-    /* Lớp mây mờ che phủ đè lên trên hoạt ảnh Spine và hình nền gốc */
+    /* Lớp mây mờ che phủ đè lên trên hoạt ảnh Spine và hình nền gốc - bắt đầu mờ từ 80% */
     background: 
         linear-gradient(to bottom, 
             transparent 0%, 
-            transparent 65%, 
-            rgba(255, 255, 255, 0.6) 80%,
-            rgba(255, 255, 255, 0.95) 93%, 
+            transparent 80%, 
+            rgba(255, 255, 255, 0.4) 90%,
+            rgba(255, 255, 255, 0.95) 97%, 
             #ffffff 100%),
         url('bg_pc.webp') no-repeat center top;
     background-size: 100% 100%, 100% auto;
