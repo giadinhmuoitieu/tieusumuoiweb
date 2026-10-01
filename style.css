@@ -1,2181 +1,1327 @@
 /* ==========================================================================
-   UYÊN SƯ MUỘI - TIỂU MUỘI TRỢ THẦN DISCORD (JADE-MORPHISM & FANTASY CSS SYSTEM)
+   UYÊN SƯ MUỘI - BÁCH KHOA TOÀN THƯ & CẨM NANG TU TIÊN
+   Design System: Xianxia Documentation Portal (UI/UX Pro Max)
    ========================================================================== */
 
-/* Biến Hệ Thống Cổ Phong (Xianxia Theme Variables) */
 :root {
-    --bg-darkest: #ffffff; /* Màu trắng tinh khôi giúp toàn trang sạch sẽ */
-    --bg-darker: #ffffff; /* Màu trắng tinh khôi giúp thẻ nổi bật */
-    --bg-dark: #d8e5e7; /* Sắc xám xanh dịu tạo chiều sâu nhẹ */
-    --primary-cyan: #126e54; /* Màu xanh ngọc bích phong thủy (Jade) */
-    --primary-cyan-rgb: 18, 110, 84;
-    --primary-gold: #b8860b; /* Màu vàng kim cổ kính (Dark Gold) */
-    --primary-gold-rgb: 184, 134, 11;
-    --accent-purple: #8a3324; /* Màu đỏ sa thạch / chu sa */
-    --accent-pink: #b24a35; /* Màu son môi / chu hồng */
-    
-    --text-light: #13383b; /* Màu xanh đen thâm trầm của mực vẽ sơn thủy */
-    --text-muted: #52787c; /* Màu xanh xám nhạt hơn */
-    
-    --glass-bg: rgba(255, 255, 255, 0.9); /* Kính ngọc trắng sáng */
-    --glass-border: rgba(18, 110, 84, 0.15); /* Viền ngọc bích nhạt */
-    --glass-border-gold: rgba(197, 155, 39, 0.3); /* Viền vàng hoàng kim mảnh */
-    --glass-shadow: 0 14px 34px rgba(19, 56, 59, 0.05); /* Bóng đổ sáng, siêu nhẹ */
-    --glow-cyan: 0 0 10px rgba(18, 110, 84, 0.15); /* Phát quang ngọc bích nhẹ */
-    --glow-gold: 0 0 12px rgba(197, 155, 39, 0.25); /* Sấm sét hoàng kim */
+  /* Core Colors */
+  --bg-darkest: #05080e;
+  --bg-sidebar: #080d16;
+  --bg-main: #0b111c;
+  --bg-surface: #101826;
+  --bg-card: rgba(16, 24, 39, 0.75);
+  --bg-card-hover: rgba(22, 33, 54, 0.9);
+  --bg-card-active: rgba(212, 175, 55, 0.12);
 
-    --font-ancient: 'Philosopher', sans-serif;
-    --font-modern: 'Outfit', sans-serif;
-    --font-content: 'Inter', sans-serif;
+  /* Gold & Accents */
+  --gold-primary: #d4af37;
+  --gold-light: #fbbf24;
+  --gold-lighter: #fef08a;
+  --gold-dark: #b45309;
+  --gold-glow: rgba(212, 175, 55, 0.25);
+  --gold-glow-strong: rgba(251, 191, 36, 0.5);
+
+  --cyan-primary: #00f0ff;
+  --cyan-light: #38bdf8;
+  --cyan-glow: rgba(0, 240, 255, 0.25);
+
+  --emerald-primary: #10b981;
+  --emerald-light: #34d399;
+  --emerald-glow: rgba(16, 185, 129, 0.25);
+
+  --purple-primary: #a855f7;
+  --purple-light: #c084fc;
+
+  --crimson-primary: #ef4444;
+  --crimson-light: #f87171;
+
+  /* Typography */
+  --text-primary: #f8fafc;
+  --text-secondary: #cbd5e1;
+  --text-muted: #94a3b8;
+  --text-dim: #64748b;
+  --text-gold: #fde68a;
+  --text-cyan: #bae6fd;
+
+  /* Borders & Shadows */
+  --border-subtle: rgba(255, 255, 255, 0.08);
+  --border-medium: rgba(255, 255, 255, 0.15);
+  --border-gold: rgba(212, 175, 55, 0.35);
+  --border-cyan: rgba(0, 240, 255, 0.35);
+  --border-emerald: rgba(16, 185, 129, 0.35);
+
+  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.4);
+  --shadow-md: 0 8px 24px rgba(0, 0, 0, 0.5);
+  --shadow-lg: 0 16px 40px rgba(0, 0, 0, 0.7);
+  --shadow-gold: 0 0 25px rgba(212, 175, 55, 0.2);
+
+  /* Dimensions & Radius */
+  --sidebar-width: 290px;
+  --header-height: 64px;
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 16px;
+  --radius-full: 9999px;
+
+  /* Fonts */
+  --font-serif: 'Philosopher', 'Cinzel', serif;
+  --font-sans: 'Outfit', 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-mono: 'JetBrains Mono', 'Fira Code', monospace;
 }
 
-/* ==========================================================================
-   1. Cài Đặt Chung & Resets
-   ========================================================================== */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    scroll-behavior: smooth;
+/* Base Reset */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
 
 html {
-    overflow-x: hidden;
-    background-color: var(--bg-darkest);
+  scroll-behavior: smooth;
+  scroll-padding-top: calc(var(--header-height) + 24px);
+  color-scheme: dark;
 }
 
 body {
-    font-family: var(--font-content);
-    background-color: var(--bg-darkest);
-    background-image: url('bg_pc.webp'); /* Ảnh nền phong cảnh PC chạy suốt trang */
-    background-repeat: no-repeat;
-    background-size: 100% auto;
-    background-position: center top; /* Đưa về vị trí đỉnh đầu gốc */
-    color: var(--text-light);
-    line-height: 1.6;
-    overflow-x: hidden;
-    position: relative;
+  font-family: var(--font-sans);
+  background-color: var(--bg-darkest);
+  color: var(--text-primary);
+  line-height: 1.6;
+  font-size: 15px;
+  overflow-x: hidden;
+  background: 
+    linear-gradient(to bottom, rgba(5, 8, 14, 0.88), rgba(9, 14, 23, 0.92) 50%, rgba(5, 8, 14, 0.96)),
+    url('levelup_broadcast.jpg') center top / cover no-repeat fixed;
 }
 
-h1, h2, h3, h4, h5, h6 {
-    font-family: var(--font-ancient);
-    font-weight: 700;
-    letter-spacing: 0.5px;
+a {
+  color: inherit;
+  text-decoration: none;
 }
 
-.container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 2rem;
-    width: 100%;
+button {
+  font-family: inherit;
+  cursor: pointer;
+  border: none;
+  background: none;
+}
+
+:focus-visible {
+  outline: 2px solid var(--gold-light);
+  outline-offset: 3px;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.2);
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: var(--radius-full);
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--gold-primary);
 }
 
 /* ==========================================================================
-   2. Hiệu Ứng Nền Tâm Linh (Ambient Effects)
+   WIKI APP LAYOUT (Sidebar + Main Content)
    ========================================================================== */
-#ambient-particles {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    pointer-events: none;
-    z-index: 1;
-    overflow: hidden;
-}
-
-.ambient-dot {
-    position: absolute;
-    width: 2px;
-    height: 2px;
-    background: var(--primary-cyan);
-    border-radius: 50%;
-    opacity: 0.16;
-    animation: riseUp 12s linear infinite;
-}
-
-@keyframes riseUp {
-    0% {
-        transform: translateY(100vh) translateX(0) scale(0.5);
-        opacity: 0;
-    }
-    10% {
-        opacity: 0.8;
-    }
-    90% {
-        opacity: 0.8;
-    }
-    100% {
-        transform: translateY(-10vh) translateX(50px) scale(1.2);
-        opacity: 0;
-    }
-}
-
-/* Lôi Kiếp Sấm Sét Overlay */
-#lightning-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    background: white;
-    opacity: 0;
-    pointer-events: none;
-    z-index: 9999;
-    transition: opacity 0.05s ease-out;
-}
-
-.lightning-flash {
-    animation: flashBreakthrough 1.2s ease-out;
-}
-
-@keyframes flashBreakthrough {
-    0% { opacity: 0; }
-    5% { opacity: 0.95; background: #fffbeb; }
-    10% { opacity: 0.2; }
-    15% { opacity: 0.95; background: #ffdf8d; }
-    25% { opacity: 0.1; }
-    30% { opacity: 0.8; background: #fcd34d; }
-    60% { opacity: 0.05; }
-    100% { opacity: 0; }
-}
-
-/* Hạt Lửa/Tia Sét bắn ra */
-#sparks-container {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    pointer-events: none;
-    z-index: 9998;
-}
-
-.spark {
-    position: absolute;
-    width: 4px;
-    height: 4px;
-    background: var(--primary-cyan);
-    border-radius: 50%;
-    box-shadow: var(--glow-cyan);
-    animation: sparkFly 0.8s ease-out forwards;
-}
-
-@keyframes sparkFly {
-    0% {
-        transform: translate(var(--startX), var(--startY)) scale(1);
-        opacity: 1;
-    }
-    100% {
-        transform: translate(var(--endX), var(--endY)) scale(0.2);
-        opacity: 0;
-    }
+.wiki-layout {
+  display: flex;
+  min-height: 100vh;
+  position: relative;
 }
 
 /* ==========================================================================
-   3. Thanh Điều Hướng (Navbar)
+   SIDEBAR (Left Navigation)
    ========================================================================== */
-.navbar {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    z-index: 1000;
-    background: rgba(238, 245, 246, 0.92);
-    backdrop-filter: blur(14px);
-    -webkit-backdrop-filter: blur(14px);
-    border-bottom: 1px solid var(--glass-border);
-    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-    padding: 1rem 0;
-    box-shadow: 0 10px 28px rgba(19, 56, 59, 0.04);
+.wiki-sidebar {
+  width: var(--sidebar-width);
+  height: 100vh;
+  position: sticky;
+  top: 0;
+  left: 0;
+  background: var(--bg-sidebar);
+  border-right: 1px solid var(--border-subtle);
+  display: flex;
+  flex-direction: column;
+  z-index: 1000;
+  flex-shrink: 0;
+  backdrop-filter: blur(20px);
 }
 
-.navbar-container {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+.sidebar-header {
+  padding: 18px 20px;
+  border-bottom: 1px solid var(--border-subtle);
+  display: flex;
+  align-items: center;
+  gap: 12px;
 }
 
-.nav-left, .nav-right {
-    display: flex;
-    gap: 1rem;
-    align-items: center;
+.sidebar-logo-img {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  border: 2px solid var(--gold-primary);
+  box-shadow: 0 0 12px var(--gold-glow);
+  object-fit: cover;
 }
 
-.nav-item {
-    font-family: var(--font-ancient);
-    text-decoration: none;
-    color: var(--text-light);
-    font-size: 0.98rem;
-    font-weight: 700;
-    letter-spacing: 0.5px;
-    transition: all 0.3s ease;
-    position: relative;
-    padding: 0.2rem 0;
-    white-space: nowrap;
-    flex-shrink: 0;
+.sidebar-brand-title {
+  font-family: var(--font-serif);
+  font-size: 1.15rem;
+  font-weight: 700;
+  background: linear-gradient(135deg, #ffffff, var(--gold-light));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  line-height: 1.2;
 }
 
-.nav-item::after {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 0;
-    height: 2px;
-    background: var(--primary-cyan);
-    box-shadow: var(--glow-cyan);
-    transition: width 0.3s ease;
+.sidebar-brand-sub {
+  font-size: 0.72rem;
+  color: var(--cyan-primary);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-weight: 600;
 }
 
-.nav-item:hover {
-    color: var(--primary-cyan);
-    text-shadow: var(--glow-cyan);
+.sidebar-search-box {
+  padding: 14px 18px;
+  border-bottom: 1px solid var(--border-subtle);
 }
 
-.nav-item:hover::after {
-    width: 100%;
+.sidebar-search-btn {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 12px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  color: var(--text-muted);
+  font-size: 0.85rem;
+  transition: all 0.2s ease;
 }
 
-/* Logo Cổ Kính */
-.logo {
-    display: flex;
-    align-items: center;
-    gap: 0.8rem;
-    text-decoration: none;
-    white-space: nowrap;
-    flex-shrink: 0;
+.sidebar-search-btn:hover {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: var(--border-gold);
+  color: var(--text-primary);
 }
 
-.logo-img {
-    width: 42px;
-    height: 42px;
-    border-radius: 50%;
-    border: 2px solid var(--primary-cyan);
-    box-shadow: 0 0 0 4px rgba(52, 214, 189, 0.08);
-    transition: transform 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    flex-shrink: 0;
+.sidebar-search-btn kbd {
+  background: rgba(0, 0, 0, 0.4);
+  border: 1px solid var(--border-subtle);
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-size: 0.72rem;
+  font-family: var(--font-mono);
 }
 
-.logo:hover .logo-img {
-    transform: rotate(360deg) scale(1.1);
-    border-color: var(--primary-gold);
-    box-shadow: var(--glow-gold);
+.sidebar-nav-scroll {
+  flex: 1;
+  overflow-y: auto;
+  padding: 14px 12px;
 }
 
-.logo-text {
-    font-family: var(--font-ancient);
-    font-size: 1.6rem;
-    font-weight: 700;
-    background: linear-gradient(135deg, var(--primary-cyan) 0%, var(--primary-gold) 100%);
-    -webkit-background-clip: text;
-    background-clip: text;
-    -webkit-text-fill-color: transparent;
-    text-shadow: 0px 0px 20px rgba(184, 134, 11, 0.15);
-    white-space: nowrap;
-    flex-shrink: 0;
+.sidebar-group {
+  margin-bottom: 20px;
 }
 
-/* Nút Bấm Thần Bí */
-.btn-primary {
-    background: linear-gradient(135deg, #146a4e 0%, #0f4c3a 100%); /* Ngọc bích lục bảo đại diện tiên môn */
-    color: #fcd34d !important; /* Màu vàng kim sáng rực của tu sĩ đắc đạo */
-    padding: 0.7rem 1.6rem;
-    border-radius: 8px;
-    font-family: var(--font-ancient);
-    font-weight: 700;
-    text-decoration: none;
-    border: 1px solid #c59b27; /* Đường viền vàng thô sơ nhưng lấp lánh */
-    cursor: pointer;
-    display: inline-block;
-    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-    box-shadow: 0 8px 18px rgba(20, 106, 78, 0.2), 0 0 10px rgba(197, 155, 39, 0.15);
-    white-space: normal;
-    flex-shrink: 0;
-    text-align: center;
-    line-height: 1.25;
+.sidebar-group-title {
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  color: var(--gold-light);
+  padding: 4px 10px;
+  margin-bottom: 6px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  opacity: 0.85;
 }
 
-.btn-primary:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 10px 22px rgba(20, 106, 78, 0.28), 0 0 15px rgba(197, 155, 39, 0.3);
-    background: linear-gradient(135deg, #1a8261 0%, #115742 100%);
-    border-color: #ffd700;
+.sidebar-group-title::before {
+  content: '';
+  display: inline-block;
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: var(--gold-primary);
+  box-shadow: 0 0 6px var(--gold-glow);
 }
 
-.btn-glow {
-    position: relative;
-    overflow: hidden;
+.sidebar-links {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
 }
 
-.btn-glow::before {
-    content: '';
-    position: absolute;
-    top: -50%;
-    left: -150%;
-    width: 200%;
-    height: 200%;
-    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.35) 50%, transparent);
-    transform: rotate(45deg);
-    transition: all 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+.sidebar-link {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 12px;
+  border-radius: var(--radius-md);
+  font-size: 0.88rem;
+  color: var(--text-muted);
+  font-weight: 500;
+  transition: all 0.2s ease;
+  position: relative;
 }
 
-.btn-glow:hover::before {
-    left: 150%;
+.sidebar-link:hover {
+  color: var(--text-primary);
+  background: rgba(255, 255, 255, 0.05);
+  transform: translateX(3px);
 }
 
-.btn-secondary {
-    background: rgba(255, 255, 255, 0.9);
-    border: 1px solid rgba(92, 74, 55, 0.25);
-    color: var(--text-light);
-    padding: 0.7rem 1.6rem;
-    border-radius: 8px;
-    font-family: var(--font-ancient);
-    font-weight: 700;
-    text-decoration: none;
-    cursor: pointer;
-    display: inline-block;
-    transition: all 0.3s ease;
-    box-shadow: 0 4px 10px rgba(61, 47, 33, 0.04);
+.sidebar-link.active {
+  color: var(--gold-light);
+  background: rgba(212, 175, 55, 0.12);
+  font-weight: 600;
+  border-left: 3px solid var(--gold-primary);
 }
 
-.btn-secondary:hover {
-    background: rgba(18, 110, 84, 0.05);
-    border-color: var(--primary-cyan);
-    color: var(--primary-cyan);
-    box-shadow: var(--glow-cyan);
-    transform: translateY(-2px);
+.sidebar-link .link-icon {
+  font-size: 1.1rem;
+  width: 20px;
+  text-align: center;
 }
 
-.btn-large {
-    padding: 0.9rem 1.7rem;
-    font-size: 1rem;
-    border-radius: 10px;
-}
-
-.w-100 {
-    width: 100%;
-    text-align: center;
-}
-
-/* Mobile Toggle */
-.mobile-toggle {
-    display: none;
-    flex-direction: column;
-    gap: 6px;
-    background: none;
-    border: none;
-    cursor: pointer;
-    z-index: 1001;
-}
-
-.mobile-toggle .bar {
-    width: 28px;
-    height: 3px;
-    background: var(--text-light);
-    border-radius: 2px;
-    transition: all 0.3s ease;
+.sidebar-footer {
+  padding: 14px 16px;
+  border-top: 1px solid var(--border-subtle);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  background: rgba(0, 0, 0, 0.25);
 }
 
 /* ==========================================================================
-   4. Phân Khu Anh Hùng (Hero Parallax Section)
+   MAIN CONTENT WRAPPER
    ========================================================================== */
-.hero {
-    position: relative;
-    min-height: 100vh;
-    background: transparent; /* Hiển thị nền của body bên dưới */
-    display: flex;
-    align-items: center;
-    padding: 8rem 0 5rem;
-    overflow: hidden;
-    z-index: 2;
+.wiki-main {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  background: var(--bg-main);
 }
 
-#spine-hero-bg {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: 0;
-    pointer-events: none;
-    overflow: hidden;
+/* STICKY TOPBAR */
+.wiki-topbar {
+  position: sticky;
+  top: 0;
+  height: var(--header-height);
+  background: rgba(11, 17, 28, 0.85);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-bottom: 1px solid var(--border-subtle);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 32px;
+  z-index: 900;
 }
 
-#spine-hero-bg .spine-player {
-    width: 100% !important;
-    height: 100% !important;
-    background: transparent !important;
-    border: none !important;
+.topbar-left {
+  display: flex;
+  align-items: center;
+  gap: 16px;
 }
 
-
-
-.hero-overlay {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    height: 120px; /* Lớp chuyển tiếp mỏng 120px ở đáy giống trang gốc */
-    background: linear-gradient(to bottom, transparent 0%, #ffffff 100%);
-    z-index: 1;
-    pointer-events: none;
+.mobile-menu-btn {
+  display: none;
+  font-size: 1.4rem;
+  color: var(--text-primary);
+  padding: 6px;
 }
 
-.hero-container-content {
-    position: relative;
-    z-index: 10;
-    width: 100%;
+.breadcrumbs {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.85rem;
+  color: var(--text-muted);
 }
 
-.hero-content {
-    max-width: 700px;
-    text-align: left;
+.breadcrumbs .sep {
+  color: var(--text-dim);
 }
 
-.hero-subtitle {
-    font-family: var(--font-modern);
-    font-weight: 700;
-    color: var(--primary-cyan);
-    font-size: 1.1rem;
-    letter-spacing: 3px;
-    display: inline-block;
-    margin-bottom: 1.5rem;
-    text-shadow: var(--glow-cyan);
+.breadcrumbs .current {
+  color: var(--gold-light);
+  font-weight: 600;
 }
 
-.hero h1 {
-    font-size: 4.4rem;
-    line-height: 1.05;
-    margin-bottom: 2rem;
+.topbar-right {
+  display: flex;
+  align-items: center;
+  gap: 12px;
 }
 
-.glow-gold {
-    background: linear-gradient(135deg, #f0d082 0%, var(--primary-gold) 100%);
-    -webkit-background-clip: text;
-    background-clip: text;
-    -webkit-text-fill-color: transparent;
-    filter: drop-shadow(0 0 14px rgba(226, 183, 90, 0.2));
+/* Action Buttons */
+.btn-cmd {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(0, 240, 255, 0.08);
+  border: 1px solid var(--border-cyan);
+  color: var(--cyan-light);
+  padding: 6px 14px;
+  border-radius: var(--radius-full);
+  font-size: 0.82rem;
+  font-family: var(--font-mono);
+  font-weight: 600;
+  transition: all 0.2s ease;
 }
 
-.hero p {
-    font-family: var(--font-content);
-    font-size: 1.2rem;
-    color: var(--text-muted);
-    line-height: 1.8;
-    margin-bottom: 3rem;
-    max-width: 620px;
+.btn-cmd:hover {
+  background: rgba(0, 240, 255, 0.18);
+  box-shadow: 0 0 12px var(--cyan-glow);
+  transform: translateY(-1px);
 }
 
-.hero-btns {
-    display: flex;
-    gap: 1.5rem;
-    align-items: center;
-    flex-wrap: wrap;
+.btn-invite {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: linear-gradient(135deg, var(--gold-primary), var(--gold-dark));
+  color: #000;
+  font-weight: 700;
+  padding: 7px 16px;
+  border-radius: var(--radius-full);
+  font-size: 0.85rem;
+  box-shadow: 0 2px 10px rgba(212, 175, 55, 0.3);
+  transition: all 0.2s ease;
 }
 
-/* Mây Trôi Tâm Linh - tạm ẩn để không gây chồng lấp hình nền */
-.clouds-layer {
-    display: none !important;
-}
-
-.cloud-1 {
-    animation: drift 60s linear infinite;
-    opacity: 0.98;
-}
-
-.cloud-2 {
-    animation: drift 40s linear infinite reverse;
-    bottom: -30px;
-    opacity: 0.95;
-    transform: scaleY(-1);
-}
-
-@keyframes drift {
-    0% { transform: translateX(0); }
-    100% { transform: translateX(-50%); }
-}
-
-/* Kiếm Linh Bay Lơ Lửng */
-.floating-swords-container {
-    position: absolute;
-    top: 9%;
-    right: 5%;
-    width: min(520px, 42vw);
-    height: 62%;
-    z-index: 4;
-    pointer-events: none;
-    opacity: 0.95;
-}
-
-.flying-sword {
-    position: absolute;
-    --sword-rotate: -42deg;
-    --sword-scale: 1;
-    --sword-scale-active: 1.05;
-    --trail-length: 118px;
-    width: 92px;
-    height: 10px;
-    opacity: 0.48;
-    background: linear-gradient(90deg, #d9b75f 0 12%, #8b7135 12% 18%, #e7eef2 18% 58%, #79d8ce 78%, #f3faf8 100%);
-    border-radius: 999px;
-    clip-path: polygon(0 36%, 16% 36%, 18% 12%, 27% 36%, 78% 36%, 100% 50%, 78% 64%, 27% 64%, 18% 88%, 16% 64%, 0 64%);
-    box-shadow: 0 0 14px rgba(52, 214, 189, 0.28), 0 0 30px rgba(226, 183, 90, 0.12);
-    filter: drop-shadow(0 0 10px rgba(52, 214, 189, 0.32));
-    transform: rotate(var(--sword-rotate)) scale(var(--sword-scale));
-    animation: swordDrift 9s ease-in-out infinite, swordPulse 2.8s ease-in-out infinite;
-}
-
-.flying-sword::before {
-    content: '';
-    position: absolute;
-    top: 50%;
-    right: 82%;
-    width: var(--trail-length);
-    height: 3px;
-    border-radius: 999px;
-    background: linear-gradient(90deg, transparent, rgba(52, 214, 189, 0.1), rgba(226, 183, 90, 0.65));
-    transform: translateY(-50%);
-    filter: blur(0.6px);
-    opacity: 0.75;
-}
-
-.flying-sword::after {
-    content: '';
-    position: absolute;
-    left: 12px;
-    top: 50%;
-    width: 15px;
-    height: 24px;
-    border-radius: 999px;
-    border: 2px solid rgba(226, 183, 90, 0.75);
-    background: radial-gradient(circle, rgba(226, 183, 90, 0.75), rgba(52, 214, 189, 0.08) 48%, transparent 52%);
-    transform: translateY(-50%);
-    animation: swordAura 3.6s ease-in-out infinite;
-}
-
-.sword-1 {
-    --sword-rotate: -36deg;
-    --sword-scale: 1;
-    --sword-scale-active: 1.05;
-    --trail-length: 132px;
-    top: 16%;
-    right: 15%;
-    animation-delay: 0s;
-}
-
-.sword-2 {
-    --sword-rotate: -30deg;
-    --sword-scale: 0.82;
-    --sword-scale-active: 0.88;
-    --trail-length: 104px;
-    top: 58%;
-    right: 46%;
-    animation-delay: -3.2s;
-    width: 78px;
-    height: 9px;
-}
-
-.sword-3 {
-    --sword-rotate: -44deg;
-    --sword-scale: 0.68;
-    --sword-scale-active: 0.74;
-    --trail-length: 86px;
-    top: 5%;
-    right: 56%;
-    animation-delay: -5.8s;
-    width: 64px;
-    height: 8px;
-}
-
-@keyframes swordDrift {
-    0%, 100% {
-        transform: translate3d(0, 0, 0) rotate(var(--sword-rotate)) scale(var(--sword-scale));
-    }
-    50% {
-        transform: translate3d(-34px, -24px, 0) rotate(calc(var(--sword-rotate) + 5deg)) scale(var(--sword-scale-active));
-    }
-}
-
-@keyframes swordPulse {
-    0%, 100% {
-        opacity: 0.36;
-        filter: drop-shadow(0 0 8px rgba(52, 214, 189, 0.26));
-    }
-    45% {
-        opacity: 0.78;
-        filter: drop-shadow(0 0 16px rgba(52, 214, 189, 0.46));
-    }
-}
-
-@keyframes swordAura {
-    0%, 100% {
-        opacity: 0.42;
-        transform: translateY(-50%) scale(0.9);
-    }
-    50% {
-        opacity: 0.92;
-        transform: translateY(-50%) scale(1.12);
-    }
+.btn-invite:hover {
+  background: linear-gradient(135deg, var(--gold-light), var(--gold-primary));
+  box-shadow: 0 4px 18px var(--gold-glow-strong);
+  transform: translateY(-1px);
 }
 
 /* ==========================================================================
-   5. Các Phân Khu Cốt Lõi (Section Styles)
+   CONTENT HERO BANNER
    ========================================================================== */
-.section {
-    padding: 6.5rem 0;
-    position: relative;
-    z-index: 10;
+.wiki-hero-banner {
+  position: relative;
+  padding: 50px 40px 40px;
+  background: linear-gradient(180deg, rgba(212, 175, 55, 0.08) 0%, rgba(11, 17, 28, 0.6) 100%),
+              url('levelup_broadcast.jpg') center 25% / cover no-repeat;
+  border-bottom: 1px solid var(--border-subtle);
+  overflow: hidden;
 }
 
-.section-tutien,
-.section-masoi,
-.section-dovui,
-.section-noihaylam,
-.section-confession,
-.section-trust {
-    background: transparent; /* Nền trắng tinh từ body chiếu qua sạch sẽ */
-    backdrop-filter: blur(0px);
+.wiki-hero-banner::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(11, 17, 28, 0.75) 0%, var(--bg-main) 100%);
 }
 
-.section-header {
-    text-align: center;
-    max-width: 700px;
-    margin: 0 auto 4rem;
+.hero-banner-content {
+  position: relative;
+  z-index: 2;
+  max-width: 900px;
 }
 
-.section-header::after {
-    content: '';
-    display: block;
-    width: 200px;
-    height: 12px;
-    margin: 1.5rem auto 0;
-    background: url('item_line.png') no-repeat center; /* Dải mực ngăn chia cổ phong */
-    background-size: contain;
-    opacity: 0.8;
+.hero-badge-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 4px 14px;
+  border-radius: var(--radius-full);
+  background: rgba(212, 175, 55, 0.15);
+  border: 1px solid var(--border-gold);
+  color: var(--gold-lighter);
+  font-size: 0.8rem;
+  font-weight: 600;
+  margin-bottom: 16px;
 }
 
-.badge {
-    font-family: var(--font-modern);
-    font-weight: 700;
-    font-size: 0.85rem;
-    color: var(--primary-cyan);
-    border: 1px solid var(--glass-border);
-    padding: 0.4rem 1.2rem;
-    border-radius: 999px;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    background: rgba(52, 214, 189, 0.06);
-    display: inline-block;
-    margin-bottom: 1.2rem;
+.hero-banner-title {
+  font-family: var(--font-serif);
+  font-size: clamp(2rem, 3.8vw, 3.2rem);
+  font-weight: 700;
+  line-height: 1.2;
+  margin-bottom: 12px;
 }
 
-.section-title {
-    font-size: 3rem;
-    margin-bottom: 1rem;
-    color: var(--text-light);
-    text-shadow: 0px 0px 30px rgba(255, 255, 255, 0.05);
+.text-gold-gradient {
+  background: linear-gradient(135deg, #ffffff 10%, #fef08a 50%, #d4af37 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 
-.section-subtitle {
-    font-family: var(--font-content);
-    color: var(--text-muted);
-    font-size: 1.15rem;
+.hero-banner-desc {
+  font-size: 1.05rem;
+  color: var(--text-secondary);
+  line-height: 1.6;
+  margin-bottom: 24px;
+  max-width: 780px;
 }
 
-/* Jade-morphism Card Base */
-.tutien-card {
-    background: rgba(255, 255, 255, 0.82);
-    border: 1px solid rgba(18, 110, 84, 0.12);
-    border-radius: 14px;
-    padding: 2rem;
-    box-shadow: 0 4px 24px rgba(19, 56, 59, 0.07);
-    position: relative;
-    overflow: hidden;
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-    transition: border-color 0.4s ease, box-shadow 0.4s ease, transform 0.4s ease;
+/* Quick Metrics Row */
+.hero-metrics-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
 }
 
-.tutien-card:hover {
-    border-color: rgba(0, 255, 210, 0.4);
-    box-shadow: 0 10px 40px rgba(0, 255, 210, 0.1);
+.metric-pill {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: rgba(16, 24, 39, 0.85);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  padding: 8px 16px;
+  backdrop-filter: blur(8px);
 }
 
-.card-inner-glow {
-    position: absolute;
-    top: -50%;
-    left: -50%;
-    width: 200%;
-    height: 200%;
-    background: radial-gradient(circle, rgba(52,214,189,0.025) 0%, transparent 70%);
-    pointer-events: none;
-    z-index: 0;
+.metric-pill-num {
+  font-family: var(--font-serif);
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: var(--gold-light);
 }
 
-/* 5.1 Phân Khu Tu Tiên (Cultivation Simulator) */
-.section-tutien {
-    /* Sử dụng nền sương lực chung từ selector ở trên */
-}
-
-.tutien-grid {
-    display: grid;
-    grid-template-columns: 1fr 1.2fr;
-    gap: 2rem;
-    align-items: stretch;
-}
-
-/* Thẻ Đạo Hữu Profile */
-.profile-card {
-    border-color: var(--glass-border-gold);
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-}
-
-.profile-card:hover {
-    border-color: rgba(255, 215, 0, 0.5);
-    box-shadow: 0 10px 40px rgba(255, 215, 0, 0.08);
-}
-
-.profile-header {
-    display: flex;
-    align-items: center;
-    gap: 1.8rem;
-    margin-bottom: 2.5rem;
-    z-index: 1;
-}
-
-.avatar-container {
-    position: relative;
-    width: 90px;
-    height: 90px;
-}
-
-.profile-avatar {
-    width: 100%;
-    height: 100%;
-    border-radius: 50%;
-    border: 3px solid var(--primary-gold);
-    box-shadow: 0 0 0 5px rgba(226, 183, 90, 0.08);
-    object-fit: cover;
-}
-
-.active-dot {
-    position: absolute;
-    bottom: 5px;
-    right: 5px;
-    width: 15px;
-    height: 15px;
-    background: var(--primary-cyan);
-    border-radius: 50%;
-    border: 3px solid var(--bg-darker);
-    box-shadow: var(--glow-cyan);
-}
-
-.profile-meta h3 {
-    font-size: 1.8rem;
-    color: var(--text-light);
-    margin-bottom: 0.4rem;
-}
-
-.realm-badge {
-    font-family: var(--font-modern);
-    font-weight: 700;
-    font-size: 0.8rem;
-    background: rgba(255, 215, 0, 0.1);
-    color: var(--primary-gold);
-    border: 1px solid var(--glass-border-gold);
-    padding: 0.3rem 1rem;
-    border-radius: 50px;
-    letter-spacing: 1px;
-}
-
-.profile-stats {
-    z-index: 1;
-}
-
-.stat-row {
-    display: flex;
-    justify-content: space-between;
-    font-size: 0.95rem;
-    color: var(--text-muted);
-    margin-bottom: 0.6rem;
-}
-
-.progress-bar-container {
-    width: 100%;
-    height: 10px;
-    background: rgba(255, 255, 255, 0.05);
-    border-radius: 50px;
-    overflow: hidden;
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    margin-bottom: 2rem;
-}
-
-.progress-bar-fill {
-    width: 0%;
-    height: 100%;
-    background: linear-gradient(90deg, var(--primary-cyan) 0%, var(--accent-purple) 100%);
-    box-shadow: var(--glow-cyan);
-    border-radius: 50px;
-    transition: width 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-.stat-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 1.5rem;
-}
-
-.stat-box {
-    background: rgba(255, 255, 255, 0.02);
-    border: 1px solid rgba(255, 255, 255, 0.05);
-    border-radius: 10px;
-    padding: 1.2rem;
-    text-align: center;
-}
-
-.box-label {
-    font-size: 0.8rem;
-    color: var(--text-muted);
-    display: block;
-    margin-bottom: 0.5rem;
-}
-
-.box-value {
-    font-family: var(--font-ancient);
-    font-size: 1.6rem;
-    font-weight: 700;
-}
-
-.text-gold {
-    color: var(--primary-gold) !important;
-    text-shadow: var(--glow-gold);
-}
-
-.text-cyan {
-    color: var(--primary-cyan) !important;
-    text-shadow: var(--glow-cyan);
-}
-
-/* Bàn Tu Luyện Console */
-.console-card {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-}
-
-.console-header {
-    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-    padding-bottom: 1rem;
-    margin-bottom: 1.5rem;
-}
-
-.console-header h4 {
-    font-family: var(--font-modern);
-    font-weight: 700;
-    color: var(--primary-cyan);
-    letter-spacing: 2px;
-    font-size: 1rem;
-}
-
-.console-body {
-    flex-grow: 1;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-}
-
-.console-log {
-    font-family: monospace;
-    background: rgba(18, 110, 84, 0.03);
-    border: 1px solid rgba(18, 110, 84, 0.1);
-    border-radius: 10px;
-    padding: 1.8rem;
-    color: #126e54; /* Jade Green text */
-    font-size: 1.05rem;
-    line-height: 1.7;
-    min-height: 150px;
-    margin-bottom: 2rem;
-    box-shadow: inset 0 2px 8px rgba(19, 56, 59, 0.03);
-    transition: all 0.3s ease;
-}
-
-.console-log.success {
-    color: #b8860b;
-    border-color: rgba(184, 134, 11, 0.25);
-}
-
-.console-log.failure {
-    color: #a62629;
-    border-color: rgba(166, 38, 41, 0.25);
-}
-
-.console-actions {
-    display: flex;
-    gap: 1rem;
-    flex-wrap: wrap;
-}
-
-.console-actions button {
-    flex: 1;
-}
-
-/* Nút Bị Vô Hiệu Hóa */
-.btn-secondary.disabled {
-    opacity: 0.3;
-    cursor: not-allowed;
-    pointer-events: none;
+.metric-pill-label {
+  font-size: 0.8rem;
+  color: var(--text-muted);
 }
 
 /* ==========================================================================
-   5.2 Phân Khu Ma Sói Thần Bí (Werewolf Sect)
+   WIKI ARTICLES CONTAINER & CARDS
    ========================================================================== */
-/* đã cấu hình chung cho tất cả sections */
-.section-masoi {
-    /* Sử dụng nền sương chung */
+.wiki-content-body {
+  padding: 40px;
+  max-width: 1200px;
 }
 
-.cards-grid {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 2rem;
+.wiki-article {
+  margin-bottom: 70px;
+  scroll-margin-top: calc(var(--header-height) + 30px);
 }
 
-.tilt-card-wrapper {
-    perspective: 1000px;
-    height: 380px;
-    cursor: pointer;
+.article-header {
+  margin-bottom: 24px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid var(--border-subtle);
 }
 
-.role-card {
-    position: relative;
-    width: 100%;
-    height: 100%;
-    transform-style: preserve-3d;
-    transition: transform 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+.article-badge {
+  display: inline-block;
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  padding: 3px 10px;
+  border-radius: var(--radius-full);
+  margin-bottom: 8px;
 }
 
-.tilt-card-wrapper:hover .role-card.flipped {
-    /* Đừng xoay lật nếu đã lật, để click lật hẳn */
+.badge-gold {
+  background: rgba(212, 175, 55, 0.15);
+  border: 1px solid var(--border-gold);
+  color: var(--gold-lighter);
 }
 
-.role-card.flipped {
-    transform: rotateY(180deg);
+.badge-cyan {
+  background: rgba(0, 240, 255, 0.15);
+  border: 1px solid var(--border-cyan);
+  color: var(--cyan-light);
 }
 
-.card-face {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    backface-visibility: hidden;
-    border-radius: 14px;
-    border: 1px solid var(--glass-border);
-    padding: 2.5rem 1.5rem;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    box-shadow: var(--glass-shadow);
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-    background: rgba(255, 255, 255, 0.6);
+.badge-emerald {
+  background: rgba(16, 185, 129, 0.15);
+  border: 1px solid var(--border-emerald);
+  color: var(--emerald-light);
 }
 
-.card-front {
+.badge-crimson {
+  background: rgba(239, 68, 68, 0.15);
+  border: 1px solid rgba(239, 68, 68, 0.4);
+  color: var(--crimson-light);
 }
 
-.card-back {
-    transform: rotateY(180deg);
-    border-color: var(--glass-border-gold);
+.badge-purple {
+  background: rgba(168, 85, 247, 0.15);
+  border: 1px solid rgba(168, 85, 247, 0.4);
+  color: var(--purple-light);
 }
 
-.card-glow {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    border-radius: 14px;
-    box-shadow: inset 0 0 20px rgba(0, 255, 210, 0.1);
-    pointer-events: none;
-    transition: opacity 0.3s ease;
+.article-title {
+  font-family: var(--font-serif);
+  font-size: 1.9rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 8px;
 }
 
-.tilt-card-wrapper:hover .card-glow {
-    box-shadow: inset 0 0 30px rgba(0, 255, 210, 0.25);
+.article-desc {
+  font-size: 0.98rem;
+  color: var(--text-muted);
+  line-height: 1.6;
 }
 
-.role-icon {
-    font-size: 4rem;
-    margin-bottom: 2rem;
-    filter: drop-shadow(0 0 15px rgba(0, 255, 210, 0.2));
-    transition: transform 0.5s ease;
+/* Callout Boxes (UI/UX Pro Max alerts) */
+.callout {
+  padding: 18px 20px;
+  border-radius: var(--radius-md);
+  margin: 18px 0;
+  border-left: 4px solid;
+  font-size: 0.92rem;
+  line-height: 1.6;
 }
 
-.tilt-card-wrapper:hover .role-icon {
-    transform: scale(1.15) translateY(-5px);
+.callout-title {
+  font-weight: 700;
+  font-size: 1rem;
+  margin-bottom: 6px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
 }
 
-.card-front h3 {
-    font-size: 1.7rem;
-    color: var(--text-light);
-    margin-bottom: 0.5rem;
+.callout-danger {
+  background: rgba(239, 68, 68, 0.08);
+  border-color: var(--crimson-primary);
+  color: #fee2e2;
+}
+.callout-danger .callout-title { color: var(--crimson-light); }
+
+.callout-warning {
+  background: rgba(212, 175, 55, 0.08);
+  border-color: var(--gold-primary);
+  color: #fef3c7;
+}
+.callout-warning .callout-title { color: var(--gold-lighter); }
+
+.callout-success {
+  background: rgba(16, 185, 129, 0.08);
+  border-color: var(--emerald-primary);
+  color: #d1fae5;
+}
+.callout-success .callout-title { color: var(--emerald-light); }
+
+.callout-info {
+  background: rgba(0, 240, 255, 0.08);
+  border-color: var(--cyan-primary);
+  color: #e0f2fe;
+}
+.callout-info .callout-title { color: var(--cyan-light); }
+
+/* Common Grids */
+.grid-2 {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 20px;
 }
 
-.role-title-sub {
-    font-family: var(--font-modern);
-    font-size: 0.8rem;
-    color: var(--primary-cyan);
-    text-transform: uppercase;
-    letter-spacing: 1px;
+.grid-3 {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 20px;
 }
 
-.card-back h4 {
-    font-size: 1.4rem;
-    color: var(--primary-gold);
-    margin-bottom: 1.2rem;
-    text-shadow: var(--glow-gold);
+.grid-4 {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 16px;
 }
 
-.card-back p {
-    font-size: 0.9rem;
-    color: var(--text-muted);
-    line-height: 1.6;
-    margin-bottom: 2rem;
+.wiki-box {
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-lg);
+  padding: 22px;
+  transition: all 0.25s ease;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  position: relative;
 }
 
-.role-stat {
-    font-family: var(--font-ancient);
-    font-size: 1.05rem;
-    color: var(--primary-cyan);
+.wiki-box:hover {
+  background: var(--bg-card-hover);
+  border-color: var(--border-gold);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md), var(--shadow-gold);
+}
+
+.wiki-box-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 14px;
+}
+
+.wiki-box-icon {
+  width: 38px;
+  height: 38px;
+  border-radius: var(--radius-md);
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--border-subtle);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.25rem;
+  flex-shrink: 0;
+}
+
+.wiki-box-title {
+  font-family: var(--font-serif);
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--text-primary);
 }
 
 /* ==========================================================================
-   5.3 Phân Khu Đố Vui Linh Đài (Quiz Scrolls)
+   INTERACTIVE TOOLS (ROOT MATRIX & CALCULATOR)
    ========================================================================== */
-.section-dovui {
-    background: transparent;
+.tool-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+  background: var(--bg-surface);
+  border: 1px solid var(--border-gold);
+  border-radius: var(--radius-lg);
+  padding: 28px;
+  box-shadow: var(--shadow-gold);
 }
 
-.quiz-scroll-container {
-    max-width: 800px;
-    margin: 0 auto;
-    position: relative;
-    padding: 2rem 0;
+@media (max-width: 900px) {
+  .tool-container {
+    grid-template-columns: 1fr;
+  }
 }
 
-/* Trục cuộn giấy cổ phong */
-.scroll-border {
-    height: 35px;
-    background: linear-gradient(90deg, #3d2208 0%, #b47f3b 20%, #ffdf8d 50%, #b47f3b 80%, #3d2208 100%);
-    border-radius: 8px;
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5), inset 0 2px 5px rgba(255, 255, 255, 0.3);
-    position: relative;
-    z-index: 5;
+.root-buttons-flex {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  margin-top: 14px;
 }
 
-.scroll-border::before, .scroll-border::after {
-    content: '';
-    position: absolute;
-    top: -5px;
-    width: 20px;
-    height: 45px;
-    background: #1e1003;
-    border: 2px solid #ffdf8d;
-    border-radius: 5px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+.root-btn {
+  padding: 12px;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border-subtle);
+  background: rgba(255, 255, 255, 0.03);
+  color: var(--text-primary);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  font-weight: 600;
+  font-size: 0.92rem;
+  transition: all 0.2s ease;
 }
 
-.scroll-border.top::before { left: -10px; }
-.scroll-border.top::after { right: -10px; }
-.scroll-border.bottom::before { left: -10px; }
-.scroll-border.bottom::after { right: -10px; }
-
-.quiz-scroll-content {
-    background: linear-gradient(rgba(255, 255, 255, 0.94), rgba(255, 255, 255, 0.94)), url('content_bg.png');
-    background-size: cover;
-    border-left: 4px solid #8c6a47;
-    border-right: 4px solid #8c6a47;
-    margin: -5px 15px;
-    padding: 4rem 3.5rem;
-    box-shadow: 0 15px 35px rgba(19, 56, 59, 0.05);
-    position: relative;
-    z-index: 2;
+.root-btn:hover {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: var(--border-gold);
 }
 
-.quiz-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 2.5rem;
+.root-btn.selected {
+  background: rgba(212, 175, 55, 0.18);
+  border-color: var(--gold-light);
+  color: var(--gold-lighter);
+  box-shadow: 0 0 15px var(--gold-glow);
 }
 
-.quiz-header span {
-    font-family: var(--font-modern);
-    font-weight: 700;
-    color: var(--primary-cyan);
-    font-size: 0.9rem;
-    letter-spacing: 1px;
+.root-btn .elem-icon {
+  font-size: 1.6rem;
 }
 
-.quiz-timer-bar {
-    width: 150px;
-    height: 6px;
-    background: rgba(255, 255, 255, 0.05);
-    border-radius: 50px;
-    overflow: hidden;
-    border: 1px solid rgba(255, 255, 255, 0.1);
+.stat-bar-group {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin-bottom: 12px;
 }
 
-.quiz-timer-fill {
-    width: 100%;
-    height: 100%;
-    background: var(--primary-cyan);
-    border-radius: 50px;
+.stat-bar-info {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.85rem;
 }
 
-.quiz-question-text {
-    font-size: 1.4rem;
+.stat-bar-track {
+  width: 100%;
+  height: 8px;
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: var(--radius-full);
+  overflow: hidden;
 }
 
-.quiz-question {
-    font-size: 1.55rem;
-    font-family: var(--font-ancient);
-    color: var(--text-light);
-    line-height: 1.7;
-    margin-bottom: 3rem;
-    min-height: 80px;
-}
-
-.quiz-options-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 1.5rem;
-}
-
-.quiz-opt {
-    background: rgba(44, 30, 17, 0.03);
-    border: 1px solid rgba(92, 74, 55, 0.15);
-    color: var(--text-light);
-    padding: 1.2rem;
-    border-radius: 12px;
-    cursor: pointer;
-    font-family: var(--font-content);
-    font-size: 1rem;
-    text-align: left;
-    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-.quiz-opt:hover {
-    background: rgba(0, 255, 210, 0.05);
-    border-color: var(--primary-cyan);
-    box-shadow: inset 0 0 10px rgba(0, 255, 210, 0.1);
-    transform: translateY(-2px);
-}
-
-/* Các lớp phản hồi Đáp án */
-.quiz-opt.correct {
-    background: rgba(16, 185, 129, 0.15) !important;
-    border-color: #10b981 !important;
-    color: #10b981 !important;
-    box-shadow: 0 0 15px rgba(16, 185, 129, 0.2);
-}
-
-.quiz-opt.wrong {
-    background: rgba(239, 68, 68, 0.15) !important;
-    border-color: #ef4444 !important;
-    color: #ef4444 !important;
-    box-shadow: 0 0 15px rgba(239, 68, 68, 0.2);
-}
-
-.quiz-feedback {
-    margin-top: 2.5rem;
-    font-family: var(--font-ancient);
-    font-size: 1.2rem;
-    text-align: center;
-    min-height: 30px;
-    font-weight: 700;
-}
-
-.quiz-feedback.correct-txt { color: #10b981; }
-.quiz-feedback.wrong-txt { color: #ef4444; }
-
-/* Linh Thạch Bay Lên Tụ Tán */
-.floating-qi-exp {
-    position: absolute;
-    color: var(--primary-gold);
-    font-family: var(--font-ancient);
-    font-weight: 700;
-    font-size: 1.5rem;
-    pointer-events: none;
-    z-index: 100;
-    animation: floatGoldUp 1.2s ease-out forwards;
-    text-shadow: var(--glow-gold);
-}
-
-@keyframes floatGoldUp {
-    0% {
-        transform: translateY(0) scale(0.8);
-        opacity: 1;
-    }
-    100% {
-        transform: translateY(-80px) scale(1.2);
-        opacity: 0;
-    }
+.stat-bar-fill {
+  height: 100%;
+  border-radius: var(--radius-full);
+  background: linear-gradient(90deg, var(--gold-dark), var(--gold-light));
+  transition: width 0.4s ease-out;
 }
 
 /* ==========================================================================
-   5.4 Vòng Quay Số Phận (Truth or Dare Wheel)
+   BREAKTHROUGH PATHS TABLE
    ========================================================================== */
-/* đã cấu hình chung */
-.section-noihaylam {
+.table-responsive {
+  width: 100%;
+  overflow-x: auto;
+  margin: 18px 0;
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
 }
 
-.wheel-flex {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 5rem;
-    max-width: 1000px;
-    margin: 0 auto;
+.wiki-table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+  font-size: 0.88rem;
 }
 
-.wheel-wrapper {
-    position: relative;
-    width: min(450px, 100%);
-    aspect-ratio: 1;
-    height: auto;
+.wiki-table th, .wiki-table td {
+  padding: 14px 18px;
+  border-bottom: 1px solid var(--border-subtle);
 }
 
-.wheel-arrow {
-    position: absolute;
-    top: -22px;
-    left: 50%;
-    transform: translateX(-50%);
-    font-size: 2.5rem;
-    z-index: 20;
-    filter: drop-shadow(0 4px 10px rgba(0, 0, 0, 0.5));
+.wiki-table th {
+  background: rgba(255, 255, 255, 0.04);
+  color: var(--text-muted);
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
 }
 
-#destiny-wheel {
-    width: 100%;
-    height: 100%;
-    display: block;
-    border-radius: 50%;
-    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.6), 0 0 0 10px rgba(255, 255, 255, 0.02), 0 0 30px rgba(0, 255, 210, 0.15);
-    background: #000;
-    z-index: 10;
+.wiki-table tr:last-child td {
+  border-bottom: none;
 }
 
-.wheel-center-btn {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 90px;
-    height: 90px;
-    border-radius: 50%;
-    background: linear-gradient(135deg, var(--primary-gold) 0%, #e67e22 100%);
-    border: 5px solid var(--bg-darkest);
-    color: var(--bg-darkest);
-    font-family: var(--font-ancient);
-    font-weight: 700;
-    font-size: 1.15rem;
-    cursor: pointer;
-    z-index: 15;
-    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.5), var(--glow-gold);
-    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-}
-
-.wheel-center-btn:hover {
-    transform: translate(-50%, -50%) scale(1.1);
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.6), 0 0 25px var(--primary-gold);
-}
-
-.wheel-result-card {
-    flex: 1;
-    background: linear-gradient(rgba(255, 255, 255, 0.94), rgba(255, 255, 255, 0.94)), url('content_bg.png');
-    background-size: cover;
-    background-position: center;
-    border: 1px solid var(--glass-border-gold);
-    border-radius: 14px;
-    padding: 3rem;
-    box-shadow: var(--glass-shadow);
-    max-width: 450px;
-    position: relative;
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-}
-
-.result-header {
-    border-bottom: 1px solid rgba(255, 215, 0, 0.1);
-    padding-bottom: 1rem;
-    margin-bottom: 2rem;
-}
-
-.result-header h4 {
-    font-family: var(--font-modern);
-    font-weight: 700;
-    color: var(--primary-gold);
-    letter-spacing: 2px;
-    font-size: 1rem;
-}
-
-.result-body h3 {
-    font-size: 1.8rem;
-    margin-bottom: 1.5rem;
-    min-height: 45px;
-}
-
-.result-body p {
-    font-family: var(--font-content);
-    color: var(--text-muted);
-    font-size: 1.05rem;
-    line-height: 1.7;
-    min-height: 100px;
+.wiki-table tr:hover td {
+  background: rgba(255, 255, 255, 0.02);
 }
 
 /* ==========================================================================
-   5.5 Hạc Giấy Nguyện Ước (Confessions Wish Tree)
+   20 REALMS MATRIX COMPACT CARDS
    ========================================================================== */
-.section-confession {
-    background: transparent;
+.realm-card-mini {
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  padding: 16px;
+  transition: all 0.2s ease;
 }
 
-.confession-layout {
-    display: grid;
-    grid-template-columns: 1fr 1.2fr;
-    gap: 4rem;
-    align-items: start;
+.realm-card-mini:hover {
+  border-color: var(--border-gold);
+  background: var(--bg-card-hover);
+  transform: translateY(-2px);
 }
 
-.confession-card {
-    background: linear-gradient(rgba(255, 255, 255, 0.94), rgba(255, 255, 255, 0.94)), url('content_bg.png');
-    background-size: cover;
-    background-position: center;
-    border: 1px solid var(--glass-border);
-    border-radius: 14px;
-    padding: 3rem 2.5rem;
-    box-shadow: var(--glass-shadow);
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-    position: relative;
-    overflow: hidden;
+.realm-card-mini-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 6px;
 }
 
-.confession-card h4 {
-    font-family: var(--font-modern);
-    font-weight: 700;
-    color: var(--primary-cyan);
-    letter-spacing: 2px;
-    margin-bottom: 2rem;
-    font-size: 1rem;
+.realm-idx {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: var(--gold-light);
+  background: rgba(212, 175, 55, 0.1);
+  padding: 2px 6px;
+  border-radius: var(--radius-sm);
 }
 
-.form-group {
-    margin-bottom: 2rem;
-    position: relative;
+.realm-name {
+  font-family: var(--font-serif);
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--text-primary);
 }
 
-.form-group label {
-    display: block;
-    color: var(--text-muted);
-    font-size: 0.9rem;
-    margin-bottom: 0.8rem;
-}
-
-.form-group textarea {
-    width: 100%;
-    min-height: 150px;
-    background: rgba(18, 110, 84, 0.02);
-    border: 1px solid rgba(18, 110, 84, 0.12);
-    border-radius: 12px;
-    padding: 1.2rem;
-    color: var(--text-light);
-    font-family: var(--font-content);
-    font-size: 1rem;
-    resize: none;
-    outline: none;
-    transition: all 0.3s ease;
-}
-
-.form-group textarea:focus {
-    border-color: var(--primary-cyan);
-    box-shadow: inset 0 0 10px rgba(0, 255, 210, 0.1), var(--glow-cyan);
-}
-
-.char-counter {
-    position: absolute;
-    bottom: -22px;
-    right: 0;
-    font-size: 0.8rem;
-    color: var(--text-muted);
-}
-
-/* Bảng Confession bay lơ lửng */
-.confession-board {
-    background: linear-gradient(rgba(255, 255, 255, 0.95), rgba(255, 255, 255, 0.95)), url('content_bg.png');
-    background-size: cover;
-    background-position: center;
-    border: 1px solid rgba(92, 74, 55, 0.1);
-    border-radius: 14px;
-    padding: 3rem;
-    min-height: 400px;
-    box-shadow: inset 0 0 20px rgba(19, 56, 59, 0.03);
-    display: flex;
-    flex-direction: column;
-}
-
-.board-header {
-    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-    padding-bottom: 1rem;
-    margin-bottom: 2rem;
-}
-
-.board-header h4 {
-    font-family: var(--font-modern);
-    font-weight: 700;
-    color: var(--text-muted);
-    letter-spacing: 2px;
-    font-size: 0.95rem;
-}
-
-.cranes-container {
-    flex-grow: 1;
-    display: flex;
-    flex-direction: column;
-    gap: 1.5rem;
-    overflow-y: auto;
-    max-height: 380px;
-    padding-right: 0.5rem;
-}
-
-/* Scrollbar tinh tế */
-.cranes-container::-webkit-scrollbar {
-    width: 6px;
-}
-.cranes-container::-webkit-scrollbar-track {
-    background: transparent;
-}
-.cranes-container::-webkit-scrollbar-thumb {
-    background: rgba(255, 255, 255, 0.05);
-    border-radius: 10px;
-}
-.cranes-container::-webkit-scrollbar-thumb:hover {
-    background: rgba(0, 255, 210, 0.2);
-}
-
-.crane-tag {
-    background: rgba(255, 255, 255, 0.7);
-    border: 1px solid rgba(92, 74, 55, 0.12);
-    border-radius: 10px;
-    padding: 1.2rem 1.8rem;
-    display: flex;
-    gap: 1.2rem;
-    align-items: center;
-    animation: fadeCraneIn 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-    transition: all 0.3s ease;
-    box-shadow: 0 4px 12px rgba(61, 47, 33, 0.03);
-}
-
-.crane-tag:hover {
-    border-color: rgba(0, 255, 210, 0.2);
-    background: rgba(0, 255, 210, 0.01);
-    transform: translateX(3px);
-}
-
-@keyframes fadeCraneIn {
-    0% {
-        opacity: 0;
-        transform: translateY(15px);
-    }
-    100% {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-.crane-icon {
-    font-size: 1.8rem;
-    filter: drop-shadow(0 0 5px var(--primary-cyan));
-    animation: wingFlap 2s ease-in-out infinite;
-}
-
-@keyframes wingFlap {
-    0%, 100% { transform: translateY(0) scaleY(1); }
-    50% { transform: translateY(-5px) scaleY(0.8); }
-}
-
-.crane-tag p {
-    font-family: var(--font-content);
-    color: var(--text-light);
-    font-size: 0.95rem;
-    font-style: italic;
-    line-height: 1.6;
-}
-
-/* Hiệu Ứng Hạc Giấy Bay Lên Màn Hình */
-.flying-crane-sprite {
-    position: fixed;
-    font-size: 2.2rem;
-    pointer-events: none;
-    z-index: 9999;
-    filter: drop-shadow(0 0 15px var(--primary-cyan));
-    animation: flightPath 2.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
-}
-
-@keyframes flightPath {
-    0% {
-        transform: translate(var(--startX), var(--startY)) scale(1) rotate(0deg);
-        opacity: 1;
-    }
-    50% {
-        transform: translate(calc(var(--startX) + 150px), calc(var(--startY) - 200px)) scale(1.3) rotate(-20deg);
-        opacity: 0.8;
-    }
-    100% {
-        transform: translate(calc(var(--startX) + 400px), calc(var(--startY) - 500px)) scale(0.6) rotate(-45deg);
-        opacity: 0;
-    }
+.realm-exp {
+  font-size: 0.8rem;
+  color: var(--cyan-light);
 }
 
 /* ==========================================================================
-   5.6 Độ Tin Cậy Vừa Phải (Minimal Trust Section)
+   MODAL & OVERLAYS
    ========================================================================== */
-.section-trust {
-    /* Sử dụng nền sương chung */
-    padding: 5rem 0 6rem;
-    border-bottom: 1px solid rgba(18, 110, 84, 0.08);
+.modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.82);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  z-index: 2000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.25s ease;
 }
 
-.section-trust .section-header {
-    margin-bottom: 3.5rem;
+.modal-backdrop.open {
+  opacity: 1;
+  pointer-events: auto;
 }
 
-.trust-flex-cards {
-    display: flex;
-    justify-content: center;
-    gap: 3rem;
-    max-width: 900px;
-    margin: 0 auto;
+.modal-dialog {
+  background: var(--bg-surface);
+  border: 1px solid var(--border-gold);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-lg), var(--shadow-gold);
+  width: 100%;
+  max-width: 650px;
+  max-height: 85vh;
+  overflow-y: auto;
+  transform: scale(0.95);
+  transition: transform 0.25s ease;
 }
 
-.trust-badge-mini {
-    flex: 1;
-    background: var(--glass-bg);
-    border: 1px solid var(--glass-border);
-    border-radius: 12px;
-    padding: 1.5rem 2rem;
-    display: flex;
-    align-items: center;
-    gap: 1.5rem;
-    text-decoration: none;
-    color: var(--text-light);
-    box-shadow: var(--glass-shadow);
-    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-    position: relative;
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
+.modal-backdrop.open .modal-dialog {
+  transform: scale(1);
 }
 
-.trust-badge-mini.topgg {
-    border-color: var(--glass-border-gold);
+.modal-header {
+  padding: 18px 24px;
+  border-bottom: 1px solid var(--border-subtle);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 
-.trust-badge-mini:hover {
-    transform: translateY(-5px);
+.modal-title {
+  font-family: var(--font-serif);
+  font-size: 1.35rem;
+  color: var(--gold-light);
 }
 
-.trust-badge-mini.topgg:hover {
-    border-color: var(--primary-gold);
-    box-shadow: 0 8px 30px rgba(255, 215, 0, 0.08);
+.modal-close-btn {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.08);
+  color: #fff;
+  font-size: 1.2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
 }
 
-.trust-badge-mini.discovery:hover {
-    border-color: #5865f2;
-    box-shadow: 0 8px 30px rgba(88, 101, 242, 0.08);
+.modal-close-btn:hover {
+  background: rgba(239, 68, 68, 0.4);
 }
 
-.trust-logo-wrapper {
-    width: 50px;
-    height: 50px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+.modal-body {
+  padding: 24px;
 }
 
-.trust-logo-wrapper img {
-    max-width: 100%;
-    max-height: 100%;
-    filter: drop-shadow(0 2px 8px rgba(0, 0, 0, 0.4));
+/* Toasts */
+#toast-container {
+  position: fixed;
+  bottom: 24px;
+  left: 24px;
+  z-index: 9999;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  pointer-events: none;
 }
 
-.trust-meta {
-    flex-grow: 1;
+.toast {
+  pointer-events: auto;
+  background: rgba(16, 24, 39, 0.96);
+  border: 1px solid var(--gold-primary);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.6), var(--shadow-gold);
+  color: var(--text-primary);
+  padding: 12px 20px;
+  border-radius: var(--radius-md);
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  animation: toastIn 0.3s forwards, toastOut 0.3s forwards 2.7s;
 }
 
-.trust-meta h4 {
-    font-family: var(--font-modern);
-    font-weight: 700;
-    font-size: 1rem;
-    margin-bottom: 0.3rem;
+@keyframes toastIn {
+  from { transform: translateY(20px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
 }
 
-.trust-badge-mini.topgg h4 {
-    color: var(--primary-gold);
+@keyframes toastOut {
+  to { transform: translateY(20px); opacity: 0; }
 }
 
-.trust-badge-mini.discovery h4 {
-    color: #5865f2;
-}
-
-.trust-meta p {
-    font-size: 0.8rem;
-    color: var(--text-muted);
-    line-height: 1.4;
-}
-
-.arrow-go {
-    font-size: 1.2rem;
-    color: var(--text-muted);
-    transition: all 0.3s ease;
-}
-
-.trust-badge-mini:hover .arrow-go {
-    color: var(--primary-cyan);
-    transform: translateX(3px) translateY(-3px);
-}
-
-/* ==========================================================================
-   6. Chân Trang (Footer)
-   ========================================================================== */
-.footer {
-    background: rgba(19, 56, 59, 0.88);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-    padding: 3.5rem 0 2rem;
-    border-top: 1px solid rgba(18, 110, 84, 0.2);
-    color: rgba(238, 245, 246, 0.9);
-    position: relative;
-    z-index: 20;
-}
-
-.footer-container {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.footer-links {
-    display: flex;
-    gap: 2.2rem;
-}
-
-.footer-links a {
-    color: var(--text-muted);
-    text-decoration: none;
-    transition: color 0.3s ease;
-}
-
-.footer-links a:hover {
-    color: var(--primary-cyan);
-    text-shadow: var(--glow-cyan);
+/* FOOTER */
+.wiki-footer {
+  border-top: 1px solid var(--border-subtle);
+  background: #04070c;
+  padding: 40px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 20px;
+  font-size: 0.88rem;
+  color: var(--text-dim);
 }
 
 /* ==========================================================================
-   7. Hiệu Ứng Cuộn Animate On Scroll
-   ========================================================================== */
-.animate-on-scroll {
-    opacity: 1;
-    transform: translateY(0);
-    transition: transform 0.5s ease, opacity 0.5s ease;
-}
-
-.animate-on-scroll.active {
-    opacity: 1;
-    transform: translateY(0);
-}
-
-/* Delay Hợp Lý */
-.fade-in {
-    opacity: 0;
-    transform: translateY(15px);
-    animation: fadeIntro 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-}
-
-.delay-1 { animation-delay: 0.2s; }
-.delay-2 { animation-delay: 0.4s; }
-.delay-3 { animation-delay: 0.6s; }
-
-@keyframes fadeIntro {
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-/* ==========================================================================
-   8. Tương Thích Thiết Bị (Responsive Design)
+   RESPONSIVE DESIGN (375px, 768px, 1024px)
    ========================================================================== */
 @media (max-width: 1024px) {
-    .navbar-container {
-        padding: 0 1.5rem;
-    }
+  .wiki-sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    transform: translateX(-100%);
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 10px 0 30px rgba(0, 0, 0, 0.8);
+  }
 
-    .nav-left {
-        gap: 0.7rem;
-    }
+  .wiki-sidebar.mobile-open {
+    transform: translateX(0);
+  }
 
-    .nav-item {
-        font-size: 0.9rem;
-    }
-    
-    .hero h1 {
-        font-size: 3.8rem;
-    }
-    
-    .tutien-grid {
-        grid-template-columns: 1fr;
-        gap: 2.5rem;
-    }
-    
-    .cards-grid {
-        grid-template-columns: 1fr 1fr;
-        gap: 2rem;
-    }
-    
-    .wheel-flex {
-        flex-direction: column;
-        gap: 4rem;
-    }
-    
-    .confession-layout {
-        grid-template-columns: 1fr;
-        gap: 3rem;
-    }
+  .mobile-menu-btn {
+    display: block;
+  }
+
+  .wiki-content-body {
+    padding: 24px 20px;
+  }
+
+  .wiki-topbar {
+    padding: 0 20px;
+  }
+
+  .wiki-hero-banner {
+    padding: 36px 20px 30px;
+  }
+
+  .sidebar-backdrop {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.7);
+    z-index: 999;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+  }
+
+  .sidebar-backdrop.active {
+    opacity: 1;
+    pointer-events: auto;
+  }
+}
+
+@media (max-width: 640px) {
+  .topbar-right .btn-cmd span {
+    display: none;
+  }
+  
+  .root-buttons-flex {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .grid-2, .grid-3, .grid-4 {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* =============================================================================
+   NEW ENCYCLOPEDIA MODULE STYLES (Tàng Kinh Các, Bách Nghệ, Tọa Kỵ, Thần Thú, Gacha, Bản Đồ)
+   ============================================================================= */
+
+/* Sub Tabs Navigation */
+.sub-tabs {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-bottom: 20px;
+  border-bottom: 1px solid var(--border-subtle);
+  padding-bottom: 12px;
+}
+
+.sub-tab-btn {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid var(--border-subtle);
+  color: var(--text-muted);
+  padding: 8px 16px;
+  border-radius: var(--radius-full);
+  font-size: 0.85rem;
+  font-weight: 500;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  transition: all 0.2s ease;
+  font-family: inherit;
+}
+
+.sub-tab-btn:hover {
+  background: rgba(212, 168, 75, 0.1);
+  border-color: var(--gold-light);
+  color: var(--gold-lighter);
+  transform: translateY(-1px);
+}
+
+.sub-tab-btn.active {
+  background: linear-gradient(135deg, rgba(212, 168, 75, 0.25), rgba(184, 134, 11, 0.15));
+  border-color: var(--gold-primary);
+  color: #fff;
+  font-weight: 600;
+  box-shadow: 0 4px 12px rgba(212, 168, 75, 0.2);
+}
+
+/* Data Card System */
+.data-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-lg);
+  padding: 20px;
+  transition: all 0.25s ease;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.data-card:hover {
+  border-color: var(--gold-primary);
+  transform: translateY(-3px);
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.6), 0 0 20px var(--gold-glow);
+}
+
+/* Technique Cards */
+.technique-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.tech-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.tech-title {
+  font-family: var(--font-serif);
+  font-size: 1.08rem;
+  color: var(--gold-lighter);
+  margin-bottom: 4px;
+}
+
+.tech-element-badge {
+  font-size: 0.75rem;
+  padding: 3px 8px;
+  border-radius: var(--radius-sm);
+  font-weight: 600;
+  letter-spacing: 0.5px;
+}
+
+.element-kim { background: rgba(241, 196, 15, 0.15); color: #f1c40f; border: 1px solid rgba(241, 196, 15, 0.4); }
+.element-moc { background: rgba(46, 204, 113, 0.15); color: #2ecc71; border: 1px solid rgba(46, 204, 113, 0.4); }
+.element-thuy { background: rgba(52, 152, 219, 0.15); color: #3498db; border: 1px solid rgba(52, 152, 219, 0.4); }
+.element-hoa { background: rgba(231, 76, 60, 0.15); color: #e74c3c; border: 1px solid rgba(231, 76, 60, 0.4); }
+.element-tho { background: rgba(211, 84, 0, 0.15); color: #e67e22; border: 1px solid rgba(211, 84, 0, 0.4); }
+
+.tech-desc {
+  font-size: 0.86rem;
+  color: var(--text-secondary);
+  line-height: 1.6;
+  margin-bottom: 16px;
+  flex: 1;
+}
+
+.tech-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+  padding-top: 12px;
+  font-size: 0.8rem;
+  color: var(--text-muted);
+}
+
+/* Mount Showcase Cards */
+.mount-card {
+  text-align: center;
+  align-items: center;
+}
+
+.mount-img-box {
+  width: 120px;
+  height: 120px;
+  border-radius: var(--radius-full);
+  background: radial-gradient(circle, rgba(212, 168, 75, 0.15) 0%, rgba(10, 14, 23, 0.8) 70%);
+  border: 2px solid var(--border-gold);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 16px;
+  overflow: hidden;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
+}
+
+.mount-img-box img {
+  width: 90%;
+  height: 90%;
+  object-fit: contain;
+  transition: transform 0.3s ease;
+}
+
+.mount-card:hover .mount-img-box img {
+  transform: scale(1.1);
+}
+
+.mount-tier-badge {
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: var(--gold-light);
+  background: rgba(212, 168, 75, 0.12);
+  padding: 4px 12px;
+  border-radius: var(--radius-full);
+  margin-bottom: 8px;
+  display: inline-block;
+  border: 1px solid rgba(212, 168, 75, 0.3);
+}
+
+.mount-all-stat {
+  margin-top: 8px;
+  background: rgba(46, 204, 113, 0.1);
+  border: 1px solid rgba(46, 204, 113, 0.3);
+  color: #2ecc71;
+  font-weight: 600;
+  font-size: 0.8rem;
+  padding: 4px 10px;
+  border-radius: var(--radius-sm);
+  display: inline-block;
+}
+
+/* Sect Beast Showcase */
+.beast-card {
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+  align-items: center;
 }
 
 @media (max-width: 768px) {
-    body {
-        background-image: url('bg_mb.webp') !important; /* Ảnh nền dọc Mobile chạy suốt trang */
-        background-position: center top !important; /* Trả về đầu trang gốc */
-    }
-
-    .hero {
-        min-height: 100vh;
-        display: flex;
-        align-items: center;
-        padding: 7.5rem 0 4.5rem;
-        text-align: center;
-        background: transparent !important;
-    }
-
-    #spine-hero-bg {
-        display: none !important;
-    }
-
-    .container {
-        padding: 0 1rem;
-    }
-
-    .navbar {
-        padding: 0.75rem 0;
-    }
-
-    .navbar-container {
-        display: grid;
-        grid-template-columns: auto 44px;
-        gap: 0.75rem;
-    }
-
-    /* Navbar Tràn Màn Hình Di Động */
-    .mobile-toggle {
-        display: flex;
-        width: 44px;
-        height: 44px;
-        align-items: center;
-        justify-content: center;
-        justify-self: end;
-        border: 1px solid rgba(184, 134, 11, 0.25);
-        border-radius: 10px;
-        background: rgba(44, 30, 17, 0.03);
-    }
-    
-    .nav-left, .nav-right {
-        display: none; /* Sử dụng JS để mở rộng */
-    }
-    
-    .navbar.mobile-active .nav-left, 
-    .navbar.mobile-active .nav-right {
-        display: flex;
-        flex-direction: column;
-        grid-column: 1 / -1;
-        width: 100%;
-        text-align: left;
-        background: rgba(255, 255, 255, 0.98);
-        padding: 0.75rem;
-        border-top: 1px solid rgba(18, 110, 84, 0.1);
-        gap: 0.4rem;
-        border-radius: 12px;
-        box-shadow: 0 10px 30px rgba(19, 56, 59, 0.05);
-        animation: slideDownScroll 0.35s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-    }
-
-    @keyframes slideDownScroll {
-        from {
-            opacity: 0;
-            transform: translateY(-10px);
-        }
-        to {
-            opacity: 1;
-            transform: translateY(0);
-        }
-    }
-    
-    .navbar.mobile-active .navbar-container {
-        align-items: center;
-    }
-    
-    .navbar.mobile-active .logo {
-        margin: 0;
-        justify-content: flex-start;
-    }
-
-    .nav-item,
-    .invite-nav-btn {
-        width: 100%;
-        padding: 0.75rem 0.85rem;
-        border-radius: 8px;
-    }
-
-    .nav-item::after {
-        display: none;
-    }
-
-    .invite-nav-btn {
-        margin-top: 0.25rem;
-    }
-
-    .hero {
-        min-height: 100vh;
-        display: flex;
-        align-items: center;
-        padding: 7.5rem 0 4.5rem;
-        text-align: center;
-        background-position: 58% center;
-    }
-
-    .hero-overlay {
-        top: 0;
-        bottom: auto;
-        height: 100%;
-        background: linear-gradient(180deg, rgba(250, 246, 235, 0.4) 0%, rgba(250, 246, 235, 0.75) 68%, var(--bg-darkest) 100%);
-    }
-    
-    .hero-content {
-        text-align: center;
-        max-width: 100%;
-    }
-
-    .hero-subtitle {
-        font-size: 0.82rem;
-        letter-spacing: 1.8px;
-        margin-bottom: 1rem;
-    }
-
-    .hero h1 {
-        font-size: clamp(2.55rem, 13vw, 3.45rem);
-        margin-bottom: 1.2rem;
-    }
-
-    .hero p {
-        font-size: 1rem;
-        line-height: 1.7;
-        margin-bottom: 2rem;
-    }
-    
-    .hero-btns {
-        justify-content: center;
-        flex-direction: column;
-        width: 100%;
-    }
-    
-    .hero-btns a {
-        width: 100%;
-        text-align: center;
-    }
-
-    .floating-swords-container,
-    .clouds-layer {
-        display: none;
-    }
-
-    .section {
-        padding: 4.5rem 0;
-    }
-
-    .section-header {
-        margin-bottom: 2.6rem;
-    }
-
-    .section-title {
-        font-size: clamp(2rem, 8vw, 2.45rem);
-    }
-
-    .section-subtitle {
-        font-size: 1rem;
-    }
-
-    .badge {
-        max-width: 100%;
-        font-size: 0.72rem;
-        letter-spacing: 1px;
-        line-height: 1.35;
-    }
-
-    .tutien-card,
-    .confession-card,
-    .wheel-result-card {
-        padding: 1.35rem;
-    }
-
-    .profile-header {
-        align-items: flex-start;
-        gap: 1rem;
-    }
-
-    .avatar-container {
-        width: 68px;
-        height: 68px;
-        flex: 0 0 68px;
-    }
-
-    .profile-meta h3 {
-        font-size: 1.35rem;
-    }
-
-    .stat-grid,
-    .cards-grid,
-    .quiz-options-grid {
-        grid-template-columns: 1fr;
-    }
-
-    .stat-grid {
-        gap: 0.9rem;
-    }
-
-    .console-log {
-        padding: 1rem;
-        font-size: 0.92rem;
-        min-height: 130px;
-    }
-
-    .console-actions {
-        flex-direction: column;
-    }
-
-    .console-actions button {
-        width: 100%;
-    }
-
-    .tilt-card-wrapper {
-        height: 300px;
-    }
-
-    .card-face {
-        padding: 1.5rem 1rem;
-    }
-
-    .role-icon {
-        font-size: 3rem;
-        margin-bottom: 1.2rem;
-    }
-
-    .quiz-scroll-content {
-        margin: -4px 8px;
-        padding: 2rem 1.1rem;
-    }
-
-    .scroll-border {
-        height: 22px;
-        border-radius: 7px;
-    }
-
-    .scroll-border::before, 
-    .scroll-border::after {
-        width: 12px;
-        height: 30px;
-    }
-
-    .quiz-header {
-        align-items: flex-start;
-        flex-direction: column;
-        gap: 0.85rem;
-        margin-bottom: 1.6rem;
-    }
-
-    .quiz-timer-bar {
-        width: 100%;
-    }
-
-    .quiz-question {
-        font-size: 1.18rem;
-        min-height: auto;
-        margin-bottom: 1.7rem;
-    }
-
-    .quiz-opt {
-        padding: 1rem;
-        font-size: 0.95rem;
-    }
-
-    .wheel-wrapper {
-        width: min(320px, calc(100vw - 2rem));
-    }
-
-    .wheel-flex {
-        gap: 2rem;
-    }
-
-    .wheel-center-btn {
-        width: 70px;
-        height: 70px;
-        font-size: 0.95rem;
-    }
-
-    .trust-flex-cards {
-        flex-direction: column;
-        gap: 1.5rem;
-        padding: 0;
-    }
-
-    .trust-badge-mini {
-        padding: 1rem;
-        gap: 1rem;
-        align-items: flex-start;
-    }
-
-    .confession-layout {
-        gap: 2rem;
-    }
-
-    .confession-board {
-        padding: 1.25rem;
-        min-height: 320px;
-    }
-
-    .crane-tag {
-        align-items: flex-start;
-        padding: 1rem;
-        gap: 0.8rem;
-    }
-
-    .footer-container {
-        flex-direction: column;
-        gap: 1.5rem;
-        text-align: center;
-    }
-
-    .footer-links {
-        justify-content: center;
-        flex-wrap: wrap;
-        gap: 1rem 1.4rem;
-    }
+  .beast-card {
+    flex-direction: column;
+    text-align: center;
+  }
 }
 
-@media (max-width: 480px) {
-    .container {
-        padding: 0 0.85rem;
-    }
-
-    .logo-img {
-        width: 38px;
-        height: 38px;
-    }
-
-    .btn-primary,
-    .btn-secondary {
-        width: 100%;
-        padding-left: 1rem;
-        padding-right: 1rem;
-    }
-
-    .btn-large {
-        font-size: 0.95rem;
-    }
-
-    .hero {
-        padding-top: 6.8rem;
-    }
-
-    .hero p {
-        font-size: 0.95rem;
-    }
-
-    .section {
-        padding: 3.8rem 0;
-    }
-
-    .profile-header {
-        flex-direction: column;
-        align-items: center;
-        text-align: center;
-    }
-
-    .stat-row {
-        gap: 1rem;
-    }
-
-    .box-label {
-        min-height: 2.2em;
-    }
-
-    .quiz-scroll-container {
-        padding: 1rem 0;
-    }
-
-    .wheel-wrapper {
-        width: min(300px, calc(100vw - 1.7rem));
-    }
-
-    .wheel-arrow {
-        top: -16px;
-        font-size: 1.8rem;
-    }
-
-    .result-body h3 {
-        font-size: 1.35rem;
-        min-height: auto;
-    }
-
-    .result-body p {
-        min-height: auto;
-        font-size: 0.95rem;
-    }
-
-    .trust-badge-mini {
-        display: grid;
-        grid-template-columns: 42px 1fr auto;
-    }
-
-    .trust-logo-wrapper {
-        width: 42px;
-        height: 42px;
-    }
+.beast-img-wrap {
+  width: 140px;
+  height: 140px;
+  min-width: 140px;
+  border-radius: var(--radius-lg);
+  background: rgba(0, 0, 0, 0.5);
+  border: 1px solid var(--border-gold);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
 }
 
-@media (prefers-reduced-motion: reduce) {
-    *,
-    *::before,
-    *::after {
-        animation-duration: 0.01ms !important;
-        animation-iteration-count: 1 !important;
-        scroll-behavior: auto !important;
-        transition-duration: 0.01ms !important;
-    }
+.beast-img-wrap img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+/* Gacha Painting Cards */
+.painting-card {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+}
+
+.painting-thumb {
+  width: 90px;
+  height: 90px;
+  min-width: 90px;
+  border-radius: var(--radius-md);
+  border: 2px solid var(--border-subtle);
+  overflow: hidden;
+  background: #000;
+}
+
+.painting-thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Crafting Recipe Grid */
+.recipe-card {
+  background: rgba(16, 24, 39, 0.7);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  padding: 16px;
+  transition: all 0.2s ease;
+}
+
+.recipe-card:hover {
+  border-color: var(--cyan-light);
+  transform: translateY(-2px);
+}
+
+.recipe-ingredients {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin: 10px 0;
+}
+
+.ingredient-tag {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 3px 8px;
+  border-radius: var(--radius-sm);
+  font-size: 0.78rem;
+  color: var(--text-secondary);
+}
+
+/* Hunting Map Cards */
+.map-card {
+  border-left: 4px solid var(--gold-primary);
+}
+
+.monster-badges-flex {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 10px;
+}
+
+.monster-badge {
+  background: rgba(231, 76, 60, 0.12);
+  border: 1px solid rgba(231, 76, 60, 0.3);
+  color: #ff9999;
+  font-size: 0.76rem;
+  padding: 3px 8px;
+  border-radius: var(--radius-sm);
 }

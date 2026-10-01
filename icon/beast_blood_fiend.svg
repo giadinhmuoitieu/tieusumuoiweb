@@ -1,0 +1,67 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 500" width="100%" height="100%">
+  <defs>
+    <radialGradient id="bloodBg" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#3d0c0c"/>
+      <stop offset="50%" stop-color="#1f0505"/>
+      <stop offset="100%" stop-color="#0a0202"/>
+    </radialGradient>
+    <radialGradient id="crimsonGlow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#ff7675" stop-opacity="0.8"/>
+      <stop offset="50%" stop-color="#d63031" stop-opacity="0.4"/>
+      <stop offset="100%" stop-color="#7f1d1d" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="bloodGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ff7675"/>
+      <stop offset="35%" stop-color="#e74c3c"/>
+      <stop offset="70%" stop-color="#c0392b"/>
+      <stop offset="100%" stop-color="#641e16"/>
+    </linearGradient>
+    <filter id="bloodGlow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="8" result="blur"/>
+      <feComposite in="SourceGraphic" in2="blur" operator="over"/>
+    </filter>
+  </defs>
+
+  <!-- Background -->
+  <rect width="500" height="500" rx="20" fill="url(#bloodBg)"/>
+  
+  <!-- Outer Demonic Seals -->
+  <circle cx="250" cy="250" r="230" fill="none" stroke="url(#bloodGrad)" stroke-width="2" opacity="0.3"/>
+  <circle cx="250" cy="250" r="215" fill="none" stroke="#e74c3c" stroke-width="1.5" stroke-dasharray="8 6" opacity="0.6"/>
+  <circle cx="250" cy="250" r="190" fill="url(#crimsonGlow)"/>
+
+  <!-- Demonic Fiend Beast Icon -->
+  <g transform="translate(250, 240)" filter="url(#bloodGlow)">
+    <!-- Horns -->
+    <path d="M-20,-60 C-60,-130 -120,-110 -100,-40 C-85,-75 -50,-80 -20,-60 Z" fill="url(#bloodGrad)"/>
+    <path d="M20,-60 C60,-130 120,-110 100,-40 C85,-75 50,-80 20,-60 Z" fill="url(#bloodGrad)"/>
+
+    <!-- Fiend Head & Spikes -->
+    <polygon points="0,-80 40,-40 70,-10 60,30 30,80 0,100 -30,80 -60,30 -70,-10 -40,-40" fill="#2d0808" stroke="url(#bloodGrad)" stroke-width="3"/>
+    
+    <!-- Spikes along cheeks -->
+    <polygon points="-65,-5 -95,15 -60,25" fill="url(#bloodGrad)"/>
+    <polygon points="65,-5 95,15 60,25" fill="url(#bloodGrad)"/>
+
+    <!-- Glowing Crimson Eyes -->
+    <polygon points="-35,-15 -15,-10 -25,-5" fill="#fff" filter="url(#bloodGlow)"/>
+    <polygon points="35,-15 15,-10 25,-5" fill="#fff" filter="url(#bloodGlow)"/>
+    <polygon points="-35,-15 -15,-10 -25,-5" fill="#ff7675"/>
+    <polygon points="35,-15 15,-10 25,-5" fill="#ff7675"/>
+
+    <!-- Demonic Mouth & Fangs -->
+    <path d="M-30,35 Q0,25 30,35 Q0,75 -30,35 Z" fill="#150303" stroke="#e74c3c" stroke-width="2"/>
+    <polygon points="-20,33 -15,48 -10,33" fill="#fff"/>
+    <polygon points="20,33 15,48 10,33" fill="#fff"/>
+    <polygon points="-8,33 -5,42 -2,33" fill="#fff"/>
+    <polygon points="8,33 5,42 2,33" fill="#fff"/>
+    <polygon points="-12,50 -7,38 -2,50" fill="#fff"/>
+    <polygon points="12,50 7,38 2,50" fill="#fff"/>
+  </g>
+
+  <!-- Title Banner on bottom -->
+  <rect x="90" y="430" width="320" height="38" rx="19" fill="#1a0404" stroke="url(#bloodGrad)" stroke-width="1.5"/>
+  <text x="250" y="455" text-anchor="middle" fill="#ff7675" font-family="'Philosopher', serif" font-weight="700" font-size="18" letter-spacing="2">
+    HUYẾT MA THÚ • SINH TỒN
+  </text>
+</svg>

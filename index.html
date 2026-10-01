@@ -2,405 +2,1143 @@
 <html lang="vi">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Uyên Sư Muội - Bot giải trí cho Discord</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Uyên Sư Muội - Bách Khoa Toàn Thư & Cẩm Nang Tu Tiên Discord</title>
 
-    <meta name="description"
-        content="Uyên Sư Muội là bot Discord giải trí đa năng với Ma Sói, Đố Vui, Nói Hay Làm, Confession và hệ thống cày level phong cách tu tiên.">
-    <link rel="icon" type="image/png" href="icon/uyenmuoiavatar.png">
+  <meta name="description"
+    content="Thư viện bách khoa toàn thư, mẹo độ kiếp phá cảnh, dữ liệu bí cảnh, boss thế giới và cẩm nang tu tiên chuẩn xác 100% từ bot Discord Uyên Sư Muội.">
+  <link rel="icon" type="image/png" href="icon/uyenmuoiavatar.png">
 
-    <!-- Google Fonts: Philosopher (Cổ phong), Outfit & Inter (Hiện đại) -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Philosopher:ital,wght@0,400;0,700;1,400;1,700&family=Outfit:wght@300;400;600;700&family=Inter:wght@300;400;500;600&display=swap"
-        rel="stylesheet">
-    <link rel="stylesheet" href="style.css?v=17">
-    <!-- Spine Web Player 4.2 -->
-    <link rel="stylesheet" href="https://unpkg.com/@esotericsoftware/spine-player@4.2/dist/spine-player.css">
-    <script src="https://unpkg.com/@esotericsoftware/spine-player@4.2/dist/iife/spine-player.js"></script>
+  <!-- Google Fonts: Philosopher, Cinzel, Outfit, Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;900&family=Inter:wght@300;400;500;600;700&family=Outfit:wght@300;400;500;600;700&family=Philosopher:ital,wght@0,400;0,700;1,400;1,700&display=swap"
+    rel="stylesheet">
+
+  <link rel="stylesheet" href="style.css?v=25">
 </head>
 
 <body>
-    <!-- Lôi Kiếp Sấm Sét Overlay -->
-    <div id="lightning-overlay"></div>
-    <div id="sparks-container"></div>
+  <!-- Toast Notification Container -->
+  <div id="toast-container"></div>
 
-    <!-- Hạt Linh Khí Nền -->
-    <div id="ambient-particles"></div>
+  <!-- Mobile Backdrop -->
+  <div id="sidebar-backdrop" class="sidebar-backdrop"></div>
 
-    <!-- Thanh Điều Hướng (Navbar) -->
-    <nav class="navbar">
-        <div class="container navbar-container">
-            <a href="#" class="logo">
-                <img src="icon/uyenmuoiavatar.png" class="logo-img" alt="uyensumuoi">
-            </a>
-
-            <div class="nav-left">
-                <a href="#tutien" class="nav-item">Hệ Thống Tu Tiên</a>
-                <a href="#masoi" class="nav-item">Ma Sói</a>
-                <a href="#dovui" class="nav-item">Đố Vui</a>
-                <a href="#noihaylam" class="nav-item">Nói Hay Làm</a>
-                <a href="#confession" class="nav-item">Confession</a>
-            </div>
-
-            <div class="nav-right">
-                <a href="https://discord.com/oauth2/authorize?client_id=1439814299907391498&scope=bot%20applications.commands&permissions=8"
-                    class="btn-primary invite-nav-btn">Mời bot</a>
-            </div>
-
-            <!-- Mobile Menu Toggle -->
-            <button class="mobile-toggle" aria-label="Toggle Menu">
-                <span class="bar"></span>
-                <span class="bar"></span>
-                <span class="bar"></span>
-            </button>
+  <!-- WIKI PORTAL APP LAYOUT -->
+  <div class="wiki-layout">
+    <!-- =======================================================================
+         SIDEBAR NAVIGATION
+         ======================================================================= -->
+    <aside id="wiki-sidebar" class="wiki-sidebar">
+      <div class="sidebar-header">
+        <img src="icon/uyenmuoiavatar.png" class="sidebar-logo-img" alt="Uyên Sư Muội Avatar">
+        <div>
+          <h2 class="sidebar-brand-title">Uyên Sư Muội</h2>
+          <span class="sidebar-brand-sub">Bách Khoa Tu Tiên</span>
         </div>
-    </nav>
+      </div>
 
-    <!-- Phân khu 1: Tiên Sơn Đỉnh Phong (Hero Parallax Section) -->
-    <header class="hero">
-        <div id="spine-hero-bg"></div>
-        <div class="hero-overlay"></div>
-        <div class="container hero-container-content">
-            <div class="hero-content">
-                <span class="hero-subtitle fade-in">BOT GIẢI TRÍ CHO DISCORD</span>
-                <h1 class="fade-in delay-1"><span class="glow-gold">UYÊN SƯ MUỘI</span></h1>
-                <p class="fade-in delay-2">Một bot giúp server Discord vui hơn mỗi ngày: chơi Ma Sói, trả lời đố vui,
-                    quay Nói Hay Làm, gửi confession ẩn danh và cày level theo phong cách tu tiên dễ thương.</p>
-                <div class="hero-btns fade-in delay-3">
-                    <a href="https://discord.com/oauth2/authorize?client_id=1439814299907391498&scope=bot%20applications.commands&permissions=8"
-                        class="btn-primary btn-large btn-glow">Mời Uyên Sư Muội vào server</a>
-                    <a href="#tutien" class="btn-secondary btn-large">Xem tính năng</a>
-                </div>
-            </div>
+      <div class="sidebar-search-box">
+        <button id="sidebar-search-btn" class="sidebar-search-btn">
+          <span>🔍 Tìm kiếm nhanh...</span>
+          <kbd>Ctrl K</kbd>
+        </button>
+      </div>
+
+      <nav class="sidebar-nav-scroll">
+        <!-- Group 1 -->
+        <div class="sidebar-group">
+          <span class="sidebar-group-title">Khởi Đầu Nhập Môn</span>
+          <ul class="sidebar-links">
+            <li>
+              <a href="#roots-section" class="sidebar-link active">
+                <span class="link-icon">🌿</span>
+                <span>Linh Căn & Biến Dị</span>
+              </a>
+            </li>
+            <li>
+              <a href="#breakthrough-tips" class="sidebar-link">
+                <span class="link-icon">📜</span>
+                <span>Mẹo Đột Phá Sống Còn</span>
+              </a>
+            </li>
+          </ul>
         </div>
-        <!-- Mây trôi tâm linh -->
-        <div class="clouds-layer cloud-1"></div>
-        <div class="clouds-layer cloud-2"></div>
-    </header>
 
-    <!-- Phân khu 2: Linh Giới Tu Tiên (Cultivation Simulator) -->
-    <section id="tutien" class="section section-tutien">
-        <div class="container">
-            <div class="section-header animate-on-scroll">
-                <span class="badge">Tu Tiên /tutien</span>
-                <h2 class="section-title">Hệ thống Tu Tiên</h2>
-                <p class="section-subtitle">Thành viên tích tu vi, gom Linh Thạch và đột phá cảnh giới qua các hoạt động
-                    trong server.</p>
-            </div>
-
-            <div class="tutien-grid">
-                <!-- Thẻ Đạo Hữu Profile -->
-                <div class="tutien-card profile-card animate-on-scroll">
-                    <div class="card-inner-glow"></div>
-                    <div class="profile-header">
-                        <div class="avatar-container">
-                            <img src="icon/uyenmuoiavatar.png" alt="Avatar Đạo Hữu" class="profile-avatar">
-                            <span class="active-dot"></span>
-                        </div>
-                        <div class="profile-meta">
-                            <h3 id="char-name">Đạo hữu mới</h3>
-                            <span class="realm-badge" id="char-realm">Phàm Nhân</span>
-                        </div>
-                    </div>
-
-                    <div class="profile-stats">
-                        <div class="stat-row">
-                            <span class="stat-label">✨ Tu vi</span>
-                            <span class="stat-value" id="char-qi-text">0 / 100</span>
-                        </div>
-                        <div class="progress-bar-container">
-                            <div class="progress-bar-fill" id="char-qi-fill"></div>
-                        </div>
-
-                        <div class="stat-grid">
-                            <div class="stat-box">
-                                <span class="box-label">💎 Linh Thạch</span>
-                                <span class="box-value text-gold" id="char-stones">0</span>
-                            </div>
-                            <div class="stat-box">
-                                <span class="box-label">⚡ Lần đột phá</span>
-                                <span class="box-value text-cyan" id="char-tribulations">0</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Bàn Tu Luyện Console -->
-                <div class="tutien-card console-card animate-on-scroll">
-                    <div class="console-header">
-                        <h4>ĐẠO TRÀNG TU LUYỆN</h4>
-                    </div>
-                    <div class="console-body">
-                        <p class="console-log" id="console-log-text">Bắt đầu tu luyện để tích tu vi. Khi đủ 100 tu vi,
-                            đạo hữu có thể thử đột phá cảnh giới.</p>
-
-                        <div class="console-actions">
-                            <button class="btn-primary btn-large btn-glow" id="btn-gather">🌀 Tu luyện</button>
-                            <button class="btn-secondary btn-large disabled" id="btn-breakthrough" disabled>⚡ Đột phá</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
+        <!-- Group 2 -->
+        <div class="sidebar-group">
+          <span class="sidebar-group-title">Thăng Tiến Cảnh Giới</span>
+          <ul class="sidebar-links">
+            <li>
+              <a href="#realms-section" class="sidebar-link">
+                <span class="link-icon">📈</span>
+                <span>8 Cảnh Giới & Tu Vi</span>
+              </a>
+            </li>
+            <li>
+              <a href="#calc-tool" class="sidebar-link">
+                <span class="link-icon">🧮</span>
+                <span>Máy Tính Đột Phá</span>
+              </a>
+            </li>
+          </ul>
         </div>
-    </section>
 
-    <!-- Phân khu 3: Ma Sói Thần Bí (Werewolf Cards) -->
-    <section id="masoi" class="section section-masoi">
-        <div class="container">
-            <div class="section-header animate-on-scroll">
-                <span class="badge">Party game /masoi</span>
-                <h2 class="section-title">Ma Sói cho cả server</h2>
-                <p class="section-subtitle">Tạo ván Ma Sói ngay trong Discord với các vai quen thuộc, dễ hiểu và hợp để
-                    kéo mọi người cùng tham gia.</p>
-            </div>
-
-            <div class="cards-grid">
-                <!-- Thẻ 1: Tiên Tri -->
-                <div class="tilt-card-wrapper animate-on-scroll">
-                    <div class="role-card">
-                        <div class="card-face card-front">
-                            <div class="card-glow"></div>
-                            <div class="role-icon">🔮</div>
-                            <h3>Tiên Tri</h3>
-                            <span class="role-title-sub">Tiên Tri (Seer)</span>
-                        </div>
-                        <div class="card-face card-back">
-                            <h4>Kiểm tra thân phận</h4>
-                            <p>Mỗi đêm chọn một người để kiểm tra họ thuộc phe dân làng hay phe Ma Sói.</p>
-                            <div class="role-stat">Vai trò: điều tra</div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Thẻ 2: Bảo Vệ -->
-                <div class="tilt-card-wrapper animate-on-scroll">
-                    <div class="role-card">
-                        <div class="card-face card-front">
-                            <div class="card-glow"></div>
-                            <div class="role-icon">🛡️</div>
-                            <h3>Bảo Vệ</h3>
-                            <span class="role-title-sub">Bảo Vệ (Guardian)</span>
-                        </div>
-                        <div class="card-face card-back">
-                            <h4>Che chắn đồng đội</h4>
-                            <p>Mỗi đêm chọn một người để bảo vệ, giúp họ có cơ hội sống sót trước lượt tấn công.</p>
-                            <div class="role-stat">Vai trò: phòng thủ</div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Thẻ 3: Ma Sói -->
-                <div class="tilt-card-wrapper animate-on-scroll">
-                    <div class="role-card">
-                        <div class="card-face card-front">
-                            <div class="card-glow"></div>
-                            <div class="role-icon">🐺</div>
-                            <h3>Ma Sói</h3>
-                            <span class="role-title-sub">Ma Sói (Werewolf)</span>
-                        </div>
-                        <div class="card-face card-back">
-                            <h4>Phe phản diện</h4>
-                            <p>Phối hợp cùng đồng đội Ma Sói, đánh lạc hướng cuộc thảo luận và loại phe dân làng.</p>
-                            <div class="role-stat">Vai trò: ẩn danh</div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Thẻ 4: Dân Làng -->
-                <div class="tilt-card-wrapper animate-on-scroll">
-                    <div class="role-card">
-                        <div class="card-face card-front">
-                            <div class="card-glow"></div>
-                            <div class="role-icon">🧑</div>
-                            <h3>Dân Làng</h3>
-                            <span class="role-title-sub">Dân Làng (Villager)</span>
-                        </div>
-                        <div class="card-face card-back">
-                            <h4>Suy luận ban ngày</h4>
-                            <p>Không có kỹ năng đặc biệt, nhưng có quyền thảo luận, bỏ phiếu và tìm ra Ma Sói.</p>
-                            <div class="role-stat">Vai trò: suy luận</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+        <!-- Group 3 -->
+        <div class="sidebar-group">
+          <span class="sidebar-group-title">Bí Cảnh & Lịch Luyện</span>
+          <ul class="sidebar-links">
+            <li>
+              <a href="#gates-section" class="sidebar-link">
+                <span class="link-icon">🚪</span>
+                <span>5 Cửa Sinh Tử Môn</span>
+              </a>
+            </li>
+            <li>
+              <a href="#secret-realms-section" class="sidebar-link">
+                <span class="link-icon">🗺️</span>
+                <span>7 Bí Cảnh Cổ & Quà Rơi</span>
+              </a>
+            </li>
+            <li>
+              <a href="#hunt-section" class="sidebar-link">
+                <span class="link-icon">🏹</span>
+                <span>Bản Đồ Lịch Luyện 6 Cảnh</span>
+              </a>
+            </li>
+          </ul>
         </div>
-    </section>
 
-    <!-- Phân khu 4: Linh Đài Đố Vui (Trivia Scrolls) -->
-    <section id="dovui" class="section section-dovui">
-        <div class="container">
-            <div class="section-header animate-on-scroll">
-                <span class="badge">Quiz game /dovui</span>
-                <h2 class="section-title">Đố vui nhận thưởng</h2>
-                <p class="section-subtitle">Trả lời câu hỏi nhanh để kiếm Linh Thạch, tạo hoạt động nhẹ nhàng cho server mỗi ngày.
+        <!-- Group 4 -->
+        <div class="sidebar-group">
+          <span class="sidebar-group-title">Tông Môn Thế Lực</span>
+          <ul class="sidebar-links">
+            <li>
+              <a href="#sect-section" class="sidebar-link">
+                <span class="link-icon">👑</span>
+                <span>Cửu Lưu & Bổng Lộc</span>
+              </a>
+            </li>
+            <li>
+              <a href="#sect-garden-section" class="sidebar-link">
+                <span class="link-icon">🌾</span>
+                <span>Dược Viên & Giếng Nước</span>
+              </a>
+            </li>
+            <li>
+              <a href="#sect-beast-section" class="sidebar-link">
+                <span class="link-icon">🐉</span>
+                <span>5 Hộ Tông Thần Thú</span>
+              </a>
+            </li>
+          </ul>
+        </div>
+
+        <!-- Group 5 -->
+        <div class="sidebar-group">
+          <span class="sidebar-group-title">Động Phủ & Bách Nghệ</span>
+          <ul class="sidebar-links">
+            <li>
+              <a href="#abode-section" class="sidebar-link">
+                <span class="link-icon">🏡</span>
+                <span>Động Phủ & Bế Quan</span>
+              </a>
+            </li>
+            <li>
+              <a href="#technique-section" class="sidebar-link">
+                <span class="link-icon">📖</span>
+                <span>Tàng Kinh Các (41 Công Pháp)</span>
+              </a>
+            </li>
+            <li>
+              <a href="#crafting-section" class="sidebar-link">
+                <span class="link-icon">🧪</span>
+                <span>Luyện Đan (31 Đan) & Luyện Khí</span>
+              </a>
+            </li>
+            <li>
+              <a href="#mount-section" class="sidebar-link">
+                <span class="link-icon">🐎</span>
+                <span>Tọa Kỵ 9 Bậc (Lv 1-100)</span>
+              </a>
+            </li>
+          </ul>
+        </div>
+
+        <!-- Group 6 -->
+        <div class="sidebar-group">
+          <span class="sidebar-group-title">Hoạt Động & Thiên Mệnh</span>
+          <ul class="sidebar-links">
+            <li>
+              <a href="#world-boss-section" class="sidebar-link">
+                <span class="link-icon">⚔️</span>
+                <span>Boss Thế Giới 20:00</span>
+              </a>
+            </li>
+            <li>
+              <a href="#gacha-section" class="sidebar-link">
+                <span class="link-icon">🎨</span>
+                <span>Thiên Mệnh Triệu Hoán (21 Họa)</span>
+              </a>
+            </li>
+            <li>
+              <a href="#match3-section" class="sidebar-link">
+                <span class="link-icon">💎</span>
+                <span>Thiên Địa Vạn Tượng (Match-3)</span>
+              </a>
+            </li>
+            <li>
+              <a href="#ocean-section" class="sidebar-link">
+                <span class="link-icon">⛵</span>
+                <span>Thuyền Hải Vực & Nô Lệ</span>
+              </a>
+            </li>
+          </ul>
+        </div>
+
+        <!-- Group 7 -->
+        <div class="sidebar-group">
+          <span class="sidebar-group-title">Linh Giới Endgame</span>
+          <ul class="sidebar-links">
+            <li>
+              <a href="#linh-gioi-section" class="sidebar-link">
+                <span class="link-icon">🌟</span>
+                <span>Ngũ Giác Tiên Hiệu</span>
+              </a>
+            </li>
+            <li>
+              <a href="#minigames-section" class="sidebar-link">
+                <span class="link-icon">🎲</span>
+                <span>Mini Games Giải Trí</span>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </nav>
+
+      <div class="sidebar-footer">
+        <button class="btn-cmd copy-cmd-btn" data-cmd="/tutien" style="width: 100%; justify-content: center;">
+          <span>Sao chép /tutien</span>
+        </button>
+        <a href="https://discord.com/oauth2/authorize?client_id=1439814299907391498&scope=bot%20applications.commands&permissions=8"
+          target="_blank" rel="noopener noreferrer" class="btn-invite" style="width: 100%; justify-content: center;">
+          <span>Mời Bot Vào Server</span>
+        </a>
+      </div>
+    </aside>
+
+    <!-- =======================================================================
+         MAIN CONTENT AREA
+         ======================================================================= -->
+    <main class="wiki-main">
+      <!-- STICKY TOPBAR -->
+      <header class="wiki-topbar">
+        <div class="topbar-left">
+          <button id="mobile-toggle-btn" class="mobile-menu-btn" aria-label="Mở menu">
+            ☰
+          </button>
+          <div class="breadcrumbs">
+            <span>Bách Khoa</span>
+            <span class="sep">/</span>
+            <span>Cẩm Nang Tu Tiên</span>
+            <span class="sep">/</span>
+            <span class="current" id="breadcrumb-current">Tổng Quan</span>
+          </div>
+        </div>
+
+        <div class="topbar-right">
+          <button class="btn-cmd copy-cmd-btn" data-cmd="/tutien">
+            <span>/tutien</span>
+          </button>
+          <a href="https://discord.gg/XTPAAnubwZ" target="_blank" rel="noopener noreferrer"
+            style="font-size: 0.85rem; color: var(--text-muted); display: flex; align-items: center; gap: 6px; padding: 6px 12px; border-radius: var(--radius-md); background: rgba(255,255,255,0.05);">
+            <span>💬 Server Hỗ Trợ</span>
+          </a>
+        </div>
+      </header>
+
+      <!-- HERO BANNER -->
+      <section class="wiki-hero-banner">
+        <div class="hero-banner-content">
+          <span class="hero-badge-pill">
+            <span>📜 DỮ LIỆU ĐỘC QUYỀN TỪ SOURCE CODE BOT UYÊN SƯ MUỘI</span>
+          </span>
+
+          <h1 class="hero-banner-title">
+            BÁCH KHOA TOÀN THƯ &<br>
+            <span class="text-gold-gradient">CẨM NANG TU TIÊN</span>
+          </h1>
+
+          <p class="hero-banner-desc">
+            Kho tàng tri thức chuẩn xác 100% trích xuất từ mã nguồn đang chạy của bot Uyên Sư Muội. Đầy đủ mẹo lôi kiếp sống
+            còn, tỉ lệ rơi đồ bí cảnh, cơ chế boss thế giới, bảng 8 cảnh giới Nhân Giới và hướng dẫn nuôi dưỡng tông môn.
+          </p>
+
+          <div class="hero-metrics-grid">
+            <div class="metric-pill">
+              <span class="metric-pill-num">8</span>
+              <span class="metric-pill-label">Cảnh Giới (Tới Hợp Thể)</span>
+            </div>
+            <div class="metric-pill">
+              <span class="metric-pill-num">7</span>
+              <span class="metric-pill-label">Bí Cảnh Cổ</span>
+            </div>
+            <div class="metric-pill">
+              <span class="metric-pill-num">3</span>
+              <span class="metric-pill-label">Boss Thế Giới</span>
+            </div>
+            <div class="metric-pill">
+              <span class="metric-pill-num">5</span>
+              <span class="metric-pill-label">Tiên Hiệu Ngũ Giác</span>
+            </div>
+            <div class="metric-pill">
+              <span class="metric-pill-num">100%</span>
+              <span class="metric-pill-label">Dữ Liệu Thật</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ARTICLES WRAPPER -->
+      <div class="wiki-content-body">
+        <!-- ===================================================================
+             MỤC 1: KHỞI ĐẦU & NGŨ HÀNH BIẾN DỊ LINH CĂN
+             =================================================================== -->
+        <article id="roots-section" class="wiki-article">
+          <div class="article-header">
+            <span class="article-badge badge-emerald">Bước Đầu Nhập Đạo</span>
+            <h2 class="article-title">🌱 Khởi Đầu & Linh Căn Ngũ Hành</h2>
+            <p class="article-desc">
+              Dùng lệnh <code>/tutien</code> để khởi đầu hành trình tu hành, gacha linh căn ngẫu nhiên và đặt đạo hiệu. Mỗi linh
+              căn sở hữu năng lực đặc quyền không thể thay thế trong Tông Môn Dược Viên và Luyện Chế.
+            </p>
+          </div>
+
+          <div class="callout callout-info">
+            <div class="callout-title">💡 Đặc Quyền Độc Quyền Của Từng Linh Căn Trong Tông Môn:</div>
+            <ul style="padding-left: 20px; margin-top: 6px; line-height: 1.7;">
+              <li><strong>💧 Thủy Căn:</strong> Tưới nước diện rộng (AOE). Mỗi lần múc nước giếng linh khí nhận được <strong>10 gánh nước</strong> (các linh căn khác chỉ nhận được 2 gánh).</li>
+              <li><strong>🔥 Hỏa Căn:</strong> Tăng thẳng <strong>+10% tỉ lệ thành công</strong> khi luyện đan dược, luyện khí pháp bảo và luyện hóa nguyên liệu.</li>
+              <li><strong>🌿 Mộc Căn:</strong> Gieo hạt và thu hoạch diện rộng (AOE), nhận thêm <strong>+25% tỉ lệ nhân đôi (x2)</strong> sản lượng thảo dược thu hoạch.</li>
+              <li><strong>⚔️ Kim Căn:</strong> Kích hoạt tính năng bắt sâu diện rộng (AOE) cho toàn bộ cây trồng trong Dược Viên.</li>
+              <li><strong>⛰️ Thổ Căn:</strong> Kích hoạt tính năng bón phân diện rộng (AOE) giúp cây trồng tăng tốc độ trưởng thành.</li>
+            </ul>
+          </div>
+
+          <!-- BỘ TRA CỨU BIẾN DỊ LINH CĂN -->
+          <div class="tool-container" style="margin-top: 24px;">
+            <div>
+              <h3 style="font-family: var(--font-serif); font-size: 1.25rem; color: var(--gold-light); margin-bottom: 6px;">
+                Chọn Linh Căn Tra Cứu Biến Dị
+              </h3>
+              <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 12px;">
+                Bấm vào các linh căn bên dưới để xem danh xưng biến dị, hệ số nhân chỉ số chiến đấu và sức mạnh cộng hưởng:
+              </p>
+
+              <div id="root-buttons-container" class="root-buttons-flex"></div>
+            </div>
+
+            <div style="background: rgba(0,0,0,0.3); border: 1px solid var(--border-gold); border-radius: var(--radius-md); padding: 22px;">
+              <span id="root-result-tier" class="article-badge badge-gold">Song Linh Căn</span>
+              <h3 id="root-result-title" style="font-family: var(--font-serif); font-size: 1.5rem; color: var(--gold-light); margin: 6px 0 10px;">
+                Cửu Dương Linh Căn
+              </h3>
+              <p id="root-result-desc" style="font-size: 0.9rem; color: var(--text-secondary); line-height: 1.6; margin-bottom: 18px;">
+                Kim hỏa tương sinh, sát khí bừng bừng, chuyên về công kích bạo liệt.
+              </p>
+
+              <div id="root-stat-bars"></div>
+
+              <div style="margin-top: 14px; padding: 10px 14px; background: rgba(212, 175, 55, 0.08); border-radius: var(--radius-sm); font-size: 0.8rem; color: var(--gold-lighter);">
+                👑 <strong>Hỗn Độn Linh Căn Tối Thượng:</strong> Người chơi may mắn sở hữu Đủ Ngũ Hành + Hỗn Độn (xác suất khởi đầu 0.01%) sẽ nhận ngay <strong>+35% cho TOÀN BỘ CHỈ SỐ</strong>!
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <!-- ===================================================================
+             MỤC 2: CẨM NANG & MẸO ĐỘT PHÁ SỐNG CÒN
+             =================================================================== -->
+        <article id="breakthrough-tips" class="wiki-article">
+          <div class="article-header">
+            <span class="article-badge badge-gold">Bí Kíp Cốt Lõi</span>
+            <h2 class="article-title">📜 Cẩm Nang Mẹo Đột Phá Cảnh Giới</h2>
+            <p class="article-desc">
+              Các nguyên tắc sống còn trích xuất trực tiếp từ mã nguồn game giúp tu sĩ không bị lôi kiếp đánh trọng thương
+              hoặc chọn nhầm cảnh giới yếu hơn.
+            </p>
+          </div>
+
+          <div class="grid-2">
+            <!-- Box 1 -->
+            <div class="wiki-box">
+              <div class="wiki-box-header">
+                <div class="wiki-box-icon" style="color: var(--cyan-light);">⚡</div>
+                <h3 class="wiki-box-title">1. Luyện Khí lên Trúc Cơ</h3>
+              </div>
+              <p style="font-size: 0.9rem; color: var(--text-secondary); line-height: 1.6;">
+                • Bắt buộc chọn con đường <strong>Thiên Đạo Trúc Cơ</strong> (cần <em>Thiên Linh Khí</em> rơi tại trung tâm Luyện Khí Cốc).
+              </p>
+              <div class="callout callout-danger" style="margin-top: 10px; padding: 12px 14px;">
+                <div class="callout-title" style="font-size: 0.9rem;">⚠️ Mẹo Tử Thần Tránh Bị Sét Đánh Chết:</div>
+                <p style="font-size: 0.85rem;">
+                  Thiên lôi đánh dựa trên <strong>% công kích bản thân</strong> (công càng cao sét đánh càng đau!). Hãy <strong>tháo sạch họa cảnh công</strong>, lắp họa cảnh tăng HP (Long Mạch Chân Thân) và cắn đan kiên cố để sống sót.
                 </p>
+              </div>
             </div>
 
-            <div class="quiz-scroll-container animate-on-scroll">
-                <div class="scroll-border top"></div>
-                <div class="quiz-scroll-content">
-                    <div class="quiz-header">
-                        <span id="quiz-progress">CÂU HỎI 1 / 5</span>
-                        <div class="quiz-timer-bar">
-                            <div class="quiz-timer-fill" id="timer-fill"></div>
-                        </div>
-                    </div>
+            <!-- Box 2 -->
+            <div class="wiki-box">
+              <div class="wiki-box-header">
+                <div class="wiki-box-icon" style="color: var(--gold-light);">💊</div>
+                <h3 class="wiki-box-title">2. Trúc Cơ lên Kết Tinh</h3>
+              </div>
+              <p style="font-size: 0.9rem; color: var(--text-secondary); line-height: 1.6;">
+                • Bắt buộc sử dụng <strong>Thượng Phẩm Kết Đan Hoàn</strong> để hình thành Cực Phẩm Thai Đan hoàn mỹ nhất.
+              </p>
+              <p style="font-size: 0.9rem; color: var(--text-secondary); line-height: 1.6; margin-top: 8px;">
+                • Đạt phẩm chất thượng phẩm sẽ mở khóa giới hạn đan văn nuôi đan lên tối đa <strong>9 Đan Văn</strong>, tối ưu hóa toàn bộ thuộc tính trước khi ngưng kết kim đan.
+              </p>
+            </div>
 
-                    <div class="quiz-question" id="quiz-question-text">Đang tải câu hỏi...
-                    </div>
+            <!-- Box 3 -->
+            <div class="wiki-box">
+              <div class="wiki-box-header">
+                <div class="wiki-box-icon" style="color: var(--crimson-light);">🌟</div>
+                <h3 class="wiki-box-title">3. Kết Tinh lên Kim Đan</h3>
+              </div>
+              <p style="font-size: 0.9rem; color: var(--text-secondary); line-height: 1.6;">
+                • Chuẩn bị đầy đủ nguyên liệu nuôi đan và đan phá cảnh.
+              </p>
+              <div class="callout callout-warning" style="margin-top: 10px; padding: 12px 14px;">
+                <div class="callout-title" style="font-size: 0.9rem;">⭐ Lưu Ý Cốt Tử:</div>
+                <p style="font-size: 0.85rem;">
+                  Khi giao diện đột phá xuất hiện, bắt buộc chọn <strong>Nhất Tầng (Nhất Phẩm Kim Đan - phẩm chất mạnh nhất)</strong>, <strong>TUYỆT ĐỐI KHÔNG CHỌN CỬU TẦNG</strong>!
+                </p>
+              </div>
+            </div>
 
-                    <div class="quiz-options-grid" id="quiz-options-container">
-                        <!-- Tự động kết xuất qua JS -->
-                    </div>
+            <!-- Box 4 -->
+            <div class="wiki-box">
+              <div class="wiki-box-header">
+                <div class="wiki-box-icon" style="color: var(--emerald-light);">🌾</div>
+                <h3 class="wiki-box-title">4. Kim Đan lên Nguyên Anh</h3>
+              </div>
+              <p style="font-size: 0.9rem; color: var(--text-secondary); line-height: 1.6;">
+                • Cần tích trữ 5 loại hạt giống quý từ trung tâm <strong>Xích Dũng Sa Mạc</strong> (Xích Huyết Bồ Đề, Dưỡng Hồn Liên, Tịch Tà Linh Trúc, Tĩnh Tâm Trà, Thanh Tâm Mộc).
+              </p>
+              <p style="font-size: 0.9rem; color: var(--text-secondary); line-height: 1.6; margin-top: 8px;">
+                • Đem về Dược Viên tông môn trồng (mỗi loại cần ít nhất <strong>7 cây thành phẩm</strong>) và chuẩn bị <strong>2,000,000 Linh Thạch</strong>.
+              </p>
+            </div>
+          </div>
 
-                    <div class="quiz-feedback" id="quiz-feedback-text"></div>
+          <!-- Box 5 Full Width -->
+          <div class="wiki-box" style="margin-top: 20px;">
+            <div class="wiki-box-header">
+              <div class="wiki-box-icon" style="color: var(--purple-light);">🔮</div>
+              <h3 class="wiki-box-title">5. Nguyên Anh lên Hóa Thần (Nghi Thức Thần Hồn)</h3>
+            </div>
+            <div style="font-size: 0.9rem; color: var(--text-secondary); line-height: 1.7;">
+              <p>• Đây là nghi thức đại phá cảnh cố định (hệ số x1.70, +30,000 HP, +3,000 Công, +1,400 Thủ, +120 Tốc): Tiêu tốn <strong>200 Cực Phẩm Linh Thạch (CPLT)</strong>.</p>
+              <p>• Yêu cầu dưỡng Nguyên Anh đạt <strong>Anh Thành (3/3)</strong> và thu thập đủ 5 Thần Hồn từ Vạn Hồn Cốc: <em>Câu Trần, Giao Long, Huyền Quy, Lục Ngô, Trọng Minh</em> + <em>Hóa Thần Chi Khí</em>.</p>
+              <p>• Uống <strong>Đan Thanh Tâm</strong> trước khi đột phá để giảm tối đa tỉ lệ gặp Tâm Ma đoạt xá!</p>
+            </div>
+          </div>
+
+          <!-- Box 6: Hóa Thần lên Luyện Hư -->
+          <div class="wiki-box" style="margin-top: 20px;">
+            <div class="wiki-box-header">
+              <div class="wiki-box-icon" style="color: var(--cyan-light);">🌊</div>
+              <h3 class="wiki-box-title">6. Hóa Thần lên Luyện Hư (Nguyên Thần & Ngũ Hành Pháp Tắc)</h3>
+            </div>
+            <div style="font-size: 0.9rem; color: var(--text-secondary); line-height: 1.7;">
+              <p>• <strong>Thức Tỉnh Nguyên Thần:</strong> Đạt mức tối đa <strong>100% (Tầng 5)</strong> qua bế quan và rèn luyện.</p>
+              <p>• <strong>Ngũ Hành Pháp Tắc:</strong> Bắt buộc lĩnh ngộ đạt <strong>Bậc 10</strong> cho toàn bộ 5 hệ pháp tắc (Kim 10, Mộc 10, Thủy 10, Hỏa 10, Thổ 10).</p>
+              <p>• <strong>Đan Dược Dung Hợp:</strong> Cần <strong>1 viên Phá Hư Đan</strong> + <strong>1 viên Ngộ Đạo Đan</strong>. <em>(Mẹo: Dùng Nhất Phẩm Ngộ Đạo Đan đạt 100% tỉ lệ thành công; Nhị Phẩm 95%, Tam Phẩm 90%... tránh dùng Cửu Phẩm chỉ đạt 60%)</em>.</p>
+              <p>• <strong>Cơ Chế Tâm Ma:</strong> Thành bại dựa theo độ thuần khiết của Tâm Ma (không có Lôi Kiếp). Hãy kích hoạt <em>Hộ Đạo Trận</em> tông môn để bảo toàn 100% nguyên liệu nếu chẳng may thất bại!</p>
+            </div>
+          </div>
+
+          <!-- Box 7: Luyện Hư lên Hợp Thể -->
+          <div class="wiki-box" style="margin-top: 20px; border-color: var(--border-gold); background: linear-gradient(135deg, rgba(212, 168, 75, 0.08), rgba(15, 23, 42, 0.9));">
+            <div class="wiki-box-header">
+              <div class="wiki-box-icon" style="color: var(--gold-light);">⚡</div>
+              <div>
+                <h3 class="wiki-box-title" style="color: var(--gold-lighter);">7. Luyện Hư lên Hợp Thể (Lục Đại Thiên Điều Phi Thăng Linh Giới)</h3>
+                <span class="article-badge badge-gold" style="font-size: 0.72rem;">Cửa Ngõ Linh Giới • 100% Thành Công Khi Đủ Điều Kiện</span>
+              </div>
+            </div>
+            <div style="font-size: 0.9rem; color: var(--text-secondary); line-height: 1.7;">
+              <p>Để phá bỏ gông cùm Nhân Giới bước vào <strong>Hợp Thể Kỳ</strong>, tu sĩ bắt buộc phải thỏa mãn đầy đủ <strong>6 Thiên Điều</strong> nghiêm ngặt:</p>
+              <div style="margin-top: 10px; display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 10px;">
+                <div style="background: rgba(0,0,0,0.3); padding: 10px 14px; border-radius: var(--radius-sm); border-left: 3px solid #f1c40f;">
+                  <strong style="color: #f1c40f;">1. Hỗn Độn Linh Căn</strong>
+                  <p style="font-size: 0.82rem; color: var(--text-muted); margin-top: 2px;">Bẩm sinh (0.01%) hoặc đã dung hợp đủ Ngũ Hành viên mãn.</p>
                 </div>
-                <div class="scroll-border bottom"></div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Phân khu 5: Chân Ngôn Hoặc Thử Thách (Wheel of Destiny - Nói Hay Làm) -->
-    <section id="noihaylam" class="section section-noihaylam">
-        <div class="container">
-            <div class="section-header animate-on-scroll">
-                <span class="badge">Truth or dare /noihaylam</span>
-                <h2 class="section-title">Nói Hay Làm</h2>
-                <p class="section-subtitle">Một vòng quay để chọn câu hỏi thật lòng hoặc thử thách vui, phù hợp cho voice
-                    chat và các buổi chơi chung.</p>
-            </div>
-
-            <div class="wheel-flex animate-on-scroll">
-                <!-- Canvas Vòng Quay -->
-                <div class="wheel-wrapper">
-                    <div class="wheel-arrow">🔺</div>
-                    <canvas id="destiny-wheel" width="450" height="450"></canvas>
-                    <button class="wheel-center-btn" id="btn-spin">QUAY</button>
+                <div style="background: rgba(0,0,0,0.3); padding: 10px 14px; border-radius: var(--radius-sm); border-left: 3px solid #e74c3c;">
+                  <strong style="color: #ff7675;">2. Thể Chất Hỗn Độn</strong>
+                  <p style="font-size: 0.82rem; color: var(--text-muted); margin-top: 2px;">Đã thức tỉnh Hỗn Độn Thánh Thể / Thể Chất Hỗn Độn.</p>
                 </div>
-
-                <!-- Kết Quả Hiển Thị -->
-                <div class="wheel-result-card">
-                    <div class="result-header">
-                        <h4>KẾT QUẢ VÒNG QUAY</h4>
-                    </div>
-                    <div class="result-body">
-                        <h3 id="result-title" class="text-gold">Sẵn sàng bắt đầu</h3>
-                        <p id="result-desc">Bấm "QUAY" để nhận một câu hỏi Nói hoặc một thử thách Làm. Một số ô có thể
-                            cộng hoặc trừ Linh Thạch để tăng cảm giác bất ngờ.</p>
-                    </div>
+                <div style="background: rgba(0,0,0,0.3); padding: 10px 14px; border-radius: var(--radius-sm); border-left: 3px solid #00f0ff;">
+                  <strong style="color: #00f0ff;">3. Tọa Kỵ Cấp 100</strong>
+                  <p style="font-size: 0.82rem; color: var(--text-muted); margin-top: 2px;">Thú cưỡi đạt Bậc 9 tối thượng: <em>Hỗn Độn Càn Khôn Đạo Thú</em>.</p>
                 </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Phân khu 6: Thiên Hạc Nguyện Ước (Confession Wishes) -->
-    <section id="confession" class="section section-confession">
-        <div class="container">
-            <div class="section-header animate-on-scroll">
-                <span class="badge">Ẩn danh /confession</span>
-                <h2 class="section-title">Confession ẩn danh</h2>
-                <p class="section-subtitle">Cho thành viên gửi lời nhắn, tâm sự hoặc câu chuyện nhỏ mà không cần lộ danh
-                    tính.</p>
-            </div>
-
-            <div class="confession-layout">
-                <!-- Form gửi Confession -->
-                <div class="confession-card form-card animate-on-scroll">
-                    <div class="card-inner-glow"></div>
-                    <h4>VIẾT CONFESSION</h4>
-                    <form id="confession-form">
-                        <div class="form-group">
-                            <label for="confession-input">Nội dung muốn gửi...</label>
-                            <textarea id="confession-input" maxlength="200"
-                                placeholder="Viết tâm sự hoặc lời nhắn ẩn danh gửi đến mọi người trong server..."
-                                required></textarea>
-                            <span class="char-counter" id="char-count">0 / 200</span>
-                        </div>
-                        <button type="submit" class="btn-primary btn-large btn-glow w-100" id="btn-send-crane">🪶 Gửi
-                            confession</button>
-                    </form>
+                <div style="background: rgba(0,0,0,0.3); padding: 10px 14px; border-radius: var(--radius-sm); border-left: 3px solid #2ecc71;">
+                  <strong style="color: #2ecc71;">4. Độ Thanh Tâm 100%</strong>
+                  <p style="font-size: 0.82rem; color: var(--text-muted); margin-top: 2px;">Điểm Thanh Tâm đạt 100/100, gột rửa hoàn toàn Tâm Ma.</p>
                 </div>
-
-                <!-- Bảng hiển thị Confession trôi nổi -->
-                <div class="confession-board animate-on-scroll">
-                    <div class="board-header">
-                        <h4>TIN NHẮN GẦN ĐÂY</h4>
-                    </div>
-                    <div class="cranes-container" id="cranes-board">
-                        <div class="crane-tag">
-                            <span class="crane-icon">🕊️</span>
-                            <p>"Muốn chăm chỉ cày level mà cứ bị cuốn vào chat với mọi người..."</p>
-                        </div>
-                        <div class="crane-tag">
-                            <span class="crane-icon">🕊️</span>
-                            <p>"Ai đó cứu với! Vừa quay trúng thử thách tỏ tình trong voice..."</p>
-                        </div>
-                        <div class="crane-tag">
-                            <span class="crane-icon">🕊️</span>
-                            <p>"Cày đố vui mấy hôm cuối cùng cũng gom đủ Linh Thạch để lên bảng xếp hạng."</p>
-                        </div>
-                    </div>
+                <div style="background: rgba(0,0,0,0.3); padding: 10px 14px; border-radius: var(--radius-sm); border-left: 3px solid #9b59b6;">
+                  <strong style="color: #a29bfe;">5. 500 Mảnh 5 Minh Chủng</strong>
+                  <p style="font-size: 0.82rem; color: var(--text-muted); margin-top: 2px;">Đủ 100 mảnh mỗi loại: Tụ Khí, Thanh Linh, Kim Cương, Huyết Ma, Thái Dương.</p>
                 </div>
+                <div style="background: rgba(0,0,0,0.3); padding: 10px 14px; border-radius: var(--radius-sm); border-left: 3px solid #e67e22;">
+                  <strong style="color: #fab1a0;">6. 1x Hợp Thể Đan</strong>
+                  <p style="font-size: 0.82rem; color: var(--text-muted); margin-top: 2px;">Đan dược cực phẩm phá cảnh Luyện Hư &rarr; Hợp Thể.</p>
+                </div>
+              </div>
+              <p style="margin-top: 12px; color: var(--gold-light); font-weight: 600;">
+                🎉 Đạt đủ 6 điều kiện trên: <strong>Tỉ lệ thành công 100%</strong>, nhận Multiplier x2.25, +120,000 HP, +12,000 Công, +5,600 Thủ, +220 Tốc, +640 Bạo, +640 Né, mở khóa toàn bộ Linh Giới!
+              </p>
             </div>
+          </div>
+
+          <!-- MÁY TÍNH ĐỘT PHÁ & BẢNG SO SÁNH -->
+          <div id="calc-tool" style="margin-top: 36px; background: var(--bg-surface); border: 1px solid var(--border-gold); border-radius: var(--radius-lg); padding: 28px;">
+            <div style="display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 12px; margin-bottom: 8px;">
+              <div>
+                <span class="article-badge badge-gold" style="font-size: 0.72rem; margin-bottom: 6px;">Tra Cứu Tự Động • Chuẩn Xác 100%</span>
+                <h3 style="font-family: var(--font-serif); font-size: 1.45rem; color: var(--gold-light);">
+                  🧮 Máy Tính Tra Cứu Đột Phá Nhanh
+                </h3>
+              </div>
+              <span id="calc-target-realm-badge" class="article-badge badge-cyan" style="font-size: 0.85rem; padding: 6px 14px;">Đích Đến: Trúc Cơ Kỳ</span>
+            </div>
+
+            <p style="font-size: 0.88rem; color: var(--text-muted); margin-bottom: 20px;">
+              Chọn cảnh giới hiện tại và con đường đột phá để tra cứu chính xác đan dược, tài nguyên, sát khí, chi phí và chỉ số đột phá theo đúng mã nguồn bot Uyên Sư Muội:
+            </p>
+
+            <div style="display: flex; gap: 16px; flex-wrap: wrap; margin-bottom: 20px;">
+              <div style="flex: 1; min-width: 240px;">
+                <label style="font-size: 0.78rem; color: var(--text-muted); text-transform: uppercase; font-weight: 600; display: block; margin-bottom: 6px;">CẢNH GIỚI HIỆN TẠI</label>
+                <select id="calc-realm-select" style="width: 100%; padding: 11px 14px; background: var(--bg-card); border: 1px solid var(--border-gold); color: #fff; border-radius: var(--radius-sm); font-size: 0.95rem; font-weight: 600; cursor: pointer;"></select>
+              </div>
+
+              <div style="flex: 1; min-width: 240px;">
+                <label style="font-size: 0.78rem; color: var(--text-muted); text-transform: uppercase; font-weight: 600; display: block; margin-bottom: 6px;">CON ĐƯỜNG PHÁ CẢNH / PHẨM CẤP</label>
+                <select id="calc-path-select" style="width: 100%; padding: 11px 14px; background: var(--bg-card); border: 1px solid var(--border-subtle); color: #fff; border-radius: var(--radius-sm); font-size: 0.95rem; cursor: pointer;"></select>
+              </div>
+            </div>
+
+            <div class="grid-4" style="margin-bottom: 16px;">
+              <div style="background: rgba(255,255,255,0.03); border: 1px solid var(--border-subtle); padding: 14px; border-radius: var(--radius-sm);">
+                <span style="font-size: 0.75rem; color: var(--text-muted); display: block; margin-bottom: 4px;">ĐAN DƯỢC BẮT BUỘC</span>
+                <strong id="calc-result-pill" style="color: var(--cyan-light); font-size: 0.95rem; line-height: 1.4; display: block;">Trúc Cơ Đan</strong>
+              </div>
+              <div style="background: rgba(255,255,255,0.03); border: 1px solid var(--border-subtle); padding: 14px; border-radius: var(--radius-sm);">
+                <span style="font-size: 0.75rem; color: var(--text-muted); display: block; margin-bottom: 4px;">NGUYÊN LIỆU ĐẶC BIỆT</span>
+                <strong id="calc-result-mats" style="color: var(--gold-light); font-size: 0.95rem; line-height: 1.4; display: block;">Mảnh Thiên Linh Khí</strong>
+              </div>
+              <div style="background: rgba(255,255,255,0.03); border: 1px solid var(--border-subtle); padding: 14px; border-radius: var(--radius-sm);">
+                <span style="font-size: 0.75rem; color: var(--text-muted); display: block; margin-bottom: 4px;">CHI PHÍ TIỀN TỆ</span>
+                <strong id="calc-result-stones" style="color: #fff; font-size: 0.95rem; line-height: 1.4; display: block;">5,000 Linh Thạch</strong>
+              </div>
+              <div style="background: rgba(255,255,255,0.03); border: 1px solid var(--border-subtle); padding: 14px; border-radius: var(--radius-sm);">
+                <span style="font-size: 0.75rem; color: var(--text-muted); display: block; margin-bottom: 4px;">HỆ SỐ PHÁ CẢNH</span>
+                <strong id="calc-result-mult" style="color: var(--emerald-primary); font-size: 0.95rem; line-height: 1.4; display: block;">x1.40 Multiplier</strong>
+              </div>
+            </div>
+
+            <div style="background: rgba(0,0,0,0.3); border: 1px solid rgba(255,255,255,0.06); border-radius: var(--radius-sm); padding: 14px 18px; margin-bottom: 12px;">
+              <span style="font-size: 0.75rem; color: var(--text-muted); display: block; text-transform: uppercase; font-weight: 600; margin-bottom: 4px;">CHỈ SỐ TĂNG THÊM (VĨNH VIỄN)</span>
+              <p id="calc-result-bonus" style="font-size: 0.92rem; color: var(--gold-lighter); font-weight: 600; line-height: 1.6; margin: 0;">
+                +1,200 HP, +250 Công, +120 Thủ, +25 Tốc, +80 Bạo, +100 Né
+              </p>
+            </div>
+
+            <div id="calc-result-note-box" style="padding: 12px 16px; background: rgba(0, 240, 255, 0.05); border-left: 3px solid var(--cyan-primary); border-radius: var(--radius-sm); font-size: 0.85rem; color: var(--text-secondary); line-height: 1.6;">
+              💡 <strong>Lưu ý cốt tử:</strong> <span id="calc-result-note">Mảnh Thiên Linh Khí nhặt tại trung tâm Luyện Khí Cốc. Tháo họa cảnh công để tránh bị sét đánh chết!</span>
+            </div>
+          </div>
+        </article>
+
+        <!-- ===================================================================
+             MỤC 3: HỆ THỐNG 8 CẢNH GIỚI TU TIÊN (NHÂN GIỚI ➔ HỢP THỂ)
+             =================================================================== -->
+        <article id="realms-section" class="wiki-article">
+          <div class="article-header">
+            <span class="article-badge badge-purple">Lộ Trình Thăng Tiến</span>
+            <h2 class="article-title">🌌 Hệ Thống 8 Cảnh Giới Tu Chân (Nhân Giới ➔ Hợp Thể)</h2>
+            <p class="article-desc">
+              Hệ thống tu vi từ Luyện Khí đến đỉnh phong Hợp Thể Kỳ (cửa ngõ bước vào Linh Giới). Mỗi cảnh giới gồm 9 tiểu tầng (Sơ Kỳ 1-3, Trung Kỳ 4-6, Hậu Kỳ 7-9). Độ khó tăng 20% mỗi tầng; chạm bình cảnh tầng 3, 6 tốn gấp 1.5x, tầng 9 đột phá đại cảnh giới tốn gấp 2.0x!
+            </p>
+          </div>
+
+          <div class="grid-4">
+            <!-- 1. Luyện Khí -->
+            <div class="realm-card-mini">
+              <div class="realm-card-mini-header">
+                <span class="realm-idx">01 • Nhân Giới</span>
+                <span class="realm-exp">100 EXP</span>
+              </div>
+              <h4 class="realm-name">Luyện Khí</h4>
+              <p style="font-size: 0.82rem; color: var(--text-muted); margin-top: 4px;">Tụ Khí / Ích Khí / Trúc Cơ Đan. Bước đầu rèn đúc kinh mạch.</p>
+            </div>
+
+            <!-- 2. Trúc Cơ -->
+            <div class="realm-card-mini">
+              <div class="realm-card-mini-header">
+                <span class="realm-idx">02 • Nhân Giới</span>
+                <span class="realm-exp">2,500 EXP</span>
+              </div>
+              <h4 class="realm-name">Trúc Cơ</h4>
+              <p style="font-size: 0.82rem; color: var(--text-muted); margin-top: 4px;">Bồi Nguyên / Cố Bản / Kết Đan Hoàn. Thức tỉnh Thể Chất thường.</p>
+            </div>
+
+            <!-- 3. Kết Tinh -->
+            <div class="realm-card-mini">
+              <div class="realm-card-mini-header">
+                <span class="realm-idx">03 • Nhân Giới</span>
+                <span class="realm-exp">15,000 EXP</span>
+              </div>
+              <h4 class="realm-name">Kết Tinh</h4>
+              <p style="font-size: 0.82rem; color: var(--text-muted); margin-top: 4px;">Tử Kim / Thiên Hữu / Ngưng Kim Đan. Mở khóa nuôi 9 Đan Văn.</p>
+            </div>
+
+            <!-- 4. Kim Đan -->
+            <div class="realm-card-mini">
+              <div class="realm-card-mini-header">
+                <span class="realm-idx">04 • Nhân Giới</span>
+                <span class="realm-exp">45,000 EXP</span>
+              </div>
+              <h4 class="realm-name">Kim Đan</h4>
+              <p style="font-size: 0.82rem; color: var(--text-muted); margin-top: 4px;">Nguyên Hoàng Đan. Chọn Nhất Phẩm Kim Đan. Chế tạo pháp bảo.</p>
+            </div>
+
+            <!-- 5. Nguyên Anh -->
+            <div class="realm-card-mini">
+              <div class="realm-card-mini-header">
+                <span class="realm-idx">05 • Nhân Giới</span>
+                <span class="realm-exp">120,000 EXP</span>
+              </div>
+              <h4 class="realm-name">Nguyên Anh</h4>
+              <p style="font-size: 0.82rem; color: var(--text-muted); margin-top: 4px;">Dưỡng Anh Đan & Thanh Tâm Liên. Dưỡng Thần Hồn Vạn Hồn Cốc.</p>
+            </div>
+
+            <!-- 6. Hóa Thần -->
+            <div class="realm-card-mini">
+              <div class="realm-card-mini-header">
+                <span class="realm-idx">06 • Nhân Giới</span>
+                <span class="realm-exp">350,000 EXP</span>
+              </div>
+              <h4 class="realm-name">Hóa Thần</h4>
+              <p style="font-size: 0.82rem; color: var(--text-muted); margin-top: 4px;">Thức tỉnh Thánh Thể. Nghi thức 5 Thần Hồn + 200 CPLT.</p>
+            </div>
+
+            <!-- 7. Luyện Hư -->
+            <div class="realm-card-mini">
+              <div class="realm-card-mini-header">
+                <span class="realm-idx">07 • Nhân Giới</span>
+                <span class="realm-exp">1,000,000 EXP</span>
+              </div>
+              <h4 class="realm-name">Luyện Hư</h4>
+              <p style="font-size: 0.82rem; color: var(--text-muted); margin-top: 4px;">Phá Hư Đan + Ngộ Đạo Đan. Nguyên Thần Tầng 5, Ngũ Hành Pháp Tắc 10.</p>
+            </div>
+
+            <!-- 8. Hợp Thể -->
+            <div class="realm-card-mini" style="border-color: var(--border-gold); background: linear-gradient(135deg, rgba(212, 175, 55, 0.12), rgba(15, 23, 42, 0.95));">
+              <div class="realm-card-mini-header">
+                <span class="realm-idx" style="color: var(--gold-light);">08 • Đỉnh Phong Nhân Giới</span>
+                <span class="realm-exp" style="color: var(--gold-lighter);">3,000,000 EXP</span>
+              </div>
+              <h4 class="realm-name" style="color: var(--gold-lighter);">Hợp Thể</h4>
+              <p style="font-size: 0.82rem; color: var(--text-muted); margin-top: 4px;">Lục Đại Thiên Điều (Hỗn Độn Linh Căn & Thể Chất). Cửa ngõ kết nối bước vào Linh Giới.</p>
+            </div>
+          </div>
+        </article>
+
+        <!-- ===================================================================
+             MỤC 4: BẢN ĐỒ 7 BÍ CẢNH & 5 CỬA SINH TỬ
+             =================================================================== -->
+        <article id="gates-section" class="wiki-article">
+          <div class="article-header">
+            <span class="article-badge badge-cyan">Phó Bản & Thử Thách</span>
+            <h2 class="article-title">🏰 Bí Cảnh & Cửa Sinh Tử (Gates)</h2>
+            <p class="article-desc">
+              Mỗi bí cảnh gồm 5 ải (Ải 1 Kỳ ngộ, Ải 2 Quái nhỏ, Ải 3 Kỳ ngộ, Ải 4 Tinh anh x1.1, Ải 5 Boss x1.4). Hãy thuộc
+              lòng hiệu ứng cổng để tối ưu sát thương!
+            </p>
+          </div>
+
+          <div class="grid-4" style="margin-bottom: 28px;">
+            <div style="background: rgba(16, 185, 129, 0.1); border: 1px solid var(--emerald-primary); padding: 14px; border-radius: var(--radius-md);">
+              <h4 style="color: var(--emerald-light); font-size: 0.95rem; margin-bottom: 4px;">💚 Sinh Môn</h4>
+              <p style="font-size: 0.82rem; color: #cbd5e1;">Hồi phục toàn bộ lượng máu cho cả đội.</p>
+            </div>
+            <div style="background: rgba(251, 191, 36, 0.1); border: 1px solid var(--gold-primary); padding: 14px; border-radius: var(--radius-md);">
+              <h4 style="color: var(--gold-light); font-size: 0.95rem; margin-bottom: 4px;">⚔️ Thương / Kinh Môn</h4>
+              <p style="font-size: 0.82rem; color: #cbd5e1;">Mất máu, nhận <strong>+30% Công / +30% Bạo</strong>.</p>
+            </div>
+            <div style="background: rgba(239, 68, 68, 0.1); border: 1px solid var(--crimson-primary); padding: 14px; border-radius: var(--radius-md);">
+              <h4 style="color: var(--crimson-light); font-size: 0.95rem; margin-bottom: 4px;">💀 Tử Môn</h4>
+              <p style="font-size: 0.82rem; color: #cbd5e1;">Mất máu lớn, nhận <strong>+50% Bạo Kích</strong> (ST cực đại).</p>
+            </div>
+            <div style="background: rgba(148, 163, 184, 0.1); border: 1px solid #94a3b8; padding: 14px; border-radius: var(--radius-md);">
+              <h4 style="color: #f87171; font-size: 0.95rem; margin-bottom: 4px;">⚠️ Đỗ Môn (TRÁNH!)</h4>
+              <p style="font-size: 0.82rem; color: #cbd5e1;">Giảm <strong>-20% Thủ</strong>. Tuyệt đối tránh xa!</p>
+            </div>
+          </div>
+
+          <!-- Danh sách 7 bí cảnh container -->
+          <div id="secret-realms-container" class="grid-3"></div>
+        </article>
+
+        <!-- ===================================================================
+             MỤC: BẢN ĐỒ LỊCH LUYỆN SĂN BẮT THEO CẢNH GIỚI
+             =================================================================== -->
+        <article id="hunt-section" class="wiki-article">
+          <div class="article-header">
+            <span class="article-badge badge-crimson">Dã Ngoại Lịch Luyện</span>
+            <h2 class="article-title">🏹 Bản Đồ Lịch Luyện Săn Bắt Theo Cảnh Giới</h2>
+            <p class="article-desc">
+              Sử dụng Thể Lực săn bắt yêu thú dã ngoại theo cảnh giới phù hợp. Thu thập Linh Thạch, Linh Thảo, Khoáng Thạch, Tinh Thông và Đan Dược quý hiếm.
+            </p>
+          </div>
+          <div id="hunting-maps-container" class="grid-3"></div>
+        </article>
+
+        <!-- ===================================================================
+             MỤC 5: TÔNG MÔN & DƯỢC VIÊN CẢI TIẾN
+             =================================================================== -->
+        <article id="sect-section" class="wiki-article">
+          <div class="article-header">
+            <span class="article-badge badge-gold">Đồng Đạo Đồng Hành</span>
+            <h2 class="article-title">⛩️ Tông Môn & Dược Viên Cải Tiến</h2>
+            <p class="article-desc">
+              Gia nhập thế lực tông môn, khai mở trận pháp bảo hộ độ kiếp, làm nhiệm vụ nhận Công Trạng và canh tác linh dược.
+            </p>
+          </div>
+
+          <div class="grid-3">
+            <!-- Box 1 -->
+            <div class="wiki-box">
+              <div class="wiki-box-header">
+                <div class="wiki-box-icon" style="color: var(--gold-light);">👑</div>
+                <h3 class="wiki-box-title">Bổng Lộc Hằng Ngày</h3>
+              </div>
+              <p style="font-size: 0.88rem; color: var(--text-secondary); line-height: 1.6;">
+                Mỗi 24h đệ tử điểm danh nhận: Linh thạch theo chức vụ + <strong>50 Thể lực</strong> + <strong>50 Tu vi</strong> + <strong>100 Cống hiến</strong> + <strong>50 Công trạng</strong>.
+              </p>
+              <div style="margin-top: 10px; padding: 10px; background: rgba(0,0,0,0.3); border-radius: var(--radius-sm); font-size: 0.82rem; line-height: 1.6;">
+                <p>• Tông Chủ: 1,500 LT • Đại Trưởng Lão: 1,200 LT</p>
+                <p>• Hộ Pháp: 1,000 LT • Trưởng Lão: 800 LT</p>
+                <p>• Đệ Tử Nội Môn: 500 LT • Ngoại Môn: 300 LT</p>
+                <p style="color: var(--gold-light); margin-top: 4px;">💎 Thưởng thêm: <strong>+0.5 Linh Thạch / điểm Công Trạng</strong>!</p>
+              </div>
+            </div>
+
+            <!-- Box 2 -->
+            <div class="wiki-box">
+              <div class="wiki-box-header">
+                <div class="wiki-box-icon" style="color: var(--cyan-light);">🛡️</div>
+                <h3 class="wiki-box-title">Đại Trận Tông Môn</h3>
+              </div>
+              <div style="font-size: 0.88rem; color: var(--text-secondary); line-height: 1.6;">
+                <p><strong>⚡ Hộ Đạo Trận:</strong> Bảo hộ khi đột phá đại cảnh giới thất bại, <strong>bảo toàn 100% nguyên liệu độ kiếp</strong>! Cấp 2 giảm thêm 20% thời gian trọng thương.</p>
+                <p style="margin-top: 8px;"><strong>🔥 Bảo Nguyên Trận:</strong> Bảo hộ khi luyện đan/chế tạo thất bại, <strong>hoàn trả 100% nguyên liệu</strong> (1-2 lần/phiên).</p>
+              </div>
+            </div>
+
+            <!-- Box 3 -->
+            <div id="sect-garden-section" class="wiki-box">
+              <div class="wiki-box-header">
+                <div class="wiki-box-icon" style="color: var(--emerald-light);">🌾</div>
+                <h3 class="wiki-box-title">Dược Viên & Bảng Nhiệm Vụ</h3>
+              </div>
+              <div style="font-size: 0.88rem; color: var(--text-secondary); line-height: 1.6;">
+                <p>• <strong>Giếng Nước Linh Khí:</strong> Đạo hữu hệ Thủy múc được <strong>10 gánh nước</strong> (các hệ khác 2 gánh). Tỷ lệ x2/x3 nước tăng theo cấp canh tác.</p>
+                <p style="margin-top: 8px;">• <strong>Bảng Nhiệm Vụ Ngày:</strong> 3 nhiệm vụ làm vườn (gieo, tưới, bắt sâu, bón phân, ủ phân). 3 lượt đổi miễn phí (sau đó 2,000 LT). Thưởng Uy Danh, +100 Công trạng, +10 Danh vọng tông môn. Reset 7:00 AM VN.</p>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <!-- ===================================================================
+             MỤC: HỘ TÔNG THẦN THÚ TRẤN TÔNG
+             =================================================================== -->
+        <article id="sect-beast-section" class="wiki-article">
+          <div class="article-header">
+            <span class="article-badge badge-gold">Trấn Tông Chi Bảo</span>
+            <h2 class="article-title">🐉 Hộ Tông Thần Thú & Kỹ Năng Trấn Tông</h2>
+            <p class="article-desc">
+              Triệu hồi tốn 100.000 Linh Thạch từ ngân khố tông môn. Đệ tử vuốt ve (+10 Hảo cảm/ngày) và cho ăn Yêu Đan / Linh Thảo để nâng mốc Hảo Cảm từ Sơ Sinh lên Đỉnh Phong (x1.6 hiệu quả buff toàn tông môn).
+            </p>
+          </div>
+          <div id="sect-beasts-container" style="display: flex; flex-direction: column; gap: 16px;"></div>
+        </article>
+
+        <!-- ===================================================================
+             MỤC 6: CẨM NANG ĐẠI CHIẾN BOSS THẾ GIỚI 20:00
+             =================================================================== -->
+        <article id="world-boss-section" class="wiki-article">
+          <div class="article-header">
+            <span class="article-badge badge-crimson">Đại Chiến Toàn Server</span>
+            <h2 class="article-title">👹 Cẩm Nang Đại Chiến Boss Thế Giới (20:00)</h2>
+            <p class="article-desc">
+              Tự động khai mở vào đúng <strong>20:00 (8h tối)</strong> hàng ngày. Quy tụ chư vị tu sĩ khắp tam giới cùng thảo
+              phạt ma đầu.
+            </p>
+          </div>
+
+          <div class="callout callout-warning">
+            <div class="callout-title">⚖️ Cơ Chế Damage Cap & Đua Top Công Bằng:</div>
+            <p>
+              • <strong>Damage Cap (0.015% HP Max):</strong> Mỗi đòn đánh chỉ gây tối đa 0.015% HP tối đa của Boss để đảm bảo Boss không bị diệt quá nhanh.<br>
+              • <strong>Scale Theo Cảnh Giới:</strong> Chỉ số Boss scale theo tu vi của người đánh $\rightarrow$ Luyện Khí hay Hợp Thể đều có cơ hội tranh Top trong bảng xếp hạng riêng biệt của cảnh giới mình!<br>
+              • <strong>Thưởng Cực Phẩm:</strong> Top 1 Nguyên Anh trở lên nhận tới <strong>200 Cực Phẩm Linh Thạch (CPLT)</strong>. Đòn kết liễu thưởng thêm <strong>5,000 Linh Thạch</strong>.
+            </p>
+          </div>
+
+          <!-- 3 Boss Thế Giới Container -->
+          <div id="world-boss-container"></div>
+        </article>
+
+        <!-- ===================================================================
+             MỤC 7: ĐỘNG PHỦ & BẾ QUAN TU LUYỆN
+             =================================================================== -->
+        <article id="abode-section" class="wiki-article">
+          <div class="article-header">
+            <span class="article-badge badge-blue">Động Thiên Phúc Địa</span>
+            <h2 class="article-title">🏡 Động Phủ & Bế Quan Tu Luyện</h2>
+            <p class="article-desc">
+              Trung tâm tu dưỡng cá nhân của tu sĩ. Tích hợp Tụ Linh Trận, Linh Điền Động Phủ, Bế Quan thời gian thực và Nuôi Dưỡng Nguyên Anh / Thần Hồn.
+            </p>
+          </div>
+
+          <div class="grid-3" style="margin-bottom: 24px;">
+            <div class="wiki-box">
+              <div class="wiki-box-header">
+                <div class="wiki-box-icon" style="color: var(--cyan-light);">🌀</div>
+                <h3 class="wiki-box-title">Tụ Linh Trận</h3>
+              </div>
+              <p style="font-size: 0.88rem; color: var(--text-secondary); line-height: 1.6;">
+                Hấp thu linh khí đất trời theo thời gian thực. Tụ Linh Trận cấp càng cao, tốc độ tích lũy tu vi tự động mỗi giờ càng lớn, giúp đạo hữu không bị thụt lùi cảnh giới khi offline.
+              </p>
+            </div>
+
+            <div class="wiki-box">
+              <div class="wiki-box-header">
+                <div class="wiki-box-icon" style="color: var(--emerald-light);">🌿</div>
+                <h3 class="wiki-box-title">Linh Điền Động Phủ</h3>
+              </div>
+              <p style="font-size: 0.88rem; color: var(--text-secondary); line-height: 1.6;">
+                Trồng trọt các loại linh dược cá nhân phục vụ luyện đan. Đặc biệt là các loại quả thần hồn <em>(Tử Linh Nha, Lam Ngọc Quả, Ngưng Huyết Quả, Xích Viêm Quả, Huyền Tử Quả)</em>.
+              </p>
+            </div>
+
+            <div class="wiki-box">
+              <div class="wiki-box-header">
+                <div class="wiki-box-icon" style="color: var(--gold-light);">🧘</div>
+                <h3 class="wiki-box-title">Bế Quan & Dưỡng Anh</h3>
+              </div>
+              <p style="font-size: 0.88rem; color: var(--text-secondary); line-height: 1.6;">
+                Tiêu hao Thể Lực để bế quan quy đổi sang lượng lớn Tu Vi. Tại cảnh giới Nguyên Anh, đạo hữu cần nuôi dưỡng đạt <strong>Anh Thành (3/3)</strong> và tốn <strong>200 Cực Phẩm Linh Thạch (CPLT)</strong> để làm nghi thức Hóa Thần.
+              </p>
+            </div>
+          </div>
+        </article>
+
+        <!-- ===================================================================
+             MỤC 8: TÀNG KINH CÁC (41 CÔNG PHÁP)
+             =================================================================== -->
+        <article id="technique-section" class="wiki-article">
+          <div class="article-header">
+            <span class="article-badge badge-purple">Tàng Kinh Các</span>
+            <h2 class="article-title">📖 Tàng Kinh Các - 41 Bộ Công Pháp</h2>
+            <p class="article-desc">
+              Hệ thống công pháp chuẩn hóa 3 bước: Nạp bản thảo để <strong>Mở Khóa</strong> &rarr; Dùng Linh Thạch & Tinh Thông để <strong>Lĩnh Ngộ</strong> (<strong>Giảm 20% nếu trùng Linh Căn</strong>) &rarr; Nâng tầng <strong>Tu Luyện</strong> và lắp vào Slot chiến đấu.
+            </p>
+          </div>
+
+          <!-- Rank Tabs -->
+          <div class="sub-tabs" id="tech-rank-tabs">
+            <button class="sub-tab-btn active" data-rank="all">Tất Cả (41)</button>
+            <button class="sub-tab-btn" data-rank="hoang_giai">Hoàng Giai (10)</button>
+            <button class="sub-tab-btn" data-rank="huyen_giai">Huyền Giai (10)</button>
+            <button class="sub-tab-btn" data-rank="dia_giai">Địa Giai (16)</button>
+            <button class="sub-tab-btn" data-rank="thien_giai">Thiên Giai (5)</button>
+          </div>
+
+          <!-- Dynamic Technique Grid -->
+          <div id="technique-grid-container" class="grid-3"></div>
+        </article>
+
+        <!-- ===================================================================
+             MỤC 9: BÁCH NGHỆ: LUYỆN ĐAN & LUYỆN KHÍ PHÒNG
+             =================================================================== -->
+        <article id="crafting-section" class="wiki-article">
+          <div class="article-header">
+            <span class="article-badge badge-emerald">Bách Nghệ Tu Tiên</span>
+            <h2 class="article-title">🧪 Luyện Đan & Luyện Khí Phòng</h2>
+            <p class="article-desc">
+              6 Cấp bậc Thợ: Học Đồ (0-499) &rarr; Sơ Cấp (500-1499) &rarr; Trung Cấp (1500-3999) &rarr; Cao Cấp (4000-9999) &rarr; Đại Sư (10000-24999) &rarr; Tông Sư (25000+).
+            </p>
+          </div>
+
+          <!-- Crafting Tabs -->
+          <div class="sub-tabs" id="craft-tabs">
+            <button class="sub-tab-btn active" data-cat="all">Tất Cả Đan Phương (31)</button>
+            <button class="sub-tab-btn" data-cat="BREAKTHROUGH">Đan Phá Cảnh</button>
+            <button class="sub-tab-btn" data-cat="CONSUMABLE">Đan Dược Chiến Đấu</button>
+            <button class="sub-tab-btn" data-cat="SMITHING">Luyện Khí & Nhẫn Trữ Vật (9)</button>
+          </div>
+
+          <!-- Dynamic Crafting Grid -->
+          <div id="crafting-recipes-container" class="grid-3"></div>
+        </article>
+
+        <!-- ===================================================================
+             MỤC 10: HỆ THỐNG TỌA KỴ (9 BẬC THUẦN DƯỠNG)
+             =================================================================== -->
+        <article id="mount-section" class="wiki-article">
+          <div class="article-header">
+            <span class="article-badge badge-cyan">Ngự Thú Phi Hành</span>
+            <h2 class="article-title">🐎 Hệ Thống Tọa Kỵ (9 Bậc Thuần Dưỡng)</h2>
+            <p class="article-desc">
+              Tọa kỵ thăng tiến từ Cấp 1 đến Cấp 100. Tăng cường vượt trội HP, ATK, DEF, Speed và <strong>mỗi bậc sau bậc đầu tăng vĩnh viễn +3% Toàn Bộ Chỉ Số (All Stats Bonus)</strong>.
+            </p>
+          </div>
+
+          <!-- Dynamic Mounts Grid -->
+          <div id="mount-tiers-container" class="grid-3"></div>
+        </article>
+
+
+        <!-- ===================================================================
+             MỤC 9: LINH GIỚI & VÒNG NGŨ GIÁC TIÊN HIỆU (ENDGAME)
+             =================================================================== -->
+        <article id="linh-gioi-section" class="wiki-article">
+          <div class="article-header">
+            <span class="article-badge badge-purple">Linh Giới Phi Thăng</span>
+            <h2 class="article-title">⚡ Linh Giới & Vòng Ngũ Giác Tiên Hiệu</h2>
+            <p class="article-desc">
+              Hợp Thể trở lên chính thức bước vào Linh Giới. Hệ thống chiến đấu 8 thuộc tính chuẩn hóa và 5 Tiên Hiệu tương sinh
+              tương khắc theo ngũ giác hình sao.
+            </p>
+          </div>
+
+          <div class="grid-4" style="margin-bottom: 20px;">
+            <div style="background: var(--bg-card); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: 16px; text-align: center;">
+              <span style="font-size: 2rem;">⚔️</span>
+              <h4 style="font-size: 1.1rem; color: var(--text-primary); margin: 6px 0;">Chiến Tiên</h4>
+              <p style="font-size: 0.82rem; color: var(--text-muted); line-height: 1.5;">
+                Khắc chính: <strong>Long Tiên (+10%/cấp)</strong><br>
+                Khắc phụ: <strong>Ma Tiên (+5%/cấp)</strong>
+              </p>
+            </div>
+
+            <div style="background: var(--bg-card); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: 16px; text-align: center;">
+              <span style="font-size: 2rem;">🐉</span>
+              <h4 style="font-size: 1.1rem; color: var(--text-primary); margin: 6px 0;">Long Tiên</h4>
+              <p style="font-size: 0.82rem; color: var(--text-muted); line-height: 1.5;">
+                Khắc chính: <strong>Yêu Tiên (+10%/cấp)</strong><br>
+                Khắc phụ: <strong>Linh Tiên (+5%/cấp)</strong>
+              </p>
+            </div>
+
+            <div style="background: var(--bg-card); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: 16px; text-align: center;">
+              <span style="font-size: 2rem;">🐾</span>
+              <h4 style="font-size: 1.1rem; color: var(--text-primary); margin: 6px 0;">Yêu Tiên</h4>
+              <p style="font-size: 0.82rem; color: var(--text-muted); line-height: 1.5;">
+                Khắc chính: <strong>Ma Tiên (+10%/cấp)</strong><br>
+                Khắc phụ: <strong>Chiến Tiên (+5%/cấp)</strong>
+              </p>
+            </div>
+
+            <div style="background: var(--bg-card); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: 16px; text-align: center;">
+              <span style="font-size: 2rem;">👹</span>
+              <h4 style="font-size: 1.1rem; color: var(--text-primary); margin: 6px 0;">Ma Tiên</h4>
+              <p style="font-size: 0.82rem; color: var(--text-muted); line-height: 1.5;">
+                Khắc chính: <strong>Linh Tiên (+10%/cấp)</strong><br>
+                Khắc phụ: <strong>Long Tiên (+5%/cấp)</strong>
+              </p>
+            </div>
+          </div>
+
+          <div class="callout callout-info">
+            <div class="callout-title">ℹ️ Quy Tắc Tiên Hiệu & 8 Thuộc Tính Linh Điểm:</div>
+            <p>
+              • Tiên Hiệu đạt tối đa Cấp 10. Cooldown đổi Tiên Hiệu là <strong>30 phút</strong>. EXP cùng hệ nhân đôi (x2).<br>
+              • 8 Thuộc tính chuẩn: Sinh Mệnh (HP), Tấn Công (ATK), Phòng Ngự (DEF), Tốc Độ (SPD), Chính Xác (ACC), Né Tránh (DODGE, max 35%), Bạo Kích (CRIT, max 80%), Sát Thương Bạo Kích (CRIT DMG).
+            </p>
+          </div>
+        </article>
+
+        <!-- ===================================================================
+             MỤC: THIÊN MỆNH TRIỆU HOÁN (21 HỌA CẢNH GACHA)
+             =================================================================== -->
+        <article id="gacha-section" class="wiki-article">
+          <div class="article-header">
+            <span class="article-badge badge-gold">Thiên Mệnh Triệu Hoán</span>
+            <h2 class="article-title">🎨 Thiên Mệnh Triệu Hoán (21 Họa Cảnh)</h2>
+            <p class="article-desc">
+              Chi phí 500 Linh Thạch / lượt quay. Hoàn trả điểm Cảnh Vận 1.000 Linh Thạch. Họa Cảnh gia trì vĩnh viễn % thuộc tính cho nhân vật.
+            </p>
+          </div>
+
+          <div class="callout callout-gold" style="margin-bottom: 20px;">
+            <div class="callout-title">💡 Mẹo Sống Còn Khi Vượt Thiên Kiếp Lôi Đình:</div>
+            <p>
+              Thiên lôi đánh dựa trên % Công Kích của bản thân (Công càng cao sét đánh càng thốn!). Trước khi đột phá, hãy <strong>tháo các Họa Cảnh tăng ATK</strong> và thay bằng các Họa Cảnh tăng Máu như <em>Long Mạch Chân Thân</em>, <em>Giang Sơn Như Họa</em>, kết hợp cắn Đan Kiên Cố để bình an vượt kiếp!
+            </p>
+          </div>
+
+          <!-- Gacha Tabs -->
+          <div class="sub-tabs" id="gacha-tabs">
+            <button class="sub-tab-btn active" data-rarity="all">Tất Cả Họa Cảnh (21)</button>
+            <button class="sub-tab-btn" data-rarity="Phàm">Phàm (60%)</button>
+            <button class="sub-tab-btn" data-rarity="Linh">Linh (30%)</button>
+            <button class="sub-tab-btn" data-rarity="Địa">Địa (7%)</button>
+            <button class="sub-tab-btn" data-rarity="Thiên">Thiên (2.5%)</button>
+            <button class="sub-tab-btn" data-rarity="Tiên">Tiên (0.4%)</button>
+            <button class="sub-tab-btn" data-rarity="Thánh">Thánh (0.1%)</button>
+          </div>
+
+          <!-- Dynamic Gacha Grid -->
+          <div id="gacha-paintings-container" class="grid-3"></div>
+        </article>
+
+        <!-- ===================================================================
+             MỤC: THIÊN ĐỊA VẠN TƯỢNG (MINIGAME MATCH-3)
+             =================================================================== -->
+        <article id="match3-section" class="wiki-article">
+          <div class="article-header">
+            <span class="article-badge badge-purple">Minigame Tu Tiên</span>
+            <h2 class="article-title">💎 Thiên Địa Vạn Tượng (Match-3 Trận Đồ)</h2>
+            <p class="article-desc">
+              Bàn cờ Ngũ Hành tương sinh tương khắc. Nạp tài nguyên Linh Thạch, Tu Vi, Thể Lực và tham gia thảo phạt Boss Trận Đồ mỗi ngày.
+            </p>
+          </div>
+
+          <div class="grid-3" style="margin-bottom: 20px;">
+            <div class="wiki-box">
+              <h4 style="color: var(--gold-light); font-size: 1.05rem; margin-bottom: 6px;">⚔️ Kim (Công Phạt) & 🔥 Hỏa (Liệt Diễm)</h4>
+              <p style="font-size: 0.84rem; color: var(--text-secondary); line-height: 1.6;">
+                • <strong>Kim:</strong> Gây sát thương trực tiếp lên Boss trận đồ.<br>
+                • <strong>Hỏa:</strong> Tích tụ hỏa năng, bùng nổ sát thương diện rộng và thiêu đốt mục tiêu.
+              </p>
+            </div>
+
+            <div class="wiki-box">
+              <h4 style="color: var(--emerald-light); font-size: 1.05rem; margin-bottom: 6px;">🌳 Mộc (Sinh Cơ) & 💧 Thủy (Tụ Linh)</h4>
+              <p style="font-size: 0.84rem; color: var(--text-secondary); line-height: 1.6;">
+                • <strong>Mộc:</strong> Hồi phục sinh mệnh cho nhân vật khi trúng chiêu của Boss.<br>
+                • <strong>Thủy:</strong> Hồi phục Linh Lực để kích hoạt tuyệt kỹ công pháp.
+              </p>
+            </div>
+
+            <div class="wiki-box">
+              <h4 style="color: #e67e22; font-size: 1.05rem; margin-bottom: 6px;">🛡️ Thổ (Hộ Thể)</h4>
+              <p style="font-size: 0.84rem; color: var(--text-secondary); line-height: 1.6;">
+                Tạo lớp khiên phòng ngự vững chắc chống đỡ đòn nộ sát thương của Boss cổ trận đồ.
+              </p>
+            </div>
+          </div>
+        </article>
+
+        <!-- ===================================================================
+             MỤC 10: HÀNH TẨU, HẢI VỰC & MINI GAMES
+             =================================================================== -->
+        <article id="ocean-section" class="wiki-article">
+          <div id="minigames-section" class="article-header">
+            <span class="article-badge badge-emerald">Hoạt Động Thế Giới</span>
+            <h2 class="article-title">🎮 Hành Tẩu, Hải Vực & Mini Games</h2>
+            <p class="article-desc">
+              Các hoạt động giải trí hàng ngày giúp tích lũy tài nguyên và so tài giữa các thành viên server.
+            </p>
+          </div>
+
+          <div class="grid-3">
+            <div class="wiki-box">
+              <div class="wiki-box-header">
+                <div class="wiki-box-icon" style="color: var(--cyan-light);">⛵</div>
+                <h3 class="wiki-box-title">Đi Thuyền Hải Vực</h3>
+              </div>
+              <p style="font-size: 0.88rem; color: var(--text-secondary); line-height: 1.6;">
+                Dùng <em>Hải Vực Triệu Lệnh</em> ra khơi tối đa 3 lần/ngày. Nhận Linh Thạch, Thể Lực, Công Pháp. Mỗi tu sĩ có <strong>5 lượt cướp thuyền</strong> và <strong>5 lượt bảo hộ thuyền</strong> người khác mỗi ngày.
+              </p>
+            </div>
+
+            <div class="wiki-box">
+              <div class="wiki-box-header">
+                <div class="wiki-box-icon" style="color: var(--crimson-light);">⛓️</div>
+                <h3 class="wiki-box-title">Vấn Đỉnh & Bắt Nô Lệ</h3>
+              </div>
+              <p style="font-size: 0.88rem; color: var(--text-secondary); line-height: 1.6;">
+                Tỷ thí PvP leo bảng xếp hạng Tiên Kiếp. Tu sĩ thắng trận có thể bắt kẻ thua làm <strong>nô lệ</strong> trong Nô Khu để sai khiến làm việc kiếm tài nguyên (tối đa <strong>15 lượt sai khiến/ngày</strong>).
+              </p>
+            </div>
+
+            <div class="wiki-box">
+              <div class="wiki-box-header">
+                <div class="wiki-box-icon" style="color: var(--gold-light);">🎲</div>
+                <h3 class="wiki-box-title">Lệnh Bot Mini Games</h3>
+              </div>
+              <div style="font-size: 0.85rem; line-height: 1.6; color: var(--text-muted);">
+                <p>• <code>/masoi</code>: Tạo phòng chơi Ma Sói (Tiên Tri, Bảo Vệ, Sói, Dân).</p>
+                <p>• <code>/xidach</code>: Tạo bàn chơi Xì Dách Blackjack so tài.</p>
+                <p>• <code>/dovui</code>: Trả lời đố vui kiếm Linh Thạch.</p>
+                <p>• <code>/noihaylam</code>: Vòng quay Nói Hay Làm (Truth or Dare).</p>
+                <p>• <code>/confession</code>: Gửi tâm sự ẩn danh lên kênh confession.</p>
+              </div>
+            </div>
+          </div>
+        </article>
+      </div>
+
+      <!-- FOOTER -->
+      <footer class="wiki-footer">
+        <div>
+          <p>&copy; 2026 Uyên Sư Muội. Rèn giũa bởi <span style="color: var(--gold-light);">Huy isekai</span>.</p>
+          <p style="font-size: 0.8rem; margin-top: 4px;">Dữ liệu tu tiên chuẩn xác 100% trích xuất từ bot Uyên Sư Muội.</p>
         </div>
-    </section>
-
-    <!-- Phân khu 7: Danh Vọng Linh Cảnh (Minimal Trust Section) -->
-    <section id="trust" class="section section-trust">
-        <div class="container">
-            <div class="section-header animate-on-scroll">
-                <span class="badge">Thông tin bot</span>
-                <h2 class="section-title">Nơi có thể tìm Uyên Sư Muội</h2>
-            </div>
-
-            <div class="trust-flex-cards">
-                <a href="https://top.gg/bot/1439814299907391498" target="_blank"
-                    class="trust-badge-mini topgg animate-on-scroll">
-                    <div class="trust-logo-wrapper">
-                        <img src="icon/top-gg.png" alt="Top.gg">
-                    </div>
-                    <div class="trust-meta">
-                        <h4>Hồ sơ trên Top.gg</h4>
-                        <p>Xem thông tin bot, đánh giá và đường dẫn mời bot từ Top.gg.</p>
-                    </div>
-                    <span class="arrow-go">🡵</span>
-                </a>
-
-                <a href="https://discord.com/discovery/applications/1439814299907391498" target="_blank"
-                    class="trust-badge-mini discovery animate-on-scroll">
-                    <div class="trust-logo-wrapper">
-                        <img src="icon/discord-logo.png" alt="Discord Discovery">
-                    </div>
-                    <div class="trust-meta">
-                        <h4>Hồ sơ Discord Discovery</h4>
-                        <p>Mở trang giới thiệu ứng dụng trực tiếp trên Discord.</p>
-                    </div>
-                    <span class="arrow-go">🡵</span>
-                </a>
-            </div>
+        <div style="display: flex; gap: 16px;">
+          <a href="https://top.gg/bot/1439814299907391498" target="_blank" rel="noopener noreferrer" style="color: var(--text-muted);">Top.gg</a>
+          <a href="https://discord.gg/XTPAAnubwZ" target="_blank" rel="noopener noreferrer" style="color: var(--cyan-light);">Discord Server</a>
+          <a href="https://github.com/giadinhmuoitieu/discordbot/blob/main/README.md" target="_blank" rel="noopener noreferrer" style="color: var(--text-muted);">Điều khoản</a>
         </div>
-    </section>
+      </footer>
+    </main>
+  </div>
 
-    <!-- Chân trang (Footer) -->
-    <footer class="footer">
-        <div class="container footer-container">
-            <div class="footer-left">
-                <p>&copy; 2026 Uyên Sư Muội. Rèn giũa bởi ❤️ <span class="text-gold">Huy isekai</span></p>
-            </div>
-            <div class="footer-links">
-                <a href="https://github.com/giadinhmuoitieu/discordbot/blob/main/README.md" target="_blank">Điều
-                    khoản</a>
-                <a href="https://github.com/giadinhmuoitieu/discordbot/blob/main/PrivacyPolicy.md" target="_blank">Quyền
-                    riêng tư</a>
-                <a href="https://discord.gg/XTPAAnubwZ" target="_blank" class="text-cyan">Server hỗ trợ</a>
-            </div>
+  <!-- SEARCH MODAL (Ctrl + K) -->
+  <div id="search-modal" class="modal-backdrop">
+    <div class="modal-dialog" style="max-width: 600px;">
+      <div class="modal-header" style="border-bottom: none; padding-bottom: 0;">
+        <div style="display: flex; align-items: center; gap: 10px; width: 100%;">
+          <span style="font-size: 1.2rem;">🔍</span>
+          <input type="text" id="omni-search-input"
+            style="width: 100%; border: none; background: none; color: #fff; font-size: 1.1rem; outline: none; font-family: inherit;"
+            placeholder="Tìm kiếm mẹo, đan dược, bí cảnh, boss..." autocomplete="off">
         </div>
-    </footer>
+        <button id="search-modal-close" class="modal-close-btn">&times;</button>
+      </div>
+      <div class="modal-body" style="padding-top: 10px;">
+        <div id="search-dropdown" style="display: block; max-height: 380px; overflow-y: auto;">
+          <p style="font-size: 0.85rem; color: var(--text-muted); padding: 12px 6px;">
+            Gợi ý tìm kiếm: <em>trúc cơ, xích dũng, boss, từ khuyết, hỗn độn, bổng lộc, đan văn</em>
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
 
-    <script src="script.js?v=17"></script>
+  <script src="data.js?v=1"></script>
+  <script src="script.js?v=25"></script>
 </body>
 
 </html>
