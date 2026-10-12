@@ -198,6 +198,11 @@ document.addEventListener('DOMContentLoaded', () => {
   initMounts();
   initGacha();
   initBossWorld();
+  initLinhGioiStats();
+  initLinhGioiRaces();
+  initLinhGioiGuardians();
+  initLinhGioiSkills();
+  initLinhGioiCombosAndDeckSim();
   initCopyButtons();
   initScrollSpy();
 });
@@ -463,6 +468,38 @@ function initSearchOmnibar() {
     }
   }
 
+  // Linh Giới Data Indexing
+  if (window.LINH_GIOI_DATA) {
+    (window.LINH_GIOI_DATA.guardians || []).forEach(g => {
+      searchIndex.push({
+        title: `Tiên Linh: ${g.name} (${g.title})`,
+        badge: g.schoolName,
+        sectionId: 'linh-gioi-guardians-section',
+        snippet: `${g.style} | Bí tịch: ${g.signatureSkillName}`
+      });
+    });
+    (window.LINH_GIOI_DATA.races || []).forEach(r => {
+      searchIndex.push({
+        title: `Đại Tộc: ${r.name} (${r.domain})`,
+        badge: 'Cương Vực',
+        sectionId: 'linh-gioi-races-section',
+        snippet: r.trait
+      });
+    });
+    searchIndex.push({
+      title: 'Linh Giới: 8 Thuộc Tính & Kích Tốc (10 Thân Pháp)',
+      badge: 'Thuộc Tính',
+      sectionId: 'linh-gioi-stats-section',
+      snippet: 'Chuẩn ngữ Dịch Tiên Bài: Sinh Mệnh, Hộ Thể, Công Kích, Thân Pháp, Linh Khí'
+    });
+    searchIndex.push({
+      title: 'Trận Hình 8 Ô Tuần Hoàn & Combo Môn Phái',
+      badge: 'Chiến Thuật',
+      sectionId: 'linh-gioi-combos-section',
+      snippet: 'Vân Kiếm Liên Hoàn, Tinh Vị Ô 3 & 6, Ngũ Hành Tương Sinh, Cương Khí'
+    });
+  }
+
   // Debounced Search Handler
   let debounceTimeout;
   input.addEventListener('input', (e) => {
@@ -478,11 +515,28 @@ function initSearchOmnibar() {
   });
 
   function renderSearchResults(query) {
-    const matches = searchIndex.filter(item =>
+    let matches = searchIndex.filter(item =>
       item.title.toLowerCase().includes(query) ||
       item.snippet.toLowerCase().includes(query) ||
       item.badge.toLowerCase().includes(query)
-    ).slice(0, 8);
+    ).slice(0, 6);
+
+    // Also search across all 1,337 Dịch Tiên Bài master cards
+    if (window.LINH_GIOI_ALL_CARDS && matches.length < 8) {
+      const cardMatches = window.LINH_GIOI_ALL_CARDS.filter(c =>
+        c.name.toLowerCase().includes(query) ||
+        (c.nameCn && c.nameCn.toLowerCase().includes(query))
+      ).slice(0, 8 - matches.length);
+
+      cardMatches.forEach(c => {
+        matches.push({
+          title: `Bí Tịch: ${c.name} (${c.nameCn || ''})`,
+          badge: c.sectName,
+          sectionId: 'linh-gioi-skills-section',
+          snippet: `${c.phaseName} | Tầng 1: ${c.levels && c.levels[0] ? c.levels[0].desc : ''}`
+        });
+      });
+    }
 
     if (matches.length === 0) {
       dropdown.innerHTML = `
@@ -1300,3 +1354,711 @@ function initGacha() {
 
   renderPaintings('all');
 }
+
+// =============================================================================
+// 13. LINH GIỚI: 8 THUỘC TÍNH CHIẾN ĐẤU CHUẨN DỊCH TIÊN BÀI
+// =============================================================================
+
+function initLinhGioiStats() {
+  const tableContainer = document.getElementById('linh-gioi-stats-table');
+  if (!tableContainer || !window.LINH_GIOI_DATA || !window.LINH_GIOI_DATA.combatStats) return;
+
+  const statsData = window.LINH_GIOI_DATA.combatStats;
+
+  // Render 8 Thuộc Tính Cards chuẩn xác
+  tableContainer.innerHTML = statsData.stats.map(s => `
+    <div class="wiki-box" style="border-left: 3px solid var(--gold-primary); display: flex; flex-direction: column; justify-content: space-between;">
+      <div>
+        <div class="wiki-box-header" style="margin-bottom: 8px;">
+          <span style="font-size: 1.8rem;">${s.icon}</span>
+          <div>
+            <h4 style="color: #fff; font-size: 1.1rem; margin-bottom: 2px;">${s.name}</h4>
+            <span style="font-size: 0.75rem; color: var(--gold-light); font-weight: 600;">${s.role || 'Thuộc tính'} • Cơ bản: ${s.base} ${s.unit}</span>
+          </div>
+        </div>
+        <p style="font-size: 0.83rem; color: var(--text-secondary); line-height: 1.55;">
+          ${s.desc}
+        </p>
+      </div>
+    </div>
+  `).join('');
+}
+
+// =============================================================================
+// 14. LINH GIỚI: 5 ĐẠI TỘC & TRUNG CHÂU
+// =============================================================================
+
+function initLinhGioiRaces() {
+  const tabsContainer = document.getElementById('race-tabs-container');
+  const showcaseContainer = document.getElementById('race-showcase-container');
+  if (!tabsContainer || !showcaseContainer || !window.LINH_GIOI_DATA || !window.LINH_GIOI_DATA.races) return;
+
+  const races = window.LINH_GIOI_DATA.races;
+
+  tabsContainer.innerHTML = races.map((r, idx) => `
+    <button class="race-nav-btn ${idx === 0 ? 'active' : ''}" data-race="${r.id}">
+      <span>${r.icon}</span>
+      <span>${r.name} (${r.domain})</span>
+    </button>
+  `).join('');
+
+  function renderRace(raceId) {
+    const race = races.find(r => r.id === raceId) || races[0];
+    showcaseContainer.innerHTML = `
+      <div class="race-showcase-card">
+        <div class="race-banner-header" style="border-left: 5px solid ${race.color};">
+          <div class="race-badge-title">
+            <span class="race-icon-emblem">${race.icon}</span>
+            <div>
+              <h3 class="race-title-text">${race.name} — ${race.domain}</h3>
+              <span class="race-domain-sub">${race.banner}</span>
+            </div>
+          </div>
+          <p class="race-motto">“${race.history}”</p>
+          <p class="race-desc-body">${race.desc}</p>
+          <div class="race-trait-pill">
+            <span>⚔️ Đặc Trưng Chiến Đấu:</span>
+            <strong>${race.trait}</strong>
+          </div>
+        </div>
+
+        <div style="padding: 16px 24px 0;">
+          <h4 style="font-family: var(--font-serif); font-size: 1.15rem; color: var(--gold-light);">
+            📍 6 Địa Danh Cổ & Khí Hậu Linh Mạch:
+          </h4>
+        </div>
+
+        <div class="race-nodes-grid">
+          ${race.nodes.map(n => `
+            <div class="landmark-node-card">
+              <div class="landmark-header">
+                <h5 class="landmark-title">${n.name}</h5>
+                <span class="landmark-sub">${n.id}</span>
+              </div>
+              <p style="font-size: 0.78rem; color: var(--gold-lighter); font-weight: 600; margin-bottom: 4px;">${n.title || ''}</p>
+              <p class="landmark-lore">${n.lore || ''}</p>
+              ${n.atmosphere ? `<p class="landmark-atmosphere">“${n.atmosphere}”</p>` : ''}
+            </div>
+          `).join('')}
+        </div>
+      </div>
+    `;
+  }
+
+  tabsContainer.querySelectorAll('.race-nav-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      tabsContainer.querySelectorAll('.race-nav-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      renderRace(btn.dataset.race);
+    });
+  });
+
+  renderRace(races[0].id);
+}
+
+// =============================================================================
+// 15. LINH GIỚI: 24 TIÊN LINH HỘ ĐẠO (HỘ ĐẠO GIẢ BẢN MỆNH)
+// =============================================================================
+
+function initLinhGioiGuardians() {
+  const container = document.getElementById('guardians-grid-container');
+  const tabs = document.querySelectorAll('#guardians-school-tabs .sub-tab-btn');
+  const searchInput = document.getElementById('guardian-search-input');
+  if (!container || !window.LINH_GIOI_DATA || !window.LINH_GIOI_DATA.guardians) return;
+
+  const guardians = window.LINH_GIOI_DATA.guardians;
+
+  let currentSchool = 'all';
+  let currentKeyword = '';
+
+  function renderGuardians() {
+    let list = guardians;
+    if (currentSchool !== 'all') {
+      list = list.filter(g => g.school === currentSchool);
+    }
+    if (currentKeyword) {
+      const q = currentKeyword.toLowerCase();
+      list = list.filter(g =>
+        g.name.toLowerCase().includes(q) ||
+        (g.title && g.title.toLowerCase().includes(q)) ||
+        (g.signatureSkillName && g.signatureSkillName.toLowerCase().includes(q))
+      );
+    }
+
+    if (list.length === 0) {
+      container.innerHTML = `
+        <div style="grid-column: 1 / -1; padding: 40px; text-align: center; color: var(--text-muted);">
+          <p>Không tìm thấy Tiên Linh Hộ Đạo nào khớp với từ khóa tìm kiếm.</p>
+        </div>
+      `;
+      return;
+    }
+
+    container.innerHTML = list.map(g => {
+      const innateList = [];
+      if (g.innateBonus.atk) innateList.push(`+${g.innateBonus.atk} Công Kích`);
+      if (g.innateBonus.def) innateList.push(`+${g.innateBonus.def} Hộ Thể`);
+      if (g.innateBonus.spd) innateList.push(`+${g.innateBonus.spd} Thân Pháp`);
+      if (g.innateBonus.startingMana) innateList.push(`+${g.innateBonus.startingMana} Khí Đầu Trận`);
+      if (g.innateBonus.hp) innateList.push(`+${g.innateBonus.hp} Sinh Mệnh`);
+
+      const sig = g.signatureSkill;
+      const tiers = sig && sig.tiers ? Object.entries(sig.tiers) : [];
+
+      return `
+        <div class="guardian-card">
+          <div class="guardian-top-header">
+            <div class="guardian-avatar-box">
+              <span>${g.avatarEmoji || g.icon || '⚡'}</span>
+            </div>
+            <div class="guardian-names">
+              <div class="guardian-name-row">
+                <h4 class="guardian-name">${g.name}</h4>
+                <span class="guardian-cn">${g.nameCn || ''}</span>
+              </div>
+              <div class="guardian-title-badge">
+                <span>${g.title}</span>
+                <span class="guardian-school-pill school-${g.school}">${g.schoolName}</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="guardian-innate-row">
+            <span style="color: var(--text-muted); font-size: 0.75rem; text-transform: uppercase;">Thiên Phú Bẩm Sinh:</span>
+            <strong style="color: var(--gold-light);">${innateList.length ? innateList.join(' • ') : 'Cân bằng'}</strong>
+          </div>
+
+          <p class="guardian-style-text">${g.description}</p>
+
+          <!-- Exclusive Signature Skill Box -->
+          <div class="signature-skill-container">
+            <div class="signature-skill-title-row">
+              <span class="signature-skill-name">
+                <span>${g.icon || '📜'}</span>
+                <span>${g.signatureSkillName}</span>
+              </span>
+              <span class="signature-exclusive-tag">ĐỘC QUYỀN</span>
+            </div>
+            <p style="font-size: 0.8rem; color: var(--cyan-light); margin-bottom: 6px;">
+              ${sig ? `Loại: ${sig.category || 'Võ Kỹ'} • Tiêu hao: ${sig.costMana || 0} Khí` : ''}
+            </p>
+            ${tiers.length ? `
+              <table class="signature-tiers-table">
+                <thead>
+                  <tr>
+                    <th>Cấp</th>
+                    <th>Uy Lực & Hiệu Ứng</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  ${tiers.map(([tierNum, tData]) => `
+                    <tr>
+                      <td style="color: var(--gold-lighter); font-weight: 700; width: 70px;">Tầng ${tierNum}</td>
+                      <td style="color: var(--text-secondary);">${tData.description || (tData.effects && tData.effects[0] ? tData.effects[0].damage + ' Sát Thương' : 'Tăng cường hiệu ứng')}</td>
+                    </tr>
+                  `).join('')}
+                </tbody>
+              </table>
+            ` : ''}
+          </div>
+
+          <!-- Breakthrough Talents Accordion -->
+          <button class="talents-accordion-btn" data-guardian-id="${g.id}">
+            <span>📜 Thức Tỉnh Tiên Mệnh (5 Cảnh Giới)</span>
+            <span class="accordion-arrow">▼</span>
+          </button>
+          <div class="talents-panel-content" id="talents-${g.id}">
+            ${Object.entries(g.breakthroughTalents || {}).map(([stage, t]) => `
+              <div class="talent-stage-row">
+                <span class="talent-stage-name">• ${stage.toUpperCase().replace('_', ' ')}:</span>
+                <strong style="color: #fff;">${t.name}</strong> &mdash;
+                <span style="color: var(--text-secondary);">${t.desc}</span>
+              </div>
+            `).join('')}
+          </div>
+        </div>
+      `;
+    }).join('');
+
+    // Attach accordion click events
+    container.querySelectorAll('.talents-accordion-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const id = btn.dataset.guardianId;
+        const panel = document.getElementById(`talents-${id}`);
+        const arrow = btn.querySelector('.accordion-arrow');
+        if (panel) {
+          panel.classList.toggle('open');
+          if (arrow) arrow.innerText = panel.classList.contains('open') ? '▲' : '▼';
+        }
+      });
+    });
+  }
+
+  tabs.forEach(btn => {
+    btn.addEventListener('click', () => {
+      tabs.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      currentSchool = btn.dataset.school;
+      renderGuardians();
+    });
+  });
+
+  if (searchInput) {
+    searchInput.addEventListener('input', (e) => {
+      currentKeyword = e.target.value.trim();
+      renderGuardians();
+    });
+  }
+
+  renderGuardians();
+}
+
+// =============================================================================
+// =============================================================================
+// 16. LINH GIỚI: TÀNG KINH CÁC & TOÀN BỘ 1,337 BÍ TỊCH DỊCH TIÊN BÀI
+// =============================================================================
+
+function initLinhGioiSkills() {
+  const container = document.getElementById('linh-gioi-skills-grid');
+  const searchInput = document.getElementById('skills-search-input');
+  const matchCounter = document.getElementById('skills-match-counter');
+  const paginationWrapper = document.getElementById('skills-pagination-wrapper');
+  const schoolTabs = document.querySelectorAll('#skills-school-tabs .sub-tab-btn');
+  const phaseTabs = document.querySelectorAll('#skills-phase-tabs .sub-tab-btn');
+  const catTabs = document.querySelectorAll('#skills-cat-tabs .sub-tab-btn');
+
+  if (!container) return;
+
+  // Master pack of 1,337 cards from Dịch Tiên Bài
+  let masterCards = window.LINH_GIOI_ALL_CARDS || [];
+
+  if (masterCards.length === 0 && window.LINH_GIOI_DATA) {
+    const skillsBySchool = window.LINH_GIOI_DATA.skillsBySchool || {};
+    Object.entries(skillsBySchool).forEach(([schKey, list]) => {
+      (list || []).forEach(s => masterCards.push({
+        id: s.id,
+        name: s.name,
+        nameCn: s.nameCn || '',
+        school: s.school || schKey,
+        sectName: s.schoolName || 'Chung',
+        phase: 1,
+        phaseName: 'Cơ bản',
+        category: s.category || 'VO_KY',
+        tags: [],
+        levels: [{
+          lvl: 1,
+          cost: s.costMana || 0,
+          gain: 0,
+          atk: 3,
+          def: 0,
+          tags: [],
+          desc: s.description || ''
+        }]
+      }));
+    });
+  }
+
+  let curSchool = 'all';
+  let curPhase = 'all';
+  let curCat = 'all';
+  let curKeyword = '';
+  let curPage = 1;
+  const pageSize = 24;
+
+  const cardSelectedLevel = {};
+
+  function filterCards() {
+    return masterCards.filter(c => {
+      if (curSchool !== 'all' && c.school !== curSchool) return false;
+      if (curPhase !== 'all' && String(c.phase) !== String(curPhase)) return false;
+      if (curCat !== 'all' && c.category !== curCat) return false;
+      if (curKeyword) {
+        const q = curKeyword.toLowerCase();
+        const matchName = c.name.toLowerCase().includes(q);
+        const matchCn = c.nameCn && c.nameCn.toLowerCase().includes(q);
+        const matchDesc = c.levels && c.levels.some(l => l.desc && l.desc.toLowerCase().includes(q));
+        const matchTags = c.tags && c.tags.some(t => t.toLowerCase().includes(q));
+        if (!matchName && !matchCn && !matchDesc && !matchTags) return false;
+      }
+      return true;
+    });
+  }
+
+  function renderSkills() {
+    const filtered = filterCards();
+    const totalResults = filtered.length;
+    const totalPages = Math.max(1, Math.ceil(totalResults / pageSize));
+
+    if (curPage > totalPages) curPage = totalPages;
+    if (curPage < 1) curPage = 1;
+
+    if (matchCounter) {
+      matchCounter.innerHTML = `Hiển thị <strong>${totalResults.toLocaleString()}</strong> / 1,337 bí tịch (Trang ${curPage}/${totalPages})`;
+    }
+
+    const startIdx = (curPage - 1) * pageSize;
+    const pageItems = filtered.slice(startIdx, startIdx + pageSize);
+
+    if (pageItems.length === 0) {
+      container.innerHTML = `
+        <div style="grid-column: 1 / -1; padding: 40px; text-align: center; color: var(--text-muted);">
+          <p style="font-size: 1.1rem; margin-bottom: 6px;">Không tìm thấy bí tịch nào khớp với điều kiện lọc.</p>
+          <span style="font-size: 0.85rem;">Hãy thử xóa từ khóa tìm kiếm hoặc chọn "Tất Cả Môn Phái".</span>
+        </div>
+      `;
+    } else {
+      container.innerHTML = pageItems.map(c => {
+        const selLvl = cardSelectedLevel[c.id] || 1;
+        const lvlData = (c.levels && c.levels.find(l => l.lvl === selLvl)) || (c.levels && c.levels[0]) || { cost: 0, gain: 0, atk: 0, def: 0, desc: '', tags: [] };
+
+        const catBadgeClass = {
+          VO_KY: 'badge-cyan',
+          THAN_PHAP: 'badge-emerald',
+          TUYET_KY: 'badge-gold',
+          THAN_THONG: 'badge-crimson',
+          TAM_PHAP: 'badge-purple'
+        }[c.category] || 'badge-gold';
+
+        const catLabel = {
+          VO_KY: 'Võ Kỹ',
+          THAN_PHAP: 'Thân Pháp',
+          TUYET_KY: 'Tuyệt Kỹ',
+          THAN_THONG: 'Thần Thông',
+          TAM_PHAP: 'Tâm Pháp'
+        }[c.category] || c.category;
+
+        const schoolColor = {
+          kiem_tu: '#60a5fa',
+          tinh_tu: '#c084fc',
+          phap_tu: '#38bdf8',
+          the_tu: '#f59e0b',
+          neutral: '#94a3b8'
+        }[c.school] || 'var(--gold-light)';
+
+        return `
+          <div class="data-card technique-card" style="border-top: 3px solid ${schoolColor}; display: flex; flex-direction: column; justify-content: space-between;">
+            <div>
+              <div class="tech-header" style="align-items: flex-start; gap: 8px;">
+                <div>
+                  <h4 class="tech-title" style="margin-bottom: 2px;">
+                    ${c.name}
+                    ${c.nameCn ? `<span style="font-size: 0.78rem; color: var(--text-muted); font-weight: normal; margin-left: 4px;">(${c.nameCn})</span>` : ''}
+                  </h4>
+                  <div style="font-size: 0.74rem; color: ${schoolColor}; font-weight: 600;">
+                    ${c.sectName} • <span style="color: var(--text-muted);">${c.phaseName}</span>
+                  </div>
+                </div>
+                <span class="article-badge ${catBadgeClass}" style="font-size: 0.68rem; white-space: nowrap;">${catLabel}</span>
+              </div>
+
+              <!-- 3 Level Switcher -->
+              <div class="card-level-switcher">
+                ${(c.levels || [{lvl: 1}]).map(lvl => `
+                  <button class="level-tab-btn ${lvl.lvl === selLvl ? 'active' : ''}" data-card-id="${c.id}" data-level="${lvl.lvl}">
+                    Tầng ${lvl.lvl}
+                  </button>
+                `).join('')}
+              </div>
+
+              <!-- Level Stats Row -->
+              <div class="card-level-stats-row">
+                <span>💠 ${lvlData.cost} Khí</span>
+                ${lvlData.gain > 0 ? `<span style="color: #34d399;">• +${lvlData.gain} Khí</span>` : ''}
+                ${lvlData.atk > 0 ? `<span style="color: #f87171;">• ⚔️ ${lvlData.atk} ST</span>` : ''}
+                ${lvlData.def > 0 ? `<span style="color: #60a5fa;">• 🛡️ ${lvlData.def} Giáp</span>` : ''}
+              </div>
+
+              <!-- Description -->
+              <p class="tech-desc" style="min-height: 48px; line-height: 1.5; font-size: 0.81rem;">
+                ${lvlData.desc || 'Công pháp chuẩn Dịch Tiên Bài Linh Giới.'}
+              </p>
+
+              <!-- Tags / Mechanics -->
+              ${lvlData.tags && lvlData.tags.length ? `
+                <div class="card-tags-row">
+                  ${lvlData.tags.map(t => `<span class="card-tag-badge">${t}</span>`).join('')}
+                </div>
+              ` : ''}
+            </div>
+
+            <div class="tech-footer" style="margin-top: 10px; padding-top: 8px; border-top: 1px solid rgba(255,255,255,0.06);">
+              <span style="color: var(--text-muted); font-size: 0.72rem;">Mã thẻ: #${c.id}</span>
+              <span style="color: var(--gold-light); font-size: 0.76rem; font-weight: 600;">Cấp ${selLvl}/3</span>
+            </div>
+          </div>
+        `;
+      }).join('');
+
+      container.querySelectorAll('.level-tab-btn').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+          e.stopPropagation();
+          const cardId = btn.dataset.cardId;
+          const lvl = parseInt(btn.dataset.level, 10);
+          cardSelectedLevel[cardId] = lvl;
+          renderSkills();
+        });
+      });
+    }
+
+    // Render Pagination Bar
+    if (paginationWrapper) {
+      if (totalPages <= 1) {
+        paginationWrapper.innerHTML = '';
+      } else {
+        paginationWrapper.innerHTML = `
+          <button class="pagination-btn" id="skills-page-prev" ${curPage === 1 ? 'disabled' : ''}>
+            ◀️ Trang Trước
+          </button>
+          <span class="pagination-info">
+            Trang <strong>${curPage}</strong> / <strong>${totalPages}</strong>
+          </span>
+          <button class="pagination-btn" id="skills-page-next" ${curPage === totalPages ? 'disabled' : ''}>
+            Trang Sau ▶️
+          </button>
+        `;
+
+        const prevBtn = document.getElementById('skills-page-prev');
+        const nextBtn = document.getElementById('skills-page-next');
+        if (prevBtn) {
+          prevBtn.addEventListener('click', () => {
+            if (curPage > 1) {
+              curPage--;
+              renderSkills();
+              container.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+          });
+        }
+        if (nextBtn) {
+          nextBtn.addEventListener('click', () => {
+            if (curPage < totalPages) {
+              curPage++;
+              renderSkills();
+              container.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+          });
+        }
+      }
+    }
+  }
+
+  // School tabs click
+  schoolTabs.forEach(btn => {
+    btn.addEventListener('click', () => {
+      schoolTabs.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      curSchool = btn.dataset.school;
+      curPage = 1;
+      renderSkills();
+    });
+  });
+
+  // Phase tabs click
+  phaseTabs.forEach(btn => {
+    btn.addEventListener('click', () => {
+      phaseTabs.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      curPhase = btn.dataset.phase;
+      curPage = 1;
+      renderSkills();
+    });
+  });
+
+  // Category tabs click
+  catTabs.forEach(btn => {
+    btn.addEventListener('click', () => {
+      catTabs.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      curCat = btn.dataset.cat;
+      curPage = 1;
+      renderSkills();
+    });
+  });
+
+  // Search input with debounce
+  if (searchInput) {
+    let searchDebounce;
+    searchInput.addEventListener('input', (e) => {
+      clearTimeout(searchDebounce);
+      searchDebounce = setTimeout(() => {
+        curKeyword = e.target.value.trim();
+        curPage = 1;
+        renderSkills();
+      }, 150);
+    });
+  }
+
+  renderSkills();
+}
+
+// =============================================================================
+// 17. LINH GIỚI: BÍ QUYẾT KẾT HỢP COMBO & TRÌNH MÔ PHỎNG TRẬN HÌNH 8 Ô
+// =============================================================================
+
+function initLinhGioiCombosAndDeckSim() {
+  const guidesContainer = document.getElementById('school-build-guides-container');
+  const slotsContainer = document.getElementById('deck-slots-container');
+  const simConsole = document.getElementById('sim-output-console');
+  const runSimBtn = document.getElementById('btn-run-deck-sim');
+  const presetButtons = document.querySelectorAll('.btn-preset-load');
+
+  if (!window.LINH_GIOI_DATA || !window.LINH_GIOI_DATA.buildGuides) return;
+
+  const buildGuides = window.LINH_GIOI_DATA.buildGuides;
+
+  // Render 4 School Build Archetypes
+  if (guidesContainer) {
+    guidesContainer.innerHTML = buildGuides.map(bg => `
+      <div class="data-card" style="border-left: 5px solid ${bg.color}; padding: 24px;">
+        <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 10px; margin-bottom: 16px;">
+          <h3 style="font-family: var(--font-serif); font-size: 1.45rem; color: #fff;">
+            <span>${bg.icon}</span> ${bg.schoolName}
+          </h3>
+          <span class="article-badge badge-gold">Trường Phái Chuẩn Mực</span>
+        </div>
+
+        <div style="display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 16px;">
+          ${bg.coreMechanics.map(m => `
+            <div style="background: rgba(0,0,0,0.3); border: 1px solid var(--border-subtle); padding: 8px 12px; border-radius: var(--radius-sm); flex: 1; min-width: 240px;">
+              <strong style="color: ${bg.color}; font-size: 0.9rem;">⚡ ${m.name}:</strong>
+              <p style="font-size: 0.8rem; color: var(--text-secondary); margin-top: 3px; line-height: 1.4;">${m.desc}</p>
+            </div>
+          `).join('')}
+        </div>
+
+        <div style="display: flex; flex-direction: column; gap: 12px;">
+          ${bg.combos.map(c => `
+            <div style="background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.06); padding: 14px; border-radius: var(--radius-md);">
+              <h4 style="color: var(--gold-lighter); font-size: 1.05rem; margin-bottom: 4px;">🎯 ${c.name}</h4>
+              <p style="font-size: 0.84rem; color: var(--text-muted); margin-bottom: 8px;">${c.description}</p>
+              <div style="background: rgba(0,0,0,0.4); border-left: 3px solid ${bg.color}; padding: 8px 12px; border-radius: var(--radius-sm); font-size: 0.82rem; line-height: 1.6; margin-bottom: 8px;">
+                ${c.slotSequence.map(seq => `<div>• <strong>${seq}</strong></div>`).join('')}
+              </div>
+              <p style="font-size: 0.78rem; color: #f1c40f; font-style: italic;">💡 Mẹo: ${c.tip}</p>
+            </div>
+          `).join('')}
+        </div>
+      </div>
+    `).join('');
+  }
+
+  // 8-Slot Cyclic Formation Deck Simulator
+  let currentDeck = buildGuides[0].sampleDeck; // Default Kiếm Tu
+  let currentSchoolId = 'kiem_tu';
+
+  function renderDeck() {
+    if (!slotsContainer) return;
+    slotsContainer.innerHTML = currentDeck.map((card, idx) => {
+      const isStarSlot = (idx === 2 || idx === 5); // Slot 3 and 6
+      return `
+        <div class="deck-slot-box ${isStarSlot ? 'star-slot' : ''}">
+          <span class="slot-index-badge">Ô ${idx + 1}</span>
+          <div class="slot-skill-icon">${card.icon || '⚔️'}</div>
+          <div class="slot-skill-name">${card.name}</div>
+          <div class="slot-skill-cost">${card.cost} Khí • ${card.type}</div>
+        </div>
+      `;
+    }).join('');
+  }
+
+  presetButtons.forEach(btn => {
+    btn.addEventListener('click', () => {
+      const sch = btn.dataset.deckSchool;
+      const targetGuide = buildGuides.find(bg => bg.schoolId === sch);
+      if (targetGuide && targetGuide.sampleDeck) {
+        currentDeck = targetGuide.sampleDeck;
+        currentSchoolId = sch;
+        renderDeck();
+        if (simConsole) {
+          simConsole.innerHTML = `<p style="color: var(--cyan-light);">[Đã nạp] Mẫu Trận Hình 8 ô: <strong>${targetGuide.schoolName}</strong>. Hãy nhấn "Chạy Thử Nghiệm 8 Lượt" để khởi động mô phỏng!</p>`;
+        }
+        showToast(`Đã nạp Trận Hình: ${targetGuide.schoolName}`, '⚔️');
+      }
+    });
+  });
+
+  // Simulator Engine Run
+  if (runSimBtn) {
+    runSimBtn.addEventListener('click', () => {
+      if (!simConsole) return;
+      simConsole.innerHTML = '';
+
+      let mana = 1; // Khởi đầu 1 Linh Khí
+      let guard = 0;
+      let totalDamage = 0;
+      let shenFa = currentSchoolId === 'the_tu' ? 10 : 3;
+      let lastWasCloud = false;
+
+      const logs = [];
+      logs.push(`<div style="color: var(--gold-light); border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 6px; margin-bottom: 8px;">🚀 BẮT ĐẦU MÔ PHỎNG CHIẾN ĐẤU TRẬN HÌNH 8 Ô TUẦN HOÀN (1 HIỆP = 8 LƯỢT)</div>`);
+
+      for (let i = 0; i < currentDeck.length; i++) {
+        const slot = i + 1;
+        const card = currentDeck[i];
+        const isStarSlot = (i === 2 || i === 5);
+
+        logs.push(`<div class="sim-log-line"><span class="sim-log-turn">[Lượt ${slot}] Xuất chiêu:</span> <strong>${card.name}</strong> (Cần ${card.cost} Khí | Hiện có: ${mana} Khí)</div>`);
+
+        // Mana check
+        if (mana < card.cost) {
+          logs.push(`<div class="sim-log-warning">   ⚠️ THIẾU LINH KHÍ! Chiêu thức bị hủy -> Chuyển thành Đòn Đánh Cơ Bản (Normal Attack) gây 5 Sát Thương. Trôi lượt sang ô kế tiếp.</div>`);
+          totalDamage += 5;
+          mana += 1; // Hồi 1 khí cơ bản khi đánh thường
+          lastWasCloud = false;
+        } else {
+          mana -= card.cost;
+
+          // Synergies detection
+          if (currentSchoolId === 'kiem_tu') {
+            if (card.name.includes('Vân Kiếm')) {
+              if (lastWasCloud) {
+                logs.push(`<div class="sim-log-synergy">   ⚡ [LIÊN VÂN KÍCH HOẠT] Chiêu trước cũng là Vân Kiếm -> Kích hoạt Liên Vân bùng nổ: +1 Đòn Chém & +8 Sát Thương!</div>`);
+                totalDamage += 18;
+              } else {
+                totalDamage += 10;
+              }
+              lastWasCloud = true;
+            } else if (card.name.includes('Vạn Kiếm Quy Tông')) {
+              logs.push(`<div class="sim-log-synergy">   🗡️ [KIẾM Ý BỘC PHÁT] Toàn bộ Kiếm Ý ngưng tụ giải phóng -> Đại Thần Thông gây 35 Sát Thương!</div>`);
+              totalDamage += 35;
+              lastWasCloud = false;
+            } else {
+              totalDamage += 8;
+              lastWasCloud = false;
+            }
+          } else if (currentSchoolId === 'tinh_tu') {
+            if (isStarSlot) {
+              logs.push(`<div class="sim-log-synergy">   ⭐ [TINH VỊ BẮC ĐẨU Ô ${slot}] Đặt đúng vị trí Tinh Vị -> Nhân đôi uy lực: Gây 22 Sát Thương + Cướp 1 Linh Khí của địch!</div>`);
+              totalDamage += 22;
+              mana += 1;
+            } else {
+              totalDamage += 8;
+            }
+          } else if (currentSchoolId === 'phap_tu') {
+            // Elemental cycling
+            logs.push(`<div class="sim-log-synergy">   🌀 [NGŨ HÀNH TƯƠNG SINH] Tương sinh ngũ hành tuần hoàn -> Tự động hồi +1 Linh Khí miễn phí! Gây 12 Sát Thương.</div>`);
+            mana += 1;
+            totalDamage += 12;
+          } else if (currentSchoolId === 'the_tu') {
+            guard += 10;
+            totalDamage += 14;
+            if (shenFa >= 10) {
+              logs.push(`<div class="sim-log-synergy">   ⚡ [KÍCH TỐC KÍCH HOẠT!] Tiêu hao 10 Thân Pháp -> TÁI HÀNH ĐỘNG XUẤT CHIÊU KẾ TIẾP NGAY LẬP TỨC TRONG CÙNG HIỆP!</div>`);
+              shenFa -= 10;
+            }
+          } else {
+            totalDamage += 10;
+          }
+        }
+      }
+
+      logs.push(`<div style="margin-top: 10px; padding-top: 8px; border-top: 1px solid rgba(255,255,255,0.1); color: var(--gold-lighter);">🏆 TỔNG KẾT VÒNG 1: Tổng Sát Thương gây ra: <strong>${totalDamage}</strong> | Hộ Thể tích lũy: <strong>${guard}</strong> | Linh Khí còn lại: <strong>${mana}</strong> Khí.</div>`);
+
+      simConsole.innerHTML = logs.join('');
+      simConsole.scrollTop = simConsole.scrollHeight;
+      showToast('Đã hoàn thành mô phỏng 8 lượt Trận Hình!', '⚡');
+    });
+  }
+
+  renderDeck();
+}
+

@@ -199,14 +199,44 @@
           </ul>
         </div>
 
-        <!-- Group 7 -->
+        <!-- Group 7: Linh Giới Phi Thăng (Dịch Tiên Bài) -->
         <div class="sidebar-group">
-          <span class="sidebar-group-title">Linh Giới Endgame</span>
+          <span class="sidebar-group-title">Linh Giới Phi Thăng</span>
           <ul class="sidebar-links">
+            <li>
+              <a href="#linh-gioi-stats-section" class="sidebar-link">
+                <span class="link-icon">⚡</span>
+                <span>8 Thuộc Tính Chiến Đấu</span>
+              </a>
+            </li>
+            <li>
+              <a href="#linh-gioi-races-section" class="sidebar-link">
+                <span class="link-icon">🗺️</span>
+                <span>5 Đại Tộc & Trung Châu</span>
+              </a>
+            </li>
+            <li>
+              <a href="#linh-gioi-guardians-section" class="sidebar-link">
+                <span class="link-icon">👑</span>
+                <span>24 Tiên Linh Hộ Đạo</span>
+              </a>
+            </li>
+            <li>
+              <a href="#linh-gioi-skills-section" class="sidebar-link">
+                <span class="link-icon">📖</span>
+                <span>Tàng Kinh Các Linh Giới</span>
+              </a>
+            </li>
+            <li>
+              <a href="#linh-gioi-combos-section" class="sidebar-link">
+                <span class="link-icon">⚔️</span>
+                <span>Bí Quyết Combo & 8 Ô Deck</span>
+              </a>
+            </li>
             <li>
               <a href="#linh-gioi-section" class="sidebar-link">
                 <span class="link-icon">🌟</span>
-                <span>Ngũ Giác Tiên Hiệu</span>
+                <span>Vòng Ngũ Giác Tiên Hiệu</span>
               </a>
             </li>
             <li>
@@ -919,12 +949,307 @@
 
 
         <!-- ===================================================================
-             MỤC 9: LINH GIỚI & VÒNG NGŨ GIÁC TIÊN HIỆU (ENDGAME)
+             MỤC 9.1: LINH GIỚI - 8 THUỘC TÍNH CHIẾN ĐẤU CHUẨN
+             =================================================================== -->
+        <article id="linh-gioi-stats-section" class="wiki-article">
+          <div class="article-header">
+            <span class="article-badge badge-cyan">Dịch Tiên Bài Linh Giới</span>
+            <h2 class="article-title">⚡ 8 Thuộc Tính Chiến Đấu & Quy Chuẩn Thần Thông</h2>
+            <p class="article-desc">
+              Hệ thống thuộc tính chiến đấu chính thức của Dịch Tiên Bài trích xuất 100% từ cấu hình bot Uyên Sư Muội.
+              Chuẩn hóa toàn diện mọi chỉ số, cơ chế xuất chiêu và các hiệu ứng chiến đấu đặc thù.
+            </p>
+          </div>
+
+          <!-- 8 Thuộc Tính Cards Container -->
+          <div id="linh-gioi-stats-table" class="grid-4" style="margin-bottom: 24px;"></div>
+
+          <!-- 4 Core Combat Mechanics Cards -->
+          <div class="grid-2" style="margin-top: 20px;">
+            <div class="wiki-box" style="border-left: 4px solid var(--cyan-light);">
+              <div class="wiki-box-header">
+                <span style="font-size: 1.8rem;">⚡</span>
+                <div>
+                  <h4 class="wiki-box-title" style="color: var(--cyan-light);">Cơ Chế Kích Tốc (Tái Hành Động / Chase)</h4>
+                  <span style="font-size: 0.78rem; color: var(--text-muted);">Mốc Đột Phá Thân Pháp: 10 Điểm</span>
+                </div>
+              </div>
+              <p style="font-size: 0.86rem; color: var(--text-secondary); line-height: 1.6;">
+                Khi nhân vật đạt đủ <strong>10 điểm Thân Pháp</strong>, hệ thống sẽ tự động tiêu hao 10 Thân Pháp để kích hoạt <strong>Liên Kích Chiêu Kế</strong> ngay lập tức. Nhân vật được quyền thi triển liên tiếp chiêu thức ở ô kế tiếp trong cùng một hiệp đấu mà không cần chờ tới lượt sau!
+              </p>
+            </div>
+
+            <div class="wiki-box" style="border-left: 4px solid var(--gold-light);">
+              <div class="wiki-box-header">
+                <span style="font-size: 1.8rem;">📜</span>
+                <div>
+                  <h4 class="wiki-box-title" style="color: var(--gold-light);">Cơ Chế Tiên Cơ / Tu Vi</h4>
+                  <span style="font-size: 0.78rem; color: var(--text-muted);">Quyết Định Quyền Tiên Phong Hiệp 1</span>
+                </div>
+              </div>
+              <p style="font-size: 0.86rem; color: var(--text-secondary); line-height: 1.6;">
+                Tổng điểm <strong>Tiên Cơ = Tu Vi (theo Cảnh Giới) + Thân Pháp</strong>. Bên nào có tổng Tiên Cơ cao hơn sẽ giành quyền xuất chiêu trước ở Hiệp 1. Xuất chiêu trước mang lại lợi thế áp đảo khi có thể kích hoạt khiên Hộ Thể, buff Kiếm Ý hoặc cướp Linh Khí trước đối thủ.
+              </p>
+            </div>
+
+            <div class="wiki-box" style="border-left: 4px solid var(--crimson-light);">
+              <div class="wiki-box-header">
+                <span style="font-size: 1.8rem;">💥</span>
+                <div>
+                  <h4 class="wiki-box-title" style="color: var(--crimson-light);">Cơ Chế Sát Thương & Nội Thương</h4>
+                  <span style="font-size: 0.78rem; color: var(--text-muted);">Trừ Hộ Thể vs Xuyên Giáp Sinh Mệnh</span>
+                </div>
+              </div>
+              <p style="font-size: 0.86rem; color: var(--text-secondary); line-height: 1.6;">
+                • <strong>Sát Thương Thường:</strong> Luôn bị chặn bởi Hộ Thể trước, chỉ khi Hộ Thể về 0 lượng dư mới trừ vào Sinh Mệnh. Có độ biến thiên tự nhiên ±5%.<br>
+                • <strong>Sát Thương Nội Thương:</strong> Bỏ qua 100% Hộ Thể của đối phương, đánh thẳng trực tiếp vào Sinh Mệnh gốc, là khắc tinh tuyệt đối của các tu sĩ phòng ngự giáp dày.
+              </p>
+            </div>
+
+            <div class="wiki-box" style="border-left: 4px solid var(--purple-light);">
+              <div class="wiki-box-header">
+                <span style="font-size: 1.8rem;">💠</span>
+                <div>
+                  <h4 class="wiki-box-title" style="color: var(--purple-light);">Cơ Chế Linh Khí (Qi) & Trận Hình</h4>
+                  <span style="font-size: 0.78rem; color: var(--text-muted);">Tài Nguyên Vận Chuyển Chiêu Thức</span>
+                </div>
+              </div>
+              <p style="font-size: 0.86rem; color: var(--text-secondary); line-height: 1.6;">
+                Linh Khí giới hạn tối đa 3-4 Khí. Nếu tới ô Tuyệt Kỹ (1-2 Khí) hoặc Thần Thông (≥3 Khí) mà nhân vật thiếu Linh Khí, chiêu thức sẽ bị hủy và tự chuyển thành <em>Đòn Đánh Cơ Bản</em>. Do đó việc sắp xếp thẻ Tụ Khí / Thân Pháp trước chiêu nộ là nguyên tắc sống còn!
+              </p>
+            </div>
+          </div>
+        </article>
+
+        <!-- ===================================================================
+             MỤC 9.2: LINH GIỚI - 5 ĐẠI TỘC & TRUNG CHÂU LINH GIỚI
+             =================================================================== -->
+        <article id="linh-gioi-races-section" class="wiki-article">
+          <div class="article-header">
+            <span class="article-badge badge-emerald">Địa Vực & Điển Tích</span>
+            <h2 class="article-title">🗺️ Ngũ Đại Chủng Tộc & Trung Châu Linh Giới</h2>
+            <p class="article-desc">
+              Lãnh địa phong thổ, khí hậu linh mạch và đặc trưng chiến đấu của 5 Đại Chủng Tộc (Nhân, Yêu, Minh, Linh, Cổ)
+              cùng Vực Trung Tâm Thiên Cơ Thánh Thành bao gồm 31 địa danh cổ chuẩn xác.
+            </p>
+          </div>
+
+          <!-- Race Selector Tabs -->
+          <div class="race-nav-tabs" id="race-tabs-container"></div>
+
+          <!-- Race Showcase Card -->
+          <div id="race-showcase-container"></div>
+        </article>
+
+        <!-- ===================================================================
+             MỤC 9.3: LINH GIỚI - 24 TIÊN LINH HỘ ĐẠO (HỘ ĐẠO GIẢ BẢN MỆNH)
+             =================================================================== -->
+        <article id="linh-gioi-guardians-section" class="wiki-article">
+          <div class="article-header">
+            <span class="article-badge badge-gold">Hộ Đạo Chân Linh</span>
+            <h2 class="article-title">👑 24 Tiên Linh Hộ Đạo (Hộ Đạo Giả Bản Mệnh)</h2>
+            <p class="article-desc">
+              Trích xuất 100% từ 24 Playable Heroes Dịch Tiên Bài (4 Môn Phái x 6 Tướng). Mỗi Tiên Linh ban tặng Thiên Phú
+              bẩm sinh, sở hữu Bí Tịch Bản Mệnh độc quyền qua 3 cấp và mở khóa 5 Tầng Thức Tỉnh Tiên Mệnh khi Đại Đột Phá cảnh giới.
+            </p>
+          </div>
+
+          <!-- Guardians Filter & Search Bar -->
+          <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; margin-bottom: 20px;">
+            <div class="sub-tabs" id="guardians-school-tabs" style="margin-bottom: 0;">
+              <button class="sub-tab-btn active" data-school="all">Tất Cả (24)</button>
+              <button class="sub-tab-btn" data-school="kiem_tu">⚔️ Kiếm Tu (6)</button>
+              <button class="sub-tab-btn" data-school="tinh_tu">✨ Tinh Tu (6)</button>
+              <button class="sub-tab-btn" data-school="phap_tu">🌀 Pháp Tu (6)</button>
+              <button class="sub-tab-btn" data-school="the_tu">🛡️ Thể Tu (6)</button>
+            </div>
+            <div style="position: relative; min-width: 260px;">
+              <input type="text" id="guardian-search-input" placeholder="Tìm theo tên Tiên Linh, danh hiệu..."
+                style="width: 100%; padding: 8px 14px; background: rgba(0,0,0,0.4); border: 1px solid var(--border-subtle); border-radius: var(--radius-full); color: #fff; font-size: 0.85rem; outline: none;">
+            </div>
+          </div>
+
+          <!-- Dynamic Guardians Grid -->
+          <div id="guardians-grid-container" class="grid-3"></div>
+        </article>
+
+        <!-- ===================================================================
+             MỤC 9.4: LINH GIỚI - TÀNG KINH CÁC & 5 ĐẠI CHỦNG LOẠI CÔNG PHÁP
+             =================================================================== -->
+        <article id="linh-gioi-skills-section" class="wiki-article">
+          <div class="article-header">
+            <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 10px; margin-bottom: 8px;">
+              <span class="article-badge badge-purple">Tàng Kinh Các Linh Giới</span>
+              <span class="article-badge badge-gold" id="cards-total-count-badge" style="font-size: 0.85rem; font-weight: 700;">
+                📚 Tổng Kho: 1,337 Bí Tịch Dịch Tiên Bài
+              </span>
+            </div>
+            <h2 class="article-title">📖 Tàng Kinh Các Linh Giới & Toàn Bộ 1,337 Bí Tịch Dịch Tiên Bài</h2>
+            <p class="article-desc">
+              Kho tàng đồ sộ <strong>1,337 bí tịch</strong> chính thức trích xuất 100% từ cấu hình bot Uyên Sư Muội (<code>/uyensumuoi</code>).
+              Bao gồm đầy đủ 4 đại môn phái (Vân Linh Kiếm Tông, Thất Tinh Các, Ngũ Hành Đạo Minh, Đoán Huyền Tông) cùng Bách Nghệ & Trung Lập,
+              trải dài 6 cảnh giới từ Luyện Khí đến Linh Giới với chi tiết 3 tầng cấp độ nâng cấp.
+            </p>
+          </div>
+
+          <div class="grid-4" style="margin-bottom: 24px;">
+            <div class="wiki-box">
+              <h4 style="color: var(--cyan-light); margin-bottom: 4px;">⚔️ Võ Kỹ (0 Khí)</h4>
+              <p style="font-size: 0.82rem; color: var(--text-secondary); line-height: 1.5;">
+                Công pháp sơ giai không tốn Linh Khí. Gây sát thương trực tiếp và làm đòn bẩy kích hoạt chuỗi liên hoàn.
+              </p>
+            </div>
+            <div class="wiki-box">
+              <h4 style="color: var(--emerald-light); margin-bottom: 4px;">🍃 Thân Pháp (0 Khí)</h4>
+              <p style="font-size: 0.82rem; color: var(--text-secondary); line-height: 1.5;">
+                Bộ pháp phòng ngự không gây sát thương. Gia tăng Thân Pháp, Hộ Thể, né tránh và tích điểm Kích Tốc.
+              </p>
+            </div>
+            <div class="wiki-box">
+              <h4 style="color: var(--gold-light); margin-bottom: 4px;">⚡ Tuyệt Kỹ (1-2 Khí)</h4>
+              <p style="font-size: 0.82rem; color: var(--text-secondary); line-height: 1.5;">
+                Kỹ năng trung giai tiêu hao 1–2 Linh Khí. Gây sát thương lớn kèm hiệu ứng đặc trưng (Kiếm Ý, Tinh Vị, Tương Sinh).
+              </p>
+            </div>
+            <div class="wiki-box">
+              <h4 style="color: var(--crimson-light); margin-bottom: 4px;">🌟 Thần Thông (≥3 Khí)</h4>
+              <p style="font-size: 0.82rem; color: var(--text-secondary); line-height: 1.5;">
+                Đại thần thông cao giai tiêu hao ≥3 Linh Khí. Uy lực tối thượng kết liễu trận đấu hoặc xoay chuyển cục diện.
+              </p>
+            </div>
+          </div>
+
+          <!-- Live Search Bar for 1337 Cards -->
+          <div style="background: rgba(0, 0, 0, 0.35); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: 14px 18px; margin-bottom: 16px;">
+            <div style="display: flex; gap: 12px; align-items: center; flex-wrap: wrap;">
+              <span style="font-size: 1.3rem;">🔍</span>
+              <input type="text" id="skills-search-input"
+                style="flex: 1; min-width: 260px; background: rgba(255, 255, 255, 0.05); border: 1px solid var(--border-subtle); border-radius: var(--radius-sm); padding: 10px 14px; color: #fff; font-size: 0.92rem; outline: none;"
+                placeholder="Tìm kiếm bí tịch theo tên tiếng Việt hoặc chữ Hán (ví dụ: Vạn Kiếm, Độn Khí, Khí Thế, Thái Cực...)..."
+                autocomplete="off">
+              <div id="skills-match-counter" style="font-size: 0.84rem; color: var(--gold-light); font-weight: 600;">
+                Đang nạp 1,337 bí tịch...
+              </div>
+            </div>
+          </div>
+
+          <!-- Skills Filters: Sect / School -->
+          <div style="display: flex; flex-direction: column; gap: 10px; margin-bottom: 20px;">
+            <div style="display: flex; align-items: center; gap: 8px; flex-wrap: wrap;">
+              <span style="font-size: 0.78rem; color: var(--text-muted); text-transform: uppercase; font-weight: 700; width: 90px;">Môn Phái:</span>
+              <div class="sub-tabs" id="skills-school-tabs" style="margin-bottom: 0; flex: 1;">
+                <button class="sub-tab-btn active" data-school="all">Tất Cả (1,337)</button>
+                <button class="sub-tab-btn" data-school="kiem_tu">Kiếm Tu (132)</button>
+                <button class="sub-tab-btn" data-school="tinh_tu">Tinh Tu (146)</button>
+                <button class="sub-tab-btn" data-school="phap_tu">Pháp Tu (154)</button>
+                <button class="sub-tab-btn" data-school="the_tu">Thể Tu (387)</button>
+                <button class="sub-tab-btn" data-school="neutral">Trung Lập & Nghề (518)</button>
+              </div>
+            </div>
+
+            <!-- Skills Filters: Phase / Realm -->
+            <div style="display: flex; align-items: center; gap: 8px; flex-wrap: wrap;">
+              <span style="font-size: 0.78rem; color: var(--text-muted); text-transform: uppercase; font-weight: 700; width: 90px;">Cảnh Giới:</span>
+              <div class="sub-tabs" id="skills-phase-tabs" style="margin-bottom: 0; flex: 1;">
+                <button class="sub-tab-btn active" data-phase="all">Tất Cả Giai Đoạn</button>
+                <button class="sub-tab-btn" data-phase="1">Giai 1: Luyện Khí</button>
+                <button class="sub-tab-btn" data-phase="2">Giai 2: Trúc Cơ</button>
+                <button class="sub-tab-btn" data-phase="3">Giai 3: Kim Đan</button>
+                <button class="sub-tab-btn" data-phase="4">Giai 4: Nguyên Anh</button>
+                <button class="sub-tab-btn" data-phase="5">Giai 5: Hóa Thần</button>
+                <button class="sub-tab-btn" data-phase="6">Giai 6: Linh Giới</button>
+              </div>
+            </div>
+
+            <!-- Skills Filters: Category -->
+            <div style="display: flex; align-items: center; gap: 8px; flex-wrap: wrap;">
+              <span style="font-size: 0.78rem; color: var(--text-muted); text-transform: uppercase; font-weight: 700; width: 90px;">Phân Loại:</span>
+              <div class="sub-tabs" id="skills-cat-tabs" style="margin-bottom: 0; flex: 1;">
+                <button class="sub-tab-btn active" data-cat="all">Tất Cả Loại</button>
+                <button class="sub-tab-btn" data-cat="VO_KY">Võ Kỹ (0 Khí)</button>
+                <button class="sub-tab-btn" data-cat="THAN_PHAP">Thân Pháp / Khí Pháp (0 Khí)</button>
+                <button class="sub-tab-btn" data-cat="TUYET_KY">Tuyệt Kỹ (1-2 Khí)</button>
+                <button class="sub-tab-btn" data-cat="THAN_THONG">Thần Thông (≥3 Khí)</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Skills Grid -->
+          <div id="linh-gioi-skills-grid" class="grid-3"></div>
+
+          <!-- Pagination Bar -->
+          <div id="skills-pagination-wrapper" style="display: flex; justify-content: center; align-items: center; gap: 12px; margin-top: 24px; padding: 16px 0;"></div>
+        </article>
+
+        <!-- ===================================================================
+             MỤC 9.5: LINH GIỚI - BÍ QUYẾT KẾT HỢP COMBO & TRÌNH MÔ PHỎNG TRẬN HÌNH 8 Ô
+             =================================================================== -->
+        <article id="linh-gioi-combos-section" class="wiki-article">
+          <div class="article-header">
+            <span class="article-badge badge-crimson">Bí Quyết Chiến Thuật</span>
+            <h2 class="article-title">⚔️ Bí Quyết Kết Hợp Combo & Trình Mô Phỏng Trận Hình 8 Ô</h2>
+            <p class="article-desc">
+              Cẩm nang build chuyên sâu 4 môn phái (Vân Kiếm Liên Hoàn, Tinh Vị Ô 3 & 6, Ngũ Hành Tương Sinh, Cương Khí & Kích Tốc)
+              kèm Trình thử nghiệm Trận Hình 8 Ô Tuần Hoàn trực quan sinh động.
+            </p>
+          </div>
+
+          <!-- 4 School Combo Guide Cards -->
+          <div id="school-build-guides-container" style="display: flex; flex-direction: column; gap: 24px; margin-bottom: 30px;"></div>
+
+          <!-- Interactive 8-Slot Cyclic Formation Deck Simulator -->
+          <div class="deck-simulator-wrapper">
+            <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; margin-bottom: 12px;">
+              <div>
+                <h3 style="font-family: var(--font-serif); font-size: 1.35rem; color: #fff;">
+                  🔄 Trình Mô Phỏng Trận Hình 8 Ô Tuần Hoàn (Cyclic Formation Deck)
+                </h3>
+                <p style="font-size: 0.85rem; color: var(--text-muted); margin-top: 2px;">
+                  Cơ chế chiến đấu tự động xuất chiêu tuần tự từ Ô 1 đến Ô 8 rồi quay lại Ô 1. Hãy kiểm tra nhịp thở Linh Khí và kích hoạt các hiệu ứng combo!
+                </p>
+              </div>
+              <button id="btn-run-deck-sim" class="btn-sim-run">
+                <span>▶️ Chạy Thử Nghiệm 8 Lượt</span>
+              </button>
+            </div>
+
+            <div class="callout callout-info" style="margin: 12px 0 16px;">
+              <div class="callout-title">⚠️ Quy Tắc Sắp Xếp Trận Hình 8 Ô Quan Trọng:</div>
+              <p style="font-size: 0.84rem;">
+                • <strong>Kẹt Linh Khí:</strong> Nếu tới ô Tuyệt Kỹ/Thần Thông mà thiếu Linh Khí, chiêu thức sẽ bị huỷ bỏ, chuyển sang đòn đánh cơ bản và trôi sang ô kế tiếp. Hãy bố trí thẻ Tụ Khí / Thân Pháp trước đại chiêu!<br>
+                • <strong>Ô 3 & Ô 6:</strong> Là vị trí [Tinh Vị] độc quyền của Thất Tinh Các giúp nhân đôi uy lực.<br>
+                • <strong>Kích Tốc:</strong> Khi tích lũy đủ 10 Thân Pháp, tu sĩ tiêu hao 10 điểm để xuất chiêu kế tiếp ngay tức khắc!
+              </p>
+            </div>
+
+            <!-- 8 Slot Grid -->
+            <div class="deck-slots-grid" id="deck-slots-container"></div>
+
+            <!-- Controls & Presets -->
+            <div class="deck-controls-bar">
+              <div class="deck-presets-group">
+                <span style="font-size: 0.82rem; color: var(--text-muted); align-self: center;">Nạp Mẫu Trận Hình:</span>
+                <button class="btn-preset-load" data-deck-school="kiem_tu">⚔️ Kiếm Tu (Vân Kiếm)</button>
+                <button class="btn-preset-load" data-deck-school="tinh_tu">✨ Tinh Tu (Bắc Đẩu)</button>
+                <button class="btn-preset-load" data-deck-school="phap_tu">🌀 Pháp Tu (Ngũ Hành)</button>
+                <button class="btn-preset-load" data-deck-school="the_tu">🛡️ Thể Tu (Cương Khí)</button>
+              </div>
+            </div>
+
+            <!-- Live Output Terminal -->
+            <div class="sim-output-terminal" id="sim-output-console">
+              <p style="color: var(--text-dim);">[Sẵn sàng] Chọn một mẫu Trận Hình phía trên rồi nhấn "Chạy Thử Nghiệm 8 Lượt" để xem diễn biến chiến đấu chi tiết...</p>
+            </div>
+          </div>
+        </article>
+
+        <!-- ===================================================================
+             MỤC 9.6: LINH GIỚI & VÒNG NGŨ GIÁC TIÊN HIỆU (ENDGAME)
              =================================================================== -->
         <article id="linh-gioi-section" class="wiki-article">
           <div class="article-header">
             <span class="article-badge badge-purple">Linh Giới Phi Thăng</span>
-            <h2 class="article-title">⚡ Linh Giới & Vòng Ngũ Giác Tiên Hiệu</h2>
+            <h2 class="article-title">🌟 Linh Giới & Vòng Ngũ Giác Tiên Hiệu</h2>
             <p class="article-desc">
               Hợp Thể trở lên chính thức bước vào Linh Giới. Hệ thống chiến đấu 8 thuộc tính chuẩn hóa và 5 Tiên Hiệu tương sinh
               tương khắc theo ngũ giác hình sao.
@@ -970,10 +1295,11 @@
           </div>
 
           <div class="callout callout-info">
-            <div class="callout-title">ℹ️ Quy Tắc Tiên Hiệu & 8 Thuộc Tính Linh Điểm:</div>
+            <div class="callout-title">ℹ️ Quy Tắc Tiên Hiệu & 7 Cảnh Giới Phi Thăng Linh Giới:</div>
             <p>
               • Tiên Hiệu đạt tối đa Cấp 10. Cooldown đổi Tiên Hiệu là <strong>30 phút</strong>. EXP cùng hệ nhân đôi (x2).<br>
-              • 8 Thuộc tính chuẩn: Sinh Mệnh (HP), Tấn Công (ATK), Phòng Ngự (DEF), Tốc Độ (SPD), Chính Xác (ACC), Né Tránh (DODGE, max 35%), Bạo Kích (CRIT, max 80%), Sát Thương Bạo Kích (CRIT DMG).
+              • 7 Cảnh Giới Linh Giới: <strong>Hợp Thể</strong> (3 Slot Deck) &rarr; <strong>Đại Thừa</strong> (4 Slot) &rarr; <strong>Độ Kiếp</strong> (5 Slot) &rarr; <strong>Ngộ Đạo</strong> (6 Slot) &rarr; <strong>Quy Nguyên</strong> (7 Slot) &rarr; <strong>Vũ Hóa</strong> (8 Slot) &rarr; <strong>Đăng Tiên</strong> (Đỉnh Phong Linh Giới).<br>
+              • 8 Thuộc tính chiến đấu chuẩn hóa Dịch Tiên Bài: Sinh Mệnh, Hộ Thể, Công Kích, Sát Thương, Linh Khí, Thân Pháp, Tiên Cơ / Tu Vi, Thể Phách.
             </p>
           </div>
         </article>
@@ -1138,7 +1464,9 @@
   </div>
 
   <script src="data.js?v=1"></script>
-  <script src="script.js?v=25"></script>
+  <script src="linh_gioi_data.js?v=1"></script>
+  <script src="linh_gioi_all_cards.js?v=1"></script>
+  <script src="script.js?v=26"></script>
 </body>
 
 </html>
